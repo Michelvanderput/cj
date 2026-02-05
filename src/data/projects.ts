@@ -1,5 +1,24 @@
 import type { Project } from '../types';
 
+// ─── NIEUW PROJECT TOEVOEGEN ─────────────────────────────────────────
+// Kopieer het template hieronder en plak het BOVENAAN de array (zodat
+// het als eerste verschijnt). Vul je gegevens in en sla op — de site
+// wordt automatisch opnieuw gebouwd.
+//
+// {
+//   id: '9',                              ← uniek nummer (verhoog vanaf laatste)
+//   title: 'Project Naam',               ← titel op de kaart
+//   type: 'Film',                         ← Film | Serie | Documentary | Short | Commercial
+//   tags: ['Drama', 'Foley'],             ← kies uit bestaande of voeg nieuwe toe
+//   country: 'Netherlands',               ← volledige landnaam
+//   countryCode: 'NL',                    ← 2-letter ISO code (toont vlag emoji)
+//   posterUrl: '/img/posters/naam.jpg',   ← optioneel, afbeelding in public/img/posters/
+//   imdbUrl: 'https://www.imdb.com/...',  ← optioneel, verwijder regel als er geen is
+//   year: 2025,                           ← jaar van release
+//   role: 'Foley Artist & Sound Designer',← jouw rol op het project
+// },
+// ─────────────────────────────────────────────────────────────────────
+
 export const projects: Project[] = [
   {
     id: '1',

@@ -5,14 +5,14 @@ interface SocialLinksProps {
 
 const SocialLinks = ({ variant = 'horizontal', size = 'md' }: SocialLinksProps) => {
   const sizeClasses = {
-    sm: 'text-sm',
-    md: 'text-base',
-    lg: 'text-lg',
+    sm: 'text-body-sm',
+    md: 'text-body',
+    lg: 'text-body-lg',
   };
 
   const containerClasses = variant === 'horizontal' 
     ? 'flex items-center gap-6' 
-    : 'flex flex-col gap-4';
+    : 'flex flex-col gap-3';
 
   const links = [
     {
@@ -26,7 +26,7 @@ const SocialLinks = ({ variant = 'horizontal', size = 'md' }: SocialLinksProps) 
       icon: '🎬',
     },
     {
-      name: 'Email',
+      name: 'E-mail',
       url: 'mailto:cyril@example.com',
       icon: '✉️',
     },
@@ -38,9 +38,9 @@ const SocialLinks = ({ variant = 'horizontal', size = 'md' }: SocialLinksProps) 
         <a
           key={link.name}
           href={link.url}
-          target={link.name !== 'Email' ? '_blank' : undefined}
-          rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
-          className={`${sizeClasses[size]} text-neutral-700 hover:text-neutral-900 transition-colors flex items-center gap-2`}
+          target={link.name !== 'E-mail' ? '_blank' : undefined}
+          rel={link.name !== 'E-mail' ? 'noopener noreferrer' : undefined}
+          className={`${sizeClasses[size]} text-tx-secondary hover:text-brand-main transition-colors duration-200 flex items-center gap-2`}
         >
           <span>{link.icon}</span>
           <span>{link.name}</span>

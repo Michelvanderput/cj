@@ -1,63 +1,48 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
 import ContactForm from '../components/ContactForm';
 import SocialLinks from '../components/SocialLinks';
+import useScrollReveal from '../hooks/useScrollReveal';
 
 const Contact = () => {
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(contentRef.current?.children || [], {
-        opacity: 0,
-        y: 20,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out',
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
+  const contentRef = useScrollReveal<HTMLDivElement>({ y: 24, stagger: 0.1, children: true, duration: 0.7 });
 
   return (
-    <div className="max-w-4xl mx-auto px-6 pb-20">
+    <div className="section-container max-w-4xl pb-20">
       <div ref={contentRef} className="space-y-12">
-        <h1 className="text-4xl font-light tracking-tight">Contact</h1>
+        <h1 className="text-h1 text-brand-main">Contact</h1>
 
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-8">
             <div>
-              <h2 className="text-sm font-medium tracking-wide text-neutral-500 mb-2">Email</h2>
+              <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-2">E-mail</h2>
               <a
                 href="mailto:cyril@example.com"
-                className="text-xl hover:opacity-60 transition-opacity"
+                className="text-h4 text-tx-primary hover:text-brand-main transition-colors duration-200"
               >
                 cyril@example.com
               </a>
             </div>
 
             <div>
-              <h2 className="text-sm font-medium tracking-wide text-neutral-500 mb-2">Location</h2>
-              <p className="text-xl text-neutral-700">Amsterdam, Netherlands</p>
+              <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-2">Locatie</h2>
+              <p className="text-h4 text-tx-secondary">Amsterdam, Nederland</p>
             </div>
 
             <div>
-              <h2 className="text-sm font-medium tracking-wide text-neutral-500 mb-4">Connect</h2>
+              <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-4">Verbinden</h2>
               <SocialLinks variant="vertical" />
             </div>
           </div>
 
           <div>
-            <h2 className="text-sm font-medium tracking-wide text-neutral-500 mb-4">Send a Message</h2>
+            <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-4">Stuur een Bericht</h2>
             <ContactForm />
           </div>
         </div>
 
-        <div className="pt-12 border-t border-neutral-200">
-          <p className="text-neutral-600 leading-relaxed">
-            For project inquiries, collaborations, or general questions, please reach out via the form or email.
-            I'm always interested in discussing new opportunities and creative projects.
+        <div className="pt-12 border-t border-brd">
+          <p className="text-body text-tx-secondary leading-relaxed">
+            Voor projectaanvragen, samenwerkingen of algemene vragen, neem gerust contact op via het formulier of e-mail.
+            Ik ben altijd geïnteresseerd in het bespreken van nieuwe mogelijkheden en creatieve projecten.
           </p>
         </div>
       </div>

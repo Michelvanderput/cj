@@ -1,28 +1,37 @@
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 import ProjectCard from '../components/ProjectCard';
 import SearchBar from '../components/SearchBar';
 import FilterBar from '../components/FilterBar';
 import { projects, allTags } from '../data/projects';
+import useScrollReveal from '../hooks/useScrollReveal';
 
 const Projects = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const gridRef = useRef<HTMLDivElement>(null);
+  const headerRef = useScrollReveal<HTMLDivElement>({ y: 30, duration: 0.7 });
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(gridRef.current?.children || [], {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        stagger: 0.05,
-        ease: 'power3.out',
-      });
+  // Animate grid children when filter results change
+  const animateGrid = useCallback(() => {
+    if (!gridRef.current) return;
+    const children = Array.from(gridRef.current.children);
+    if (children.length === 0) return;
+
+    gsap.set(children, { opacity: 0, y: 16 });
+    gsap.to(children, {
+      opacity: 1,
+      y: 0,
+      duration: 0.35,
+      stagger: 0.04,
+      ease: 'power2.out',
     });
+  }, []);
 
-    return () => ctx.revert();
-  }, [searchQuery, selectedTags]);
+  // Run animation after filtered results render
+  useEffect(() => {
+    animateGrid();
+  }, [searchQuery, selectedTags, animateGrid]);
 
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
@@ -49,15 +58,15 @@ const Projects = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 pb-20">
-      <div className="mb-12">
-        <h1 className="text-4xl font-light tracking-tight mb-8">Projects</h1>
+    <div className="section-container pb-20">
+      <div ref={headerRef} className="mb-10 md:mb-14">
+        <h1 className="text-h1 text-brand-main mb-8">Projecten</h1>
 
         <div className="space-y-6">
           <SearchBar
             value={searchQuery}
             onChange={setSearchQuery}
-            placeholder="Search by title..."
+            placeholder="Zoek op titel..."
           />
 
           <FilterBar
@@ -71,12 +80,12 @@ const Projects = () => {
 
       {filteredProjects.length === 0 ? (
         <div className="text-center py-20">
-          <p className="text-neutral-500">No projects found matching your criteria.</p>
+          <p className="text-tx-muted text-body">Geen projecten gevonden die aan je criteria voldoen.</p>
         </div>
       ) : (
         <>
-          <div className="mb-6 text-sm text-neutral-600">
-            Showing {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'}
+          <div className="mb-6 text-body-sm text-tx-muted">
+            {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projecten'} gevonden
           </div>
 
           <div

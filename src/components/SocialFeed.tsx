@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { SocialPost } from '../types';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface SocialFeedProps {
   posts: SocialPost[];
@@ -10,19 +13,32 @@ const SocialFeed = ({ posts }: SocialFeedProps) => {
   const feedRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!feedRef.current) return;
+
+    const children = Array.from(feedRef.current.children);
+
+    gsap.set(children, { opacity: 0, y: 20 });
+
     const ctx = gsap.context(() => {
-      gsap.from(feedRef.current?.children || [], {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        stagger: 0.1,
-        delay: 0.6,
-        ease: 'power3.out',
+      gsap.to(children, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: feedRef.current,
+          start: 'top 88%',
+          toggleActions: 'play none none none',
+        },
       });
     });
 
-    return () => ctx.revert();
-  }, []);
+    return () => {
+      ctx.revert();
+      gsap.set(children, { clearProps: 'all' });
+    };
+  }, [posts]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -34,29 +50,29 @@ const SocialFeed = ({ posts }: SocialFeedProps) => {
   };
 
   return (
-    <div ref={feedRef} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div ref={feedRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {posts.map((post) => (
-        <div key={post.id} className="border border-neutral-200 p-6 hover:border-neutral-400 transition-colors">
+        <div key={post.id} className="card">
           {post.type === 'update' && (
             <>
-              <p className="text-neutral-700 leading-relaxed mb-4">{post.content}</p>
-              <time className="text-xs text-neutral-500 uppercase tracking-wide">{formatDate(post.date)}</time>
+              <p className="text-tx-secondary leading-relaxed mb-4">{post.content}</p>
+              <time className="text-caption text-tx-muted uppercase tracking-wide">{formatDate(post.date)}</time>
             </>
           )}
           
           {post.type === 'instagram' && post.instagramUrl && (
             <div className="space-y-3">
-              <div className="aspect-square bg-neutral-100 flex items-center justify-center group">
+              <div className="aspect-square bg-surface-elevated rounded-md flex items-center justify-center group">
                 <a
                   href={post.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-neutral-500 group-hover:text-neutral-900 transition-colors text-sm"
+                  className="text-tx-muted group-hover:text-brand-main transition-colors duration-200 text-body-sm"
                 >
-                  📷 View on Instagram
+                  📷 Bekijk op Instagram
                 </a>
               </div>
-              <time className="text-xs text-neutral-500 uppercase tracking-wide block">{formatDate(post.date)}</time>
+              <time className="text-caption text-tx-muted uppercase tracking-wide block">{formatDate(post.date)}</time>
             </div>
           )}
         </div>

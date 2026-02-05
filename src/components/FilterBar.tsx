@@ -9,13 +9,13 @@ const FilterBar = ({ tags, selectedTags, onTagToggle, onClearAll }: FilterBarPro
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-medium tracking-wide">Filter by tags</h3>
+        <h3 className="text-body-sm font-medium tracking-wide text-tx-secondary">Filter op tags</h3>
         {selectedTags.length > 0 && (
           <button
             onClick={onClearAll}
-            className="text-xs text-neutral-500 hover:text-neutral-900 transition-colors"
+            className="text-caption text-tx-muted hover:text-brand-secondary transition-colors duration-200"
           >
-            Clear all
+            Alles wissen
           </button>
         )}
       </div>
@@ -27,10 +27,10 @@ const FilterBar = ({ tags, selectedTags, onTagToggle, onClearAll }: FilterBarPro
             <button
               key={tag}
               onClick={() => onTagToggle(tag)}
-              className={`px-3 py-1.5 text-sm border transition-colors ${
+              className={`px-3 py-1.5 text-body-sm rounded-md border transition-all duration-200 ${
                 isSelected
-                  ? 'bg-neutral-900 text-white border-neutral-900'
-                  : 'bg-white text-neutral-700 border-neutral-300 hover:border-neutral-900'
+                  ? 'bg-brand-main text-tx-inverse border-brand-main shadow-glow-main'
+                  : 'bg-surface-elevated text-tx-secondary border-brd hover:border-brd-hover hover:text-tx-primary'
               }`}
             >
               {tag}

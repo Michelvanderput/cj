@@ -1,4 +1,15 @@
 import { useState, type FormEvent } from 'react';
+import emailjs from '@emailjs/browser';
+
+// ─── EmailJS Configuration ───────────────────────────────────────────
+// 1. Create a free account at https://www.emailjs.com
+// 2. Add an email service (e.g. Gmail) and note the Service ID
+// 3. Create an email template with variables: {{from_name}}, {{from_email}}, {{subject}}, {{message}}
+// 4. Replace the values below with your actual IDs
+const EMAILJS_SERVICE_ID = 'service_l8pklkv';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+// ─────────────────────────────────────────────────────────────────────
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -10,18 +21,37 @@ const ContactForm = () => {
 
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setStatus('sending');
-    
-    setTimeout(() => {
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: 'michel.vdput@live.nl',
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+
       setStatus('sent');
       setFormData({ name: '', email: '', subject: '', message: '' });
-      
+
       setTimeout(() => {
         setStatus('idle');
-      }, 3000);
-    }, 1000);
+      }, 4000);
+    } catch {
+      setStatus('error');
+
+      setTimeout(() => {
+        setStatus('idle');
+      }, 4000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -32,10 +62,10 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-2">
-          Name
+        <label htmlFor="name" className="block text-body-sm font-medium text-tx-secondary mb-2">
+          Naam
         </label>
         <input
           type="text"
@@ -44,13 +74,13 @@ const ContactForm = () => {
           value={formData.name}
           onChange={handleChange}
           required
-          className="w-full px-4 py-3 border border-neutral-300 focus:outline-none focus:border-neutral-900 transition-colors"
+          className="input-field"
         />
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-2">
-          Email
+        <label htmlFor="email" className="block text-body-sm font-medium text-tx-secondary mb-2">
+          E-mail
         </label>
         <input
           type="email"
@@ -59,13 +89,13 @@ const ContactForm = () => {
           value={formData.email}
           onChange={handleChange}
           required
-          className="w-full px-4 py-3 border border-neutral-300 focus:outline-none focus:border-neutral-900 transition-colors"
+          className="input-field"
         />
       </div>
 
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-neutral-700 mb-2">
-          Subject
+        <label htmlFor="subject" className="block text-body-sm font-medium text-tx-secondary mb-2">
+          Onderwerp
         </label>
         <input
           type="text"
@@ -74,13 +104,13 @@ const ContactForm = () => {
           value={formData.subject}
           onChange={handleChange}
           required
-          className="w-full px-4 py-3 border border-neutral-300 focus:outline-none focus:border-neutral-900 transition-colors"
+          className="input-field"
         />
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-neutral-700 mb-2">
-          Message
+        <label htmlFor="message" className="block text-body-sm font-medium text-tx-secondary mb-2">
+          Bericht
         </label>
         <textarea
           id="message"
@@ -89,23 +119,29 @@ const ContactForm = () => {
           onChange={handleChange}
           required
           rows={6}
-          className="w-full px-4 py-3 border border-neutral-300 focus:outline-none focus:border-neutral-900 transition-colors resize-none"
+          className="input-field resize-none"
         />
       </div>
 
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="w-full bg-neutral-900 text-white py-3 px-6 hover:bg-neutral-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="btn btn-primary btn-lg w-full"
       >
-        {status === 'sending' && 'Sending...'}
-        {status === 'sent' && 'Message Sent!'}
-        {(status === 'idle' || status === 'error') && 'Send Message'}
+        {status === 'sending' && 'Verzenden...'}
+        {status === 'sent' && 'Bericht Verzonden!'}
+        {(status === 'idle' || status === 'error') && 'Verstuur Bericht'}
       </button>
 
       {status === 'sent' && (
-        <p className="text-sm text-green-700 text-center">
-          Thank you for your message. I'll get back to you soon!
+        <p className="text-body-sm text-state-success text-center">
+          Bedankt voor je bericht. Ik neem zo snel mogelijk contact met je op!
+        </p>
+      )}
+
+      {status === 'error' && (
+        <p className="text-body-sm text-state-error text-center">
+          Er is iets misgegaan. Probeer het opnieuw of stuur direct een e-mail.
         </p>
       )}
     </form>

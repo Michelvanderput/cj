@@ -2,12 +2,113 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Veneer Clean';
+  src: url('/fonts/Veneer Clean Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Veneer Clean';
+  src: url('/fonts/Veneer Clean Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Veneer Clean Soft';
+  src: url('/fonts/Veneer Clean Soft Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Veneer Clean Soft';
+  src: url('/fonts/Veneer Clean Soft Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 @layer base {
   * {
     @apply antialiased;
   }
-  
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-white text-neutral-900;
+    @apply bg-surface-bg text-tx-primary font-body;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+
+  ::selection {
+    @apply bg-brand-main/25 text-tx-primary;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-main;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-body font-medium tracking-wide
+           transition-all duration-200 ease-out rounded-md
+           focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-main
+           disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none;
+  }
+  .btn-sm {
+    @apply px-4 py-2 text-body-sm;
+  }
+  .btn-md {
+    @apply px-6 py-3 text-body-sm;
+  }
+  .btn-lg {
+    @apply px-8 py-4 text-body;
+  }
+  .btn-primary {
+    @apply bg-brand-main text-tx-inverse hover:bg-brand-main-hover active:bg-brand-main-active shadow-soft hover:shadow-glow-main;
+  }
+  .btn-secondary {
+    @apply bg-brand-secondary text-white hover:bg-brand-secondary-hover active:bg-brand-secondary-active shadow-soft hover:shadow-glow-secondary;
+  }
+  .btn-ghost {
+    @apply bg-transparent text-tx-primary border border-brd hover:border-brd-hover hover:bg-surface-elevated active:bg-surface-card;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-surface-elevated border border-brd rounded-md
+           text-tx-primary placeholder:text-tx-muted font-body
+           transition-colors duration-200
+           focus:outline-none focus:border-brand-main focus:ring-1 focus:ring-brand-main/30;
+  }
+
+  .section-container {
+    @apply max-w-container mx-auto px-6 md:px-8;
+  }
+
+  .card {
+    @apply bg-surface-card border border-brd rounded-lg p-6
+           transition-all duration-225
+           hover:border-brd-hover hover:shadow-card;
   }
 }
