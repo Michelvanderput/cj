@@ -21,6 +21,8 @@ const Header = () => {
             <img
               src="/img/logo.svg"
               alt="Cyril Jansen logo"
+              width={40}
+              height={40}
               className="h-10 w-auto transition-transform duration-200 group-hover:scale-105"
             />
             <span className="font-heading text-h4 text-brand-main tracking-wide hidden sm:inline">
@@ -55,6 +57,7 @@ const Header = () => {
             className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
             aria-label={mobileOpen ? 'Menu sluiten' : 'Menu openen'}
             aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
             <span className={`block w-6 h-0.5 bg-tx-primary transition-all duration-200 ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
             <span className={`block w-6 h-0.5 bg-tx-primary transition-all duration-200 ${mobileOpen ? 'opacity-0' : ''}`} />
@@ -64,7 +67,7 @@ const Header = () => {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <ul className="md:hidden mt-4 pb-2 flex flex-col gap-1 border-t border-brd pt-4">
+          <ul id="mobile-menu" className="md:hidden mt-4 pb-2 flex flex-col gap-1 border-t border-brd pt-4">
             {navItems.map(({ to, label }) => (
               <li key={to}>
                 <Link

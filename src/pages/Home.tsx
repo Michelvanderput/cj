@@ -1,14 +1,15 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { gsap } from 'gsap';
-import { projects } from '../data/projects';
+import { gsap } from '../lib/gsap';
 import { socialPosts } from '../data/socialPosts';
+import useProjects from '../hooks/useProjects';
 import SocialFeed from '../components/SocialFeed';
-import OptimizedImage from '../components/OptimizedImage';
+import ProjectCard from '../components/ProjectCard';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useReducedMotion from '../hooks/useReducedMotion';
 
 const Home = () => {
+  const { projects } = useProjects();
   const heroRef = useRef<HTMLElement>(null);
   const prefersReduced = useReducedMotion();
   const workHeaderRef = useScrollReveal<HTMLDivElement>({ y: 24, duration: 0.6 });
@@ -76,30 +77,7 @@ const Home = () => {
 
         <div ref={projectsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
           {featuredProjects.map((project) => (
-            <div key={project.id}>
-              <div className="aspect-[2/3] bg-surface-elevated rounded-lg mb-4 overflow-hidden relative border border-brd">
-                {project.posterUrl ? (
-                  <OptimizedImage
-                    src={project.posterUrl}
-                    alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    fallback={
-                      <div className="absolute inset-0 flex items-center justify-center text-tx-muted">
-                        <span className="text-body-sm font-heading tracking-wide">{project.title}</span>
-                      </div>
-                    }
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center text-tx-muted">
-                    <span className="text-body-sm font-heading tracking-wide">{project.title}</span>
-                  </div>
-                )}
-              </div>
-              <h3 className="font-heading text-h4 text-tx-primary mb-1">{project.title}</h3>
-              <p className="text-body-sm text-tx-secondary">
-                {project.type} <span className="text-tx-muted">•</span> {project.year}
-              </p>
-            </div>
+            <ProjectCard key={project.id} project={project} compact />
           ))}
         </div>
       </section>

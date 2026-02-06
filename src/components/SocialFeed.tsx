@@ -1,10 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap } from '../lib/gsap';
 import type { SocialPost } from '../types';
 import useReducedMotion from '../hooks/useReducedMotion';
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface SocialFeedProps {
   posts: SocialPost[];
@@ -58,7 +55,7 @@ const SocialFeed = ({ posts }: SocialFeedProps) => {
           {post.type === 'update' && (
             <>
               <p className="text-tx-secondary leading-relaxed mb-4">{post.content}</p>
-              <time className="text-caption text-tx-muted uppercase tracking-wide">{formatDate(post.date)}</time>
+              <time dateTime={post.date} className="text-caption text-tx-muted uppercase tracking-wide">{formatDate(post.date)}</time>
             </>
           )}
           
@@ -74,7 +71,7 @@ const SocialFeed = ({ posts }: SocialFeedProps) => {
                   📷 Bekijk op Instagram
                 </a>
               </div>
-              <time className="text-caption text-tx-muted uppercase tracking-wide block">{formatDate(post.date)}</time>
+              <time dateTime={post.date} className="text-caption text-tx-muted uppercase tracking-wide block">{formatDate(post.date)}</time>
             </div>
           )}
         </div>

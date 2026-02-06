@@ -30,7 +30,19 @@ const useHead = () => {
       el.setAttribute('content', content);
     };
 
+    const setLink = (rel: string, href: string) => {
+      let el = document.querySelector(`link[rel="${rel}"]`) as HTMLLinkElement | null;
+      if (!el) {
+        el = document.createElement('link');
+        el.setAttribute('rel', rel);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('href', href);
+    };
+
     setMeta('description', meta.description);
+    setMeta('robots', 'index,follow');
+    setLink('canonical', meta.canonical);
     setOg('og:title', meta.ogTitle ?? meta.title);
     setOg('og:description', meta.ogDescription ?? meta.description);
     setOg('og:type', 'website');

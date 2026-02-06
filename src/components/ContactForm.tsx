@@ -2,14 +2,32 @@ import { useState, type FormEvent } from 'react';
 import emailjs from '@emailjs/browser';
 
 // ─── EmailJS Configuration ───────────────────────────────────────────
-// 1. Create a free account at https://www.emailjs.com
-// 2. Add an email service (e.g. Gmail) and note the Service ID
-// 3. Create an email template with variables: {{from_name}}, {{from_email}}, {{subject}}, {{message}}
-// 4. Replace the values below with your actual IDs
-const EMAILJS_SERVICE_ID = 'service_l8pklkv';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+// Set these in a .env file (see .env.example):
+//   VITE_EMAILJS_SERVICE_ID=service_xxx
+//   VITE_EMAILJS_TEMPLATE_ID=template_xxx
+//   VITE_EMAILJS_PUBLIC_KEY=xxx
 // ─────────────────────────────────────────────────────────────────────
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID ?? '';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID ?? '';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY ?? '';
+
+interface FieldErrors {
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const validate = (data: { name: string; email: string; subject: string; message: string }): FieldErrors => {
+  const errors: FieldErrors = {};
+  if (data.name.trim().length < 2) errors.name = 'Naam moet minimaal 2 tekens bevatten.';
+  if (!EMAIL_RE.test(data.email)) errors.email = 'Voer een geldig e-mailadres in.';
+  if (data.subject.trim().length < 2) errors.subject = 'Onderwerp moet minimaal 2 tekens bevatten.';
+  if (data.message.trim().length < 10) errors.message = 'Bericht moet minimaal 10 tekens bevatten.';
+  return errors;
+};
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -19,10 +37,19 @@ const ContactForm = () => {
     message: '',
   });
 
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    const fieldErrors = validate(formData);
+    setErrors(fieldErrors);
+    setTouched({ name: true, email: true, subject: true, message: true });
+
+    if (Object.keys(fieldErrors).length > 0) return;
+
     setStatus('sending');
 
     try {
@@ -30,17 +57,18 @@ const ContactForm = () => {
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
+          name: formData.name,
+          email: formData.email,
+          title: formData.subject,
           message: formData.message,
-          to_email: 'michel.vdput@live.nl',
         },
         EMAILJS_PUBLIC_KEY
       );
 
       setStatus('sent');
       setFormData({ name: '', email: '', subject: '', message: '' });
+      setErrors({});
+      setTouched({});
 
       setTimeout(() => {
         setStatus('idle');
@@ -55,14 +83,27 @@ const ContactForm = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value } = e.target;
+    const next = { ...formData, [name]: value };
+    setFormData(next);
+    if (touched[name]) {
+      const fieldErrors = validate(next);
+      setErrors(prev => ({ ...prev, [name]: fieldErrors[name as keyof FieldErrors] }));
+    }
   };
 
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name } = e.target;
+    setTouched(prev => ({ ...prev, [name]: true }));
+    const fieldErrors = validate(formData);
+    setErrors(prev => ({ ...prev, [name]: fieldErrors[name as keyof FieldErrors] }));
+  };
+
+  const fieldError = (field: keyof FieldErrors) =>
+    touched[field] && errors[field] ? errors[field] : undefined;
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-5" noValidate>
       <div>
         <label htmlFor="name" className="block text-body-sm font-medium text-tx-secondary mb-2">
           Naam
@@ -73,9 +114,15 @@ const ContactForm = () => {
           name="name"
           value={formData.name}
           onChange={handleChange}
+          onBlur={handleBlur}
           required
+          aria-invalid={!!fieldError('name')}
+          aria-describedby={fieldError('name') ? 'name-error' : undefined}
           className="input-field"
         />
+        {fieldError('name') && (
+          <p id="name-error" className="text-caption text-state-error mt-1">{errors.name}</p>
+        )}
       </div>
 
       <div>
@@ -88,9 +135,15 @@ const ContactForm = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
+          onBlur={handleBlur}
           required
+          aria-invalid={!!fieldError('email')}
+          aria-describedby={fieldError('email') ? 'email-error' : undefined}
           className="input-field"
         />
+        {fieldError('email') && (
+          <p id="email-error" className="text-caption text-state-error mt-1">{errors.email}</p>
+        )}
       </div>
 
       <div>
@@ -103,9 +156,15 @@ const ContactForm = () => {
           name="subject"
           value={formData.subject}
           onChange={handleChange}
+          onBlur={handleBlur}
           required
+          aria-invalid={!!fieldError('subject')}
+          aria-describedby={fieldError('subject') ? 'subject-error' : undefined}
           className="input-field"
         />
+        {fieldError('subject') && (
+          <p id="subject-error" className="text-caption text-state-error mt-1">{errors.subject}</p>
+        )}
       </div>
 
       <div>
@@ -117,10 +176,16 @@ const ContactForm = () => {
           name="message"
           value={formData.message}
           onChange={handleChange}
+          onBlur={handleBlur}
           required
           rows={6}
+          aria-invalid={!!fieldError('message')}
+          aria-describedby={fieldError('message') ? 'message-error' : undefined}
           className="input-field resize-none"
         />
+        {fieldError('message') && (
+          <p id="message-error" className="text-caption text-state-error mt-1">{errors.message}</p>
+        )}
       </div>
 
       <button
@@ -134,13 +199,13 @@ const ContactForm = () => {
       </button>
 
       {status === 'sent' && (
-        <p className="text-body-sm text-state-success text-center">
+        <p role="status" className="text-body-sm text-state-success text-center">
           Bedankt voor je bericht. Ik neem zo snel mogelijk contact met je op!
         </p>
       )}
 
       {status === 'error' && (
-        <p className="text-body-sm text-state-error text-center">
+        <p role="alert" className="text-body-sm text-state-error text-center">
           Er is iets misgegaan. Probeer het opnieuw of stuur direct een e-mail.
         </p>
       )}

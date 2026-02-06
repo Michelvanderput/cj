@@ -1,18 +1,22 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import { gsap } from 'gsap';
+import { gsap } from '../lib/gsap';
 import ProjectCard from '../components/ProjectCard';
 import SearchBar from '../components/SearchBar';
 import FilterBar from '../components/FilterBar';
-import { projects, allTags } from '../data/projects';
+import useProjects from '../hooks/useProjects';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useReducedMotion from '../hooks/useReducedMotion';
+import useDebouncedValue from '../hooks/useDebouncedValue';
 
 const Projects = () => {
+  const { projects, allTags } = useProjects();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const gridRef = useRef<HTMLDivElement>(null);
+  const tweenRef = useRef<gsap.core.Tween | null>(null);
   const headerRef = useScrollReveal<HTMLDivElement>({ y: 30, duration: 0.7 });
   const prefersReduced = useReducedMotion();
+  const debouncedQuery = useDebouncedValue(searchQuery, 300);
 
   // Animate grid children when filter results change
   const animateGrid = useCallback(() => {
@@ -20,8 +24,11 @@ const Projects = () => {
     const children = Array.from(gridRef.current.children);
     if (children.length === 0) return;
 
+    // Kill any in-flight tween before starting a new one
+    if (tweenRef.current) tweenRef.current.kill();
+
     gsap.set(children, { opacity: 0, y: 16 });
-    gsap.to(children, {
+    tweenRef.current = gsap.to(children, {
       opacity: 1,
       y: 0,
       duration: 0.35,
@@ -33,13 +40,16 @@ const Projects = () => {
   // Run animation after filtered results render
   useEffect(() => {
     animateGrid();
-  }, [searchQuery, selectedTags, animateGrid]);
+    return () => {
+      if (tweenRef.current) tweenRef.current.kill();
+    };
+  }, [debouncedQuery, selectedTags, animateGrid]);
 
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
       const matchesSearch = project.title
         .toLowerCase()
-        .includes(searchQuery.toLowerCase());
+        .includes(debouncedQuery.toLowerCase());
 
       const matchesTags =
         selectedTags.length === 0 ||
@@ -47,7 +57,7 @@ const Projects = () => {
 
       return matchesSearch && matchesTags;
     });
-  }, [searchQuery, selectedTags]);
+  }, [projects, debouncedQuery, selectedTags]);
 
   const handleTagToggle = (tag: string) => {
     setSelectedTags((prev) =>
@@ -86,7 +96,7 @@ const Projects = () => {
         </div>
       ) : (
         <>
-          <div className="mb-6 text-body-sm text-tx-muted">
+          <div aria-live="polite" aria-atomic="true" className="mb-6 text-body-sm text-tx-muted">
             {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projecten'} gevonden
           </div>
 

@@ -33,6 +33,8 @@ export function getHeadTags(url: string): string {
   return [
     `<title>${meta.title}</title>`,
     `<meta name="description" content="${meta.description}" />`,
+    `<meta name="robots" content="index,follow" />`,
+    `<link rel="canonical" href="${meta.canonical}" />`,
     `<meta property="og:title" content="${meta.ogTitle ?? meta.title}" />`,
     `<meta property="og:description" content="${meta.ogDescription ?? meta.description}" />`,
     `<meta property="og:type" content="website" />`,

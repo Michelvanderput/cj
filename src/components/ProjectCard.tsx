@@ -3,11 +3,39 @@ import OptimizedImage from './OptimizedImage';
 
 interface ProjectCardProps {
   project: Project;
+  compact?: boolean;
 }
 
-const ProjectCard = ({ project }: ProjectCardProps) => {
+const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
   const { title, type, tags, country, countryCode, imdbUrl, year, role, posterUrl } = project;
-  
+
+  const posterFallback = (
+    <div className="absolute inset-0 flex items-center justify-center text-tx-muted">
+      <span className="text-body-sm font-heading tracking-wide">{title}</span>
+    </div>
+  );
+
+  if (compact) {
+    return (
+      <article>
+        <div className="aspect-[2/3] bg-surface-elevated rounded-lg mb-4 overflow-hidden relative border border-brd">
+          {posterUrl ? (
+            <OptimizedImage
+              src={posterUrl}
+              alt={title}
+              className="absolute inset-0 w-full h-full object-cover"
+              fallback={posterFallback}
+            />
+          ) : posterFallback}
+        </div>
+        <h3 className="font-heading text-h4 text-tx-primary mb-1">{title}</h3>
+        <p className="text-body-sm text-tx-secondary">
+          {type} <span className="text-tx-muted">•</span> {year}
+        </p>
+      </article>
+    );
+  }
+
   return (
     <article className="group">
       <div className="aspect-[2/3] bg-surface-elevated rounded-lg mb-4 overflow-hidden relative border border-brd transition-all duration-225 group-hover:border-brd-hover group-hover:shadow-card">
@@ -16,17 +44,9 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             src={posterUrl}
             alt={title}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-            fallback={
-              <div className="absolute inset-0 flex items-center justify-center text-tx-muted">
-                <span className="text-body-sm font-heading tracking-wide">{title}</span>
-              </div>
-            }
+            fallback={posterFallback}
           />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-tx-muted">
-            <span className="text-body-sm font-heading tracking-wide">{title}</span>
-          </div>
-        )}
+        ) : posterFallback}
         
         {imdbUrl && (
           <a

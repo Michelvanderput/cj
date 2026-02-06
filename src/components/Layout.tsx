@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
+import JsonLd from './JsonLd';
 import useHead from '../hooks/useHead';
 
 const Layout = () => {
@@ -8,6 +9,7 @@ const Layout = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-surface-bg">
+      <JsonLd />
       <a href="#main-content" className="skip-link">
         Ga naar inhoud
       </a>

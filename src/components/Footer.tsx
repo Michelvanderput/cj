@@ -12,6 +12,8 @@ const Footer = () => {
               <img
                 src="/img/logo.svg"
                 alt="Cyril Jansen logo"
+                width={32}
+                height={32}
                 className="h-8 w-auto"
               />
               <span className="font-heading text-h4 text-brand-main tracking-wide">
