@@ -65,7 +65,7 @@ const Home = () => {
       {/* Selected Work */}
       <section className="py-16 md:py-24">
         <div ref={workHeaderRef} className="flex items-center justify-between mb-10 md:mb-14">
-          <h2 className="text-h2 text-tx-primary">Geselecteerd Werk</h2>
+          <h2 className="text-h2 text-tx-primary">Recente projecten</h2>
           <Link
             to="/projects"
             className="text-body-sm text-tx-secondary hover:text-brand-main transition-colors duration-200 group"
