@@ -5,16 +5,18 @@ import SearchBar from '../components/SearchBar';
 import FilterBar from '../components/FilterBar';
 import { projects, allTags } from '../data/projects';
 import useScrollReveal from '../hooks/useScrollReveal';
+import useReducedMotion from '../hooks/useReducedMotion';
 
 const Projects = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const gridRef = useRef<HTMLDivElement>(null);
   const headerRef = useScrollReveal<HTMLDivElement>({ y: 30, duration: 0.7 });
+  const prefersReduced = useReducedMotion();
 
   // Animate grid children when filter results change
   const animateGrid = useCallback(() => {
-    if (!gridRef.current) return;
+    if (!gridRef.current || prefersReduced) return;
     const children = Array.from(gridRef.current.children);
     if (children.length === 0) return;
 
@@ -26,7 +28,7 @@ const Projects = () => {
       stagger: 0.04,
       ease: 'power2.out',
     });
-  }, []);
+  }, [prefersReduced]);
 
   // Run animation after filtered results render
   useEffect(() => {

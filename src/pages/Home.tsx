@@ -4,17 +4,20 @@ import { gsap } from 'gsap';
 import { projects } from '../data/projects';
 import { socialPosts } from '../data/socialPosts';
 import SocialFeed from '../components/SocialFeed';
+import OptimizedImage from '../components/OptimizedImage';
 import useScrollReveal from '../hooks/useScrollReveal';
+import useReducedMotion from '../hooks/useReducedMotion';
 
 const Home = () => {
   const heroRef = useRef<HTMLElement>(null);
+  const prefersReduced = useReducedMotion();
   const workHeaderRef = useScrollReveal<HTMLDivElement>({ y: 24, duration: 0.6 });
   const projectsRef = useScrollReveal<HTMLDivElement>({ y: 30, stagger: 0.12, children: true, duration: 0.7 });
   const updatesTitleRef = useScrollReveal<HTMLHeadingElement>({ y: 24, duration: 0.6 });
   const ctaRef = useScrollReveal<HTMLDivElement>({ y: 30, duration: 0.8, scale: 0.98 });
 
   useEffect(() => {
-    if (!heroRef.current) return;
+    if (!heroRef.current || prefersReduced) return;
 
     const title = heroRef.current.querySelector('[data-hero-title]');
     const subtitle = heroRef.current.querySelector('[data-hero-subtitle]');
@@ -42,7 +45,7 @@ const Home = () => {
       ctx.revert();
       gsap.set([title, subtitle], { clearProps: 'all' });
     };
-  }, []);
+  }, [prefersReduced]);
 
   const featuredProjects = projects.slice(0, 3);
 
@@ -76,10 +79,15 @@ const Home = () => {
             <div key={project.id}>
               <div className="aspect-[2/3] bg-surface-elevated rounded-lg mb-4 overflow-hidden relative border border-brd">
                 {project.posterUrl ? (
-                  <img
+                  <OptimizedImage
                     src={project.posterUrl}
                     alt={project.title}
                     className="absolute inset-0 w-full h-full object-cover"
+                    fallback={
+                      <div className="absolute inset-0 flex items-center justify-center text-tx-muted">
+                        <span className="text-body-sm font-heading tracking-wide">{project.title}</span>
+                      </div>
+                    }
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center text-tx-muted">

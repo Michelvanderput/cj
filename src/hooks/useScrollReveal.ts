@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import useReducedMotion from './useReducedMotion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +19,7 @@ interface ScrollRevealOptions {
 
 const useScrollReveal = <T extends HTMLElement>(options: ScrollRevealOptions = {}) => {
   const ref = useRef<T>(null);
+  const prefersReduced = useReducedMotion();
 
   const {
     y = 30,
@@ -33,6 +35,7 @@ const useScrollReveal = <T extends HTMLElement>(options: ScrollRevealOptions = {
 
   useEffect(() => {
     if (!ref.current) return;
+    if (prefersReduced) return;
 
     const targets = children
       ? Array.from(ref.current.children)
@@ -68,7 +71,7 @@ const useScrollReveal = <T extends HTMLElement>(options: ScrollRevealOptions = {
       // Ensure elements are visible after cleanup (route change)
       gsap.set(targets, { clearProps: 'all' });
     };
-  }, [y, x, duration, stagger, delay, ease, start, children, scale]);
+  }, [y, x, duration, stagger, delay, ease, start, children, scale, prefersReduced]);
 
   return ref;
 };

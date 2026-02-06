@@ -1,4 +1,5 @@
 import useScrollReveal from '../hooks/useScrollReveal';
+import OptimizedImage from '../components/OptimizedImage';
 
 const About = () => {
   const contentRef = useScrollReveal<HTMLDivElement>({ y: 24, stagger: 0.1, children: true, duration: 0.7 });
@@ -54,21 +55,16 @@ const About = () => {
           {/* Image — 2 columns */}
           {/* Replace the src below with an actual photo, e.g. /img/about.jpg */}
           <div className="md:col-span-2">
-            <div className="aspect-[3/4] rounded-lg overflow-hidden border border-brd bg-surface-elevated">
-              <img
+            <div className="aspect-[3/4] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative">
+              <OptimizedImage
                 src="/img/about.jpg"
                 alt="Cyril Jansen in de studio"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  // Hide broken image, show placeholder
-                  const target = e.currentTarget;
-                  target.style.display = 'none';
-                  target.parentElement!.classList.add('flex', 'items-center', 'justify-center');
-                  const span = document.createElement('span');
-                  span.className = 'text-tx-muted text-body-sm text-center px-4';
-                  span.textContent = 'Plaats foto in public/img/about.jpg';
-                  target.parentElement!.appendChild(span);
-                }}
+                className="absolute inset-0 w-full h-full object-cover"
+                fallback={
+                  <div className="absolute inset-0 flex items-center justify-center text-tx-muted text-body-sm text-center px-4">
+                    Plaats foto in public/img/about.jpg
+                  </div>
+                }
               />
             </div>
           </div>

@@ -13,7 +13,7 @@ const FilterBar = ({ tags, selectedTags, onTagToggle, onClearAll }: FilterBarPro
         {selectedTags.length > 0 && (
           <button
             onClick={onClearAll}
-            className="text-caption text-tx-muted hover:text-brand-secondary transition-colors duration-200"
+            className="text-caption text-tx-muted hover:text-brand-secondary transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-main rounded-sm"
           >
             Alles wissen
           </button>
@@ -27,7 +27,7 @@ const FilterBar = ({ tags, selectedTags, onTagToggle, onClearAll }: FilterBarPro
             <button
               key={tag}
               onClick={() => onTagToggle(tag)}
-              className={`px-3 py-1.5 text-body-sm rounded-md border transition-all duration-200 ${
+              className={`px-3 py-1.5 text-body-sm rounded-md border transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-main ${
                 isSelected
                   ? 'bg-brand-main text-tx-inverse border-brand-main shadow-glow-main'
                   : 'bg-surface-elevated text-tx-secondary border-brd hover:border-brd-hover hover:text-tx-primary'

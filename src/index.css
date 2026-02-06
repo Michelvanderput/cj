@@ -55,10 +55,31 @@
     @apply bg-brand-main/25 text-tx-primary;
   }
 
+  /* ── Keyboard focus ─────────────────────────────────────────────────── */
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-brand-main;
   }
 
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-main rounded-sm;
+  }
+
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-none border-brand-main ring-2 ring-brand-main/40;
+  }
+
+  /* Skip-link utility: add class="skip-link" to an <a> for a11y skip nav */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100]
+           focus:px-4 focus:py-2 focus:bg-brand-main focus:text-tx-inverse
+           focus:rounded-md focus:text-body-sm focus:font-medium focus:shadow-elevated;
+  }
+
+  /* ── Reduced motion ─────────────────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;

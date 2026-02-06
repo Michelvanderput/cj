@@ -1,12 +1,18 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
+import useHead from '../hooks/useHead';
 
 const Layout = () => {
+  useHead();
+
   return (
     <div className="min-h-screen flex flex-col bg-surface-bg">
+      <a href="#main-content" className="skip-link">
+        Ga naar inhoud
+      </a>
       <Header />
-      <main className="flex-1 pt-24 md:pt-28">
+      <main id="main-content" className="flex-1 pt-24 md:pt-28">
         <Outlet />
       </main>
       <Footer />

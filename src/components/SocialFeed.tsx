@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { SocialPost } from '../types';
+import useReducedMotion from '../hooks/useReducedMotion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,9 +12,10 @@ interface SocialFeedProps {
 
 const SocialFeed = ({ posts }: SocialFeedProps) => {
   const feedRef = useRef<HTMLDivElement>(null);
+  const prefersReduced = useReducedMotion();
 
   useEffect(() => {
-    if (!feedRef.current) return;
+    if (!feedRef.current || prefersReduced) return;
 
     const children = Array.from(feedRef.current.children);
 
@@ -38,7 +40,7 @@ const SocialFeed = ({ posts }: SocialFeedProps) => {
       ctx.revert();
       gsap.set(children, { clearProps: 'all' });
     };
-  }, [posts]);
+  }, [posts, prefersReduced]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

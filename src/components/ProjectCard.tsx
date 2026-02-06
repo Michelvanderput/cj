@@ -1,4 +1,5 @@
 import type { Project } from '../types';
+import OptimizedImage from './OptimizedImage';
 
 interface ProjectCardProps {
   project: Project;
@@ -11,11 +12,15 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
     <article className="group">
       <div className="aspect-[2/3] bg-surface-elevated rounded-lg mb-4 overflow-hidden relative border border-brd transition-all duration-225 group-hover:border-brd-hover group-hover:shadow-card">
         {posterUrl ? (
-          <img
+          <OptimizedImage
             src={posterUrl}
             alt={title}
-            loading="lazy"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            fallback={
+              <div className="absolute inset-0 flex items-center justify-center text-tx-muted">
+                <span className="text-body-sm font-heading tracking-wide">{title}</span>
+              </div>
+            }
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-tx-muted">
@@ -28,7 +33,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             href={imdbUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-200 bg-brand-secondary text-white px-3 py-1.5 text-caption font-medium rounded-md hover:bg-brand-secondary-hover shadow-soft"
+            className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-all duration-200 bg-brand-secondary text-white px-3 py-1.5 text-caption font-medium rounded-md hover:bg-brand-secondary-hover shadow-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-main"
             onClick={(e) => e.stopPropagation()}
           >
             IMDb
