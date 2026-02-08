@@ -26,7 +26,7 @@ export async function commitProjectsJson(projects: unknown[]): Promise<void> {
 
   // 1. Get current file SHA (required for updates)
   const getRes = await fetch(apiUrl, { headers });
-  if (!getRes.ok) throw new Error(`Kan bestand niet ophalen: ${getRes.status}`);
+  if (!getRes.ok) throw new Error(`Failed to fetch file: ${getRes.status}`);
   const fileData: GitHubFileResponse = await getRes.json();
 
   // 2. Encode new content as base64
@@ -38,7 +38,7 @@ export async function commitProjectsJson(projects: unknown[]): Promise<void> {
     method: 'PUT',
     headers,
     body: JSON.stringify({
-      message: `Update projecten via admin (${new Date().toLocaleDateString('nl-NL')})`,
+      message: `Update projects via admin (${new Date().toLocaleDateString('en-US')})`,
       content,
       sha: fileData.sha,
     }),
@@ -46,6 +46,6 @@ export async function commitProjectsJson(projects: unknown[]): Promise<void> {
 
   if (!putRes.ok) {
     const err = await putRes.json().catch(() => ({}));
-    throw new Error(`GitHub commit mislukt: ${putRes.status} — ${(err as { message?: string }).message ?? ''}`);
+    throw new Error(`GitHub commit failed: ${putRes.status} — ${(err as { message?: string }).message ?? ''}`);
   }
 }

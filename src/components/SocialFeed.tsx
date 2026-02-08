@@ -41,7 +41,7 @@ const SocialFeed = ({ posts }: SocialFeedProps) => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('nl-NL', { 
+    return date.toLocaleDateString('en-US', { 
       year: 'numeric', 
       month: 'long', 
       day: 'numeric' 
@@ -68,7 +68,7 @@ const SocialFeed = ({ posts }: SocialFeedProps) => {
                   rel="noopener noreferrer"
                   className="text-tx-muted group-hover:text-brand-main transition-colors duration-200 text-body-sm"
                 >
-                  📷 Bekijk op Instagram
+                  📷 View on Instagram
                 </a>
               </div>
               <time dateTime={post.date} className="text-caption text-tx-muted uppercase tracking-wide block">{formatDate(post.date)}</time>

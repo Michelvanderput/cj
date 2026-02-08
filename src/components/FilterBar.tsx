@@ -10,13 +10,13 @@ const FilterBar = ({ tags, labels, selectedTags, onTagToggle, onClearAll }: Filt
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-body-sm font-medium tracking-wide text-tx-secondary">Filter op discipline</h3>
+        <h3 className="text-body-sm font-medium tracking-wide text-tx-secondary">Filter by discipline</h3>
         {selectedTags.length > 0 && (
           <button
             onClick={onClearAll}
             className="text-caption text-tx-muted hover:text-brand-secondary transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-main rounded-sm"
           >
-            Alles wissen
+            Clear all
           </button>
         )}
       </div>

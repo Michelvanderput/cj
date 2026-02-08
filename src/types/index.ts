@@ -7,7 +7,6 @@ export interface Project {
   countryCode: string;
   imdbUrl?: string;
   year: number;
-  role: string;
   posterUrl?: string;
 }
 

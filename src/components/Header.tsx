@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
-  { to: '/projects', label: 'Projecten' },
-  { to: '/about', label: 'Over' },
+  { to: '/work', label: 'Work' },
+  { to: '/studio', label: 'Studio' },
+  { to: '/projects', label: 'Projects' },
+  { to: '/bio', label: 'Bio' },
   { to: '/contact', label: 'Contact' },
 ];
 
@@ -55,7 +57,7 @@ const Header = () => {
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
-            aria-label={mobileOpen ? 'Menu sluiten' : 'Menu openen'}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
           >

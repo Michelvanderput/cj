@@ -26,7 +26,7 @@ const SocialLinks = ({ variant = 'horizontal', size = 'md' }: SocialLinksProps) 
       icon: '🎬',
     },
     {
-      name: 'E-mail',
+      name: 'Email',
       url: 'mailto:cyril@example.com',
       icon: '✉️',
     },
@@ -38,8 +38,8 @@ const SocialLinks = ({ variant = 'horizontal', size = 'md' }: SocialLinksProps) 
         <a
           key={link.name}
           href={link.url}
-          target={link.name !== 'E-mail' ? '_blank' : undefined}
-          rel={link.name !== 'E-mail' ? 'noopener noreferrer' : undefined}
+          target={link.name !== 'Email' ? '_blank' : undefined}
+          rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
           className={`${sizeClasses[size]} text-tx-secondary hover:text-brand-main transition-colors duration-200 flex items-center gap-2`}
         >
           <span>{link.icon}</span>

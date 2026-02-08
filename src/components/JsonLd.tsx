@@ -29,10 +29,10 @@ const websiteSchema = {
 const collectionPageSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Projecten — Cyril Jansen',
+  name: 'Projects — Cyril Jansen',
   url: `${BASE_URL}/projects`,
   description:
-    'Portfolio van Foley, sound design en opnamewerk voor film en televisie.',
+    'Portfolio of Foley, sound design and recording work for film and television.',
 };
 
 const schemaMap: Record<string, object[]> = {

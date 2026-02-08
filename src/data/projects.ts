@@ -1,21 +1,20 @@
 import type { Project } from '../types';
 
-// ─── NIEUW PROJECT TOEVOEGEN ─────────────────────────────────────────
-// Kopieer het template hieronder en plak het BOVENAAN de array (zodat
-// het als eerste verschijnt). Vul je gegevens in en sla op — de site
-// wordt automatisch opnieuw gebouwd.
+// ─── ADD NEW PROJECT ─────────────────────────────────────────────────
+// Copy the template below and paste it at the TOP of the array (so it
+// appears first). Fill in your details and save — the site will be
+// automatically rebuilt.
 //
 // {
-//   id: '9',                              ← uniek nummer (verhoog vanaf laatste)
-//   title: 'Project Naam',               ← titel op de kaart
+//   id: '9',                              ← unique number (increment from last)
+//   title: 'Project Name',               ← title on the card
 //   type: 'Film',                         ← Film | Serie | Documentary | Short | Commercial
-//   disciplines: ['foley', 'sound-design'], ← kies uit: foley, sound-design, recording, mixing, adr, field-recording
-//   country: 'Netherlands',               ← volledige landnaam
-//   countryCode: 'NL',                    ← 2-letter ISO code (toont vlag emoji)
-//   posterUrl: '/img/posters/naam.jpg',   ← optioneel, afbeelding in public/img/posters/
-//   imdbUrl: 'https://www.imdb.com/...',  ← optioneel, verwijder regel als er geen is
-//   year: 2025,                           ← jaar van release
-//   role: 'Foley Artist & Sound Designer',← jouw rol op het project
+//   disciplines: ['foley', 'sound-design'], ← choose from: foley, sound-design, recording, mixing, adr, field-recording
+//   country: 'Netherlands',               ← full country name
+//   countryCode: 'NL',                    ← 2-letter ISO code (shows flag emoji)
+//   posterUrl: '/img/posters/name.jpg',   ← optional, image in public/img/posters/
+//   imdbUrl: 'https://www.imdb.com/...',  ← optional, remove line if none
+//   year: 2025,                           ← year of release
 // },
 // ─────────────────────────────────────────────────────────────────────
 
@@ -29,7 +28,6 @@ export const projects: Project[] = [
     countryCode: 'NL',
     imdbUrl: 'https://www.imdb.com',
     year: 2024,
-    role: 'Foley Artist & Sound Designer',
   },
   {
     id: '2',
@@ -40,7 +38,6 @@ export const projects: Project[] = [
     countryCode: 'GB',
     imdbUrl: 'https://www.imdb.com',
     year: 2023,
-    role: 'Sound Designer',
   },
   {
     id: '3',
@@ -50,7 +47,6 @@ export const projects: Project[] = [
     country: 'Germany',
     countryCode: 'DE',
     year: 2024,
-    role: 'Sound Designer',
   },
   {
     id: '4',
@@ -61,7 +57,6 @@ export const projects: Project[] = [
     countryCode: 'US',
     imdbUrl: 'https://www.imdb.com',
     year: 2023,
-    role: 'Foley Artist',
   },
   {
     id: '5',
@@ -71,7 +66,6 @@ export const projects: Project[] = [
     country: 'Norway',
     countryCode: 'NO',
     year: 2024,
-    role: 'Field Recording & Sound Design',
   },
   {
     id: '6',
@@ -82,7 +76,6 @@ export const projects: Project[] = [
     countryCode: 'FR',
     imdbUrl: 'https://www.imdb.com',
     year: 2023,
-    role: 'Foley Artist & Sound Designer',
   },
   {
     id: '7',
@@ -93,7 +86,6 @@ export const projects: Project[] = [
     countryCode: 'BE',
     imdbUrl: 'https://www.imdb.com',
     year: 2024,
-    role: 'Sound Designer',
   },
   {
     id: '8',
@@ -103,7 +95,6 @@ export const projects: Project[] = [
     country: 'Netherlands',
     countryCode: 'NL',
     year: 2024,
-    role: 'Sound Designer',
   },
 ];
 

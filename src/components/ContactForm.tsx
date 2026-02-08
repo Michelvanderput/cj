@@ -22,10 +22,10 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const validate = (data: { name: string; email: string; subject: string; message: string }): FieldErrors => {
   const errors: FieldErrors = {};
-  if (data.name.trim().length < 2) errors.name = 'Naam moet minimaal 2 tekens bevatten.';
-  if (!EMAIL_RE.test(data.email)) errors.email = 'Voer een geldig e-mailadres in.';
-  if (data.subject.trim().length < 2) errors.subject = 'Onderwerp moet minimaal 2 tekens bevatten.';
-  if (data.message.trim().length < 10) errors.message = 'Bericht moet minimaal 10 tekens bevatten.';
+  if (data.name.trim().length < 2) errors.name = 'Name must be at least 2 characters.';
+  if (!EMAIL_RE.test(data.email)) errors.email = 'Please enter a valid email address.';
+  if (data.subject.trim().length < 2) errors.subject = 'Subject must be at least 2 characters.';
+  if (data.message.trim().length < 10) errors.message = 'Message must be at least 10 characters.';
   return errors;
 };
 
@@ -106,7 +106,7 @@ const ContactForm = () => {
     <form onSubmit={handleSubmit} className="space-y-5" noValidate>
       <div>
         <label htmlFor="name" className="block text-body-sm font-medium text-tx-secondary mb-2">
-          Naam
+          Name
         </label>
         <input
           type="text"
@@ -127,7 +127,7 @@ const ContactForm = () => {
 
       <div>
         <label htmlFor="email" className="block text-body-sm font-medium text-tx-secondary mb-2">
-          E-mail
+          Email
         </label>
         <input
           type="email"
@@ -148,7 +148,7 @@ const ContactForm = () => {
 
       <div>
         <label htmlFor="subject" className="block text-body-sm font-medium text-tx-secondary mb-2">
-          Onderwerp
+          Subject
         </label>
         <input
           type="text"
@@ -169,7 +169,7 @@ const ContactForm = () => {
 
       <div>
         <label htmlFor="message" className="block text-body-sm font-medium text-tx-secondary mb-2">
-          Bericht
+          Message
         </label>
         <textarea
           id="message"
@@ -193,20 +193,20 @@ const ContactForm = () => {
         disabled={status === 'sending'}
         className="btn btn-primary btn-lg w-full"
       >
-        {status === 'sending' && 'Verzenden...'}
-        {status === 'sent' && 'Bericht Verzonden!'}
-        {(status === 'idle' || status === 'error') && 'Verstuur Bericht'}
+        {status === 'sending' && 'Sending...'}
+        {status === 'sent' && 'Message Sent!'}
+        {(status === 'idle' || status === 'error') && 'Send Message'}
       </button>
 
       {status === 'sent' && (
         <p role="status" className="text-body-sm text-state-success text-center">
-          Bedankt voor je bericht. Ik neem zo snel mogelijk contact met je op!
+          Thank you for your message. I'll get back to you as soon as possible!
         </p>
       )}
 
       {status === 'error' && (
         <p role="alert" className="text-body-sm text-state-error text-center">
-          Er is iets misgegaan. Probeer het opnieuw of stuur direct een e-mail.
+          Something went wrong. Please try again or send an email directly.
         </p>
       )}
     </form>

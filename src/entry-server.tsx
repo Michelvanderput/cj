@@ -3,8 +3,10 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
+import Work from './pages/Work';
+import Studio from './pages/Studio';
 import Projects from './pages/Projects';
-import About from './pages/About';
+import Bio from './pages/About';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import { getRouteMeta } from './seo';
@@ -16,8 +18,10 @@ export function render(url: string) {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path="work" element={<Work />} />
+            <Route path="studio" element={<Studio />} />
             <Route path="projects" element={<Projects />} />
-            <Route path="about" element={<About />} />
+            <Route path="bio" element={<Bio />} />
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Route>

@@ -4,9 +4,9 @@ export interface Discipline {
   description: string;
 }
 
-// ─── VASTE LIJST VAN DISCIPLINES ────────────────────────────────────
-// Dit is de enige bron van waarheid voor alle disciplines.
-// Wordt gebruikt op: Over pagina (blokjes), Projecten filter, Admin pagina.
+// ─── FIXED LIST OF DISCIPLINES ──────────────────────────────────────
+// Single source of truth for all disciplines.
+// Used on: Work page (service blocks), Projects filter, Admin page.
 // ─────────────────────────────────────────────────────────────────────
 
 export const DISCIPLINES: Discipline[] = [
@@ -14,37 +14,37 @@ export const DISCIPLINES: Discipline[] = [
     id: 'foley',
     label: 'Foley',
     description:
-      'Het nabootsen en opnemen van alledaagse geluidseffecten die in post-productie aan film en televisie worden toegevoegd om de audio-ervaring te verrijken.',
+      'Recreating and recording everyday sound effects added in post-production to film and television to enrich the audio experience.',
   },
   {
     id: 'sound-design',
     label: 'Sound Design',
     description:
-      'Het creëren, bewerken en integreren van geluidseffecten en sonische texturen die de sfeer en het verhaal van een productie vormgeven.',
+      'Creating, editing and integrating sound effects and sonic textures that shape the atmosphere and narrative of a production.',
   },
   {
     id: 'recording',
     label: 'Recording',
     description:
-      'Professionele opname van geluid in studio-omgevingen met state-of-the-art apparatuur voor optimale audiokwaliteit.',
+      'Professional sound recording in studio environments with state-of-the-art equipment for optimal audio quality.',
   },
   {
     id: 'mixing',
     label: 'Mixing',
     description:
-      'Het samenvoegen en balanceren van alle audiolagen — dialoog, muziek, effecten — tot een coherente en impactvolle eindmix.',
+      'Combining and balancing all audio layers — dialogue, music, effects — into a coherent and impactful final mix.',
   },
   {
     id: 'adr',
     label: 'ADR',
     description:
-      'Automated Dialogue Replacement: het opnieuw opnemen van dialoog in een gecontroleerde studio-omgeving voor perfecte audiokwaliteit.',
+      'Automated Dialogue Replacement: re-recording dialogue in a controlled studio environment for perfect audio quality.',
   },
   {
     id: 'field-recording',
     label: 'Field Recording',
     description:
-      'Het opnemen van authentieke geluiden op locatie — van natuurlijke ambiances tot specifieke geluidseffecten voor gebruik in producties.',
+      'Capturing authentic sounds on location — from natural ambiences to specific sound effects for use in productions.',
   },
 ];
 

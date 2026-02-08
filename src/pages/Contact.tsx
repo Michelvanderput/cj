@@ -13,7 +13,7 @@ const Contact = () => {
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-8">
             <div>
-              <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-2">E-mail</h2>
+              <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-2">Email</h2>
               <a
                 href="mailto:cyril@example.com"
                 className="text-h4 text-tx-primary hover:text-brand-main transition-colors duration-200"
@@ -23,26 +23,26 @@ const Contact = () => {
             </div>
 
             <div>
-              <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-2">Locatie</h2>
-              <p className="text-h4 text-tx-secondary">Amsterdam, Nederland</p>
+              <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-2">Location</h2>
+              <p className="text-h4 text-tx-secondary">Amsterdam, Netherlands</p>
             </div>
 
             <div>
-              <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-4">Verbinden</h2>
+              <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-4">Connect</h2>
               <SocialLinks variant="vertical" />
             </div>
           </div>
 
           <div>
-            <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-4">Stuur een Bericht</h2>
+            <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-4">Send a Message</h2>
             <ContactForm />
           </div>
         </div>
 
         <div className="pt-12 border-t border-brd">
           <p className="text-body text-tx-secondary leading-relaxed">
-            Voor projectaanvragen, samenwerkingen of algemene vragen, neem gerust contact op via het formulier of e-mail.
-            Ik ben altijd geïnteresseerd in het bespreken van nieuwe mogelijkheden en creatieve projecten.
+            For project inquiries, collaborations or general questions, feel free to reach out via the form or email.
+            I'm always interested in discussing new opportunities and creative projects.
           </p>
         </div>
       </div>

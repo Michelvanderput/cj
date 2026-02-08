@@ -8,7 +8,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
-  const { title, type, disciplines, country, countryCode, imdbUrl, year, role, posterUrl } = project;
+  const { title, type, disciplines, country, countryCode, imdbUrl, year, posterUrl } = project;
 
   const posterFallback = (
     <div className="absolute inset-0 flex items-center justify-center text-tx-muted">
@@ -75,8 +75,6 @@ const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
           <span className="text-tx-muted">•</span>
           <span>{year}</span>
         </div>
-        
-        <p className="text-body-sm text-tx-muted">{role}</p>
         
         <div className="flex flex-wrap gap-1.5 pt-1">
           {disciplines.map((d) => {

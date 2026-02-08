@@ -1,23 +1,19 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { gsap } from '../lib/gsap';
 import ProjectCard from '../components/ProjectCard';
-import SearchBar from '../components/SearchBar';
 import FilterBar from '../components/FilterBar';
 import { DISCIPLINES } from '../data/disciplines';
 import useProjects from '../hooks/useProjects';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useReducedMotion from '../hooks/useReducedMotion';
-import useDebouncedValue from '../hooks/useDebouncedValue';
 
 const Projects = () => {
   const { projects } = useProjects();
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const gridRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
   const headerRef = useScrollReveal<HTMLDivElement>({ y: 30, duration: 0.7 });
   const prefersReduced = useReducedMotion();
-  const debouncedQuery = useDebouncedValue(searchQuery, 300);
 
   // Animate grid children when filter results change
   const animateGrid = useCallback(() => {
@@ -25,7 +21,6 @@ const Projects = () => {
     const children = Array.from(gridRef.current.children);
     if (children.length === 0) return;
 
-    // Kill any in-flight tween before starting a new one
     if (tweenRef.current) tweenRef.current.kill();
 
     gsap.set(children, { opacity: 0, y: 16 });
@@ -38,27 +33,21 @@ const Projects = () => {
     });
   }, [prefersReduced]);
 
-  // Run animation after filtered results render
   useEffect(() => {
     animateGrid();
     return () => {
       if (tweenRef.current) tweenRef.current.kill();
     };
-  }, [debouncedQuery, selectedTags, animateGrid]);
+  }, [selectedTags, animateGrid]);
 
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
-      const matchesSearch = project.title
-        .toLowerCase()
-        .includes(debouncedQuery.toLowerCase());
-
-      const matchesTags =
+      return (
         selectedTags.length === 0 ||
-        selectedTags.some((tag) => project.disciplines.includes(tag));
-
-      return matchesSearch && matchesTags;
+        selectedTags.some((tag) => project.disciplines.includes(tag))
+      );
     });
-  }, [projects, debouncedQuery, selectedTags]);
+  }, [projects, selectedTags]);
 
   const handleTagToggle = (tag: string) => {
     setSelectedTags((prev) =>
@@ -73,38 +62,30 @@ const Projects = () => {
   return (
     <div className="section-container pb-20">
       <div ref={headerRef} className="mb-10 md:mb-14">
-        <h1 className="text-h1 text-brand-main mb-8">Projecten</h1>
+        <h1 className="text-h1 text-brand-main mb-8">Projects</h1>
 
-        <div className="space-y-6">
-          <SearchBar
-            value={searchQuery}
-            onChange={setSearchQuery}
-            placeholder="Zoek op titel..."
-          />
-
-          <FilterBar
-            tags={DISCIPLINES.map((d) => d.id)}
-            labels={Object.fromEntries(DISCIPLINES.map((d) => [d.id, d.label]))}
-            selectedTags={selectedTags}
-            onTagToggle={handleTagToggle}
-            onClearAll={handleClearTags}
-          />
-        </div>
+        <FilterBar
+          tags={DISCIPLINES.map((d) => d.id)}
+          labels={Object.fromEntries(DISCIPLINES.map((d) => [d.id, d.label]))}
+          selectedTags={selectedTags}
+          onTagToggle={handleTagToggle}
+          onClearAll={handleClearTags}
+        />
       </div>
 
       {filteredProjects.length === 0 ? (
         <div className="text-center py-20">
-          <p className="text-tx-muted text-body">Geen projecten gevonden die aan je criteria voldoen.</p>
+          <p className="text-tx-muted text-body">No projects found matching your criteria.</p>
         </div>
       ) : (
         <>
           <div aria-live="polite" aria-atomic="true" className="mb-6 text-body-sm text-tx-muted">
-            {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projecten'} gevonden
+            {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'} found
           </div>
 
           <div
             ref={gridRef}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12"
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-8"
           >
             {filteredProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />

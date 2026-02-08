@@ -16,7 +16,6 @@ const emptyProject = (): Project => ({
   country: '',
   countryCode: '',
   year: new Date().getFullYear(),
-  role: '',
 });
 
 const Admin = () => {
@@ -24,7 +23,8 @@ const Admin = () => {
   const [password, setPassword] = useState('');
   const [projects, setProjects] = useState<Project[]>([]);
   const [editing, setEditing] = useState<Project | null>(null);
-    const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [confirmingDelete, setConfirmingDelete] = useState<string | null>(null);
+  const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
   // Load projects from JSON
@@ -40,7 +40,7 @@ const Admin = () => {
     if (password === ADMIN_PASSWORD) {
       setAuthed(true);
     } else {
-      setErrorMsg('Onjuist wachtwoord');
+      setErrorMsg('Incorrect password');
     }
   };
 
@@ -53,7 +53,7 @@ const Admin = () => {
       setTimeout(() => setStatus('idle'), 3000);
     } catch (err) {
       setStatus('error');
-      setErrorMsg(err instanceof Error ? err.message : 'Onbekende fout');
+      setErrorMsg(err instanceof Error ? err.message : 'Unknown error');
     }
   }, [projects]);
 
@@ -68,6 +68,7 @@ const Admin = () => {
 
   const deleteProject = (id: string) => {
     setProjects((prev) => prev.filter((p) => p.id !== id));
+    setConfirmingDelete(null);
   };
 
   const moveProject = (id: string, direction: -1 | 1) => {
@@ -121,12 +122,12 @@ const Admin = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Wachtwoord"
+            placeholder="Password"
             className="input-field"
             autoFocus
           />
           <button type="submit" className="btn btn-primary btn-md w-full">
-            Inloggen
+            Log in
           </button>
           {errorMsg && <p className="text-caption text-state-error">{errorMsg}</p>}
         </form>
@@ -139,14 +140,14 @@ const Admin = () => {
     return (
       <div className="section-container max-w-5xl py-10">
         <h1 className="text-h2 text-brand-main mb-8">
-          {projects.some((p) => p.id === editing.id) ? 'Project Bewerken' : 'Nieuw Project'}
+          {projects.some((p) => p.id === editing.id) ? 'Edit Project' : 'New Project'}
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Form */}
           <div className="space-y-4">
             <div>
-              <label className="block text-body-sm font-medium text-tx-secondary mb-1">Titel *</label>
+              <label className="block text-body-sm font-medium text-tx-secondary mb-1">Title *</label>
               <input
                 type="text"
                 value={editing.title}
@@ -169,7 +170,7 @@ const Admin = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-body-sm font-medium text-tx-secondary mb-1">Jaar *</label>
+                <label className="block text-body-sm font-medium text-tx-secondary mb-1">Year *</label>
                 <input
                   type="number"
                   value={editing.year}
@@ -202,20 +203,9 @@ const Admin = () => {
               </div>
             </div>
 
-            <div>
-              <label className="block text-body-sm font-medium text-tx-secondary mb-1">Rol *</label>
-              <input
-                type="text"
-                value={editing.role}
-                onChange={(e) => updateField('role', e.target.value)}
-                placeholder="Foley Artist & Sound Designer"
-                className="input-field"
-              />
-            </div>
-
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-body-sm font-medium text-tx-secondary mb-1">Land *</label>
+                <label className="block text-body-sm font-medium text-tx-secondary mb-1">Country *</label>
                 <input
                   type="text"
                   value={editing.country}
@@ -226,7 +216,7 @@ const Admin = () => {
               </div>
               <div>
                 <label className="block text-body-sm font-medium text-tx-secondary mb-1">
-                  Landcode * <span className="text-tx-muted">(2 letters)</span>
+                  Country code * <span className="text-tx-muted">(2 letters)</span>
                 </label>
                 <input
                   type="text"
@@ -241,7 +231,7 @@ const Admin = () => {
 
             <div>
               <label className="block text-body-sm font-medium text-tx-secondary mb-1">
-                Poster URL <span className="text-tx-muted">(optioneel)</span>
+                Poster URL <span className="text-tx-muted">(optional)</span>
               </label>
               <input
                 type="text"
@@ -254,7 +244,7 @@ const Admin = () => {
 
             <div>
               <label className="block text-body-sm font-medium text-tx-secondary mb-1">
-                IMDb URL <span className="text-tx-muted">(optioneel)</span>
+                IMDb URL <span className="text-tx-muted">(optional)</span>
               </label>
               <input
                 type="text"
@@ -267,10 +257,10 @@ const Admin = () => {
 
             <div className="flex gap-3 pt-4">
               <button onClick={saveEdit} className="btn btn-primary btn-md flex-1">
-                Opslaan
+                Save
               </button>
               <button onClick={() => setEditing(null)} className="btn btn-ghost btn-md flex-1">
-                Annuleren
+                Cancel
               </button>
             </div>
           </div>
@@ -293,17 +283,17 @@ const Admin = () => {
   return (
     <div className="section-container max-w-5xl py-10">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-h2 text-brand-main">Projecten Beheren</h1>
+        <h1 className="text-h2 text-brand-main">Manage Projects</h1>
         <div className="flex gap-3">
           <button onClick={addProject} className="btn btn-primary btn-md">
-            + Nieuw Project
+            + New Project
           </button>
           <button
             onClick={handleSave}
             disabled={status === 'saving'}
             className="btn btn-secondary btn-md"
           >
-            {status === 'saving' ? 'Opslaan...' : status === 'saved' ? '✓ Opgeslagen' : 'Publiceer'}
+            {status === 'saving' ? 'Saving...' : status === 'saved' ? '✓ Saved' : 'Publish'}
           </button>
         </div>
       </div>
@@ -317,7 +307,7 @@ const Admin = () => {
       {status === 'saved' && (
         <div className="mb-6 p-4 rounded-md bg-state-success-muted/20 border border-state-success/30">
           <p className="text-body-sm text-state-success">
-            Projecten gepubliceerd! De site wordt automatisch opnieuw gebouwd door Vercel.
+            Projects published! The site will be automatically rebuilt by Vercel.
           </p>
         </div>
       )}
@@ -334,7 +324,7 @@ const Admin = () => {
                 onClick={() => moveProject(project.id, -1)}
                 disabled={idx === 0}
                 className="text-tx-muted hover:text-tx-primary disabled:opacity-30 text-body-sm"
-                aria-label="Omhoog"
+                aria-label="Move up"
               >
                 ▲
               </button>
@@ -342,7 +332,7 @@ const Admin = () => {
                 onClick={() => moveProject(project.id, 1)}
                 disabled={idx === projects.length - 1}
                 className="text-tx-muted hover:text-tx-primary disabled:opacity-30 text-body-sm"
-                aria-label="Omlaag"
+                aria-label="Move down"
               >
                 ▼
               </button>
@@ -350,7 +340,7 @@ const Admin = () => {
 
             {/* Info */}
             <div className="flex-1 min-w-0">
-              <p className="font-heading text-h4 text-tx-primary truncate">{project.title || 'Zonder titel'}</p>
+              <p className="font-heading text-h4 text-tx-primary truncate">{project.title || 'Untitled'}</p>
               <p className="text-body-sm text-tx-secondary">
                 {project.type} · {project.year} · {project.country}
               </p>
@@ -377,14 +367,31 @@ const Admin = () => {
                 onClick={() => editProject(project)}
                 className="btn btn-ghost btn-sm"
               >
-                Bewerk
+                Edit
               </button>
-              <button
-                onClick={() => deleteProject(project.id)}
-                className="text-body-sm text-state-error hover:text-state-error/80 px-2 py-1"
-              >
-                Verwijder
-              </button>
+              {confirmingDelete === project.id ? (
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => deleteProject(project.id)}
+                    className="text-body-sm text-tx-inverse bg-state-error hover:bg-state-error/80 px-3 py-1 rounded-md"
+                  >
+                    Confirm
+                  </button>
+                  <button
+                    onClick={() => setConfirmingDelete(null)}
+                    className="text-body-sm text-tx-muted hover:text-tx-primary px-2 py-1"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setConfirmingDelete(project.id)}
+                  className="text-body-sm text-state-error hover:text-state-error/80 px-2 py-1"
+                >
+                  Delete
+                </button>
+              )}
             </div>
           </div>
         ))}
@@ -392,7 +399,7 @@ const Admin = () => {
 
       {projects.length === 0 && (
         <div className="text-center py-20">
-          <p className="text-tx-muted text-body">Nog geen projecten. Klik op "+ Nieuw Project" om te beginnen.</p>
+          <p className="text-tx-muted text-body">No projects yet. Click "+ New Project" to get started.</p>
         </div>
       )}
     </div>

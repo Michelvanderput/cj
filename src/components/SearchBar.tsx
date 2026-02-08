@@ -4,7 +4,7 @@ interface SearchBarProps {
   placeholder?: string;
 }
 
-const SearchBar = ({ value, onChange, placeholder = 'Zoek projecten...' }: SearchBarProps) => {
+const SearchBar = ({ value, onChange, placeholder = 'Search projects...' }: SearchBarProps) => {
   return (
     <div className="relative">
       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-tx-muted pointer-events-none">
@@ -21,7 +21,7 @@ const SearchBar = ({ value, onChange, placeholder = 'Zoek projecten...' }: Searc
         <button
           onClick={() => onChange('')}
           className="absolute right-4 top-1/2 -translate-y-1/2 text-tx-muted hover:text-tx-primary transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-main rounded-sm"
-          aria-label="Zoekopdracht wissen"
+          aria-label="Clear search"
         >
           ✕
         </button>

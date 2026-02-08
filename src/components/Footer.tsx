@@ -21,17 +21,19 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-body-sm text-tx-muted max-w-xs">
-              Foley Artist, Sound Designer & Recording Engineer gevestigd in Amsterdam.
+              Foley Artist, Sound Designer & Recording Engineer based in Amsterdam.
             </p>
           </div>
 
           {/* Quick links */}
           <div className="space-y-3">
-            <h4 className="text-h6 uppercase text-tx-muted font-body font-medium">Navigatie</h4>
+            <h4 className="text-h6 uppercase text-tx-muted font-body font-medium">Navigation</h4>
             <ul className="space-y-2">
               {[
-                { to: '/projects', label: 'Projecten' },
-                { to: '/about', label: 'Over' },
+                { to: '/work', label: 'Work' },
+                { to: '/studio', label: 'Studio' },
+                { to: '/projects', label: 'Projects' },
+                { to: '/bio', label: 'Bio' },
                 { to: '/contact', label: 'Contact' },
               ].map(({ to, label }) => (
                 <li key={to}>
@@ -45,14 +47,14 @@ const Footer = () => {
 
           {/* Social */}
           <div className="space-y-3">
-            <h4 className="text-h6 uppercase text-tx-muted font-body font-medium">Verbinden</h4>
+            <h4 className="text-h6 uppercase text-tx-muted font-body font-medium">Connect</h4>
             <SocialLinks size="sm" variant="vertical" />
           </div>
         </div>
 
         <div className="pt-8 border-t border-brd flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-caption text-tx-muted">
-            &copy; {new Date().getFullYear()} Cyril Jansen. Alle rechten voorbehouden.
+            &copy; {new Date().getFullYear()} Cyril Jansen. All rights reserved.
           </p>
         </div>
       </div>
