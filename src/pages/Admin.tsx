@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import type { Project } from '../types';
 import ProjectCard from '../components/ProjectCard';
 import { commitProjectsJson } from '../lib/github';
+import { DISCIPLINES } from '../data/disciplines';
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD ?? 'admin';
 
@@ -11,7 +12,7 @@ const emptyProject = (): Project => ({
   id: crypto.randomUUID().slice(0, 8),
   title: '',
   type: 'Film',
-  tags: [],
+  disciplines: [],
   country: '',
   countryCode: '',
   year: new Date().getFullYear(),
@@ -23,8 +24,7 @@ const Admin = () => {
   const [password, setPassword] = useState('');
   const [projects, setProjects] = useState<Project[]>([]);
   const [editing, setEditing] = useState<Project | null>(null);
-  const [tagInput, setTagInput] = useState('');
-  const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+    const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
   // Load projects from JSON
@@ -60,12 +60,10 @@ const Admin = () => {
   const addProject = () => {
     const p = emptyProject();
     setEditing(p);
-    setTagInput('');
   };
 
   const editProject = (project: Project) => {
     setEditing({ ...project });
-    setTagInput(project.tags.join(', '));
   };
 
   const deleteProject = (id: string) => {
@@ -84,15 +82,18 @@ const Admin = () => {
     });
   };
 
+  const toggleDiscipline = (id: string) => {
+    if (!editing) return;
+    const current = editing.disciplines;
+    const updated = current.includes(id)
+      ? current.filter((d) => d !== id)
+      : [...current, id];
+    setEditing({ ...editing, disciplines: updated });
+  };
+
   const saveEdit = () => {
     if (!editing) return;
-    const updated: Project = {
-      ...editing,
-      tags: tagInput
-        .split(',')
-        .map((t) => t.trim())
-        .filter(Boolean),
-    };
+    const updated: Project = { ...editing };
     setProjects((prev) => {
       const idx = prev.findIndex((p) => p.id === updated.id);
       if (idx >= 0) {
@@ -103,7 +104,6 @@ const Admin = () => {
       return [updated, ...prev];
     });
     setEditing(null);
-    setTagInput('');
   };
 
   const updateField = <K extends keyof Project>(key: K, value: Project[K]) => {
@@ -180,16 +180,26 @@ const Admin = () => {
             </div>
 
             <div>
-              <label className="block text-body-sm font-medium text-tx-secondary mb-1">
-                Tags <span className="text-tx-muted">(komma-gescheiden)</span>
-              </label>
-              <input
-                type="text"
-                value={tagInput}
-                onChange={(e) => setTagInput(e.target.value)}
-                placeholder="Foley, Sound Design, Drama"
-                className="input-field"
-              />
+              <label className="block text-body-sm font-medium text-tx-secondary mb-2">Disciplines *</label>
+              <div className="flex flex-wrap gap-2">
+                {DISCIPLINES.map((d) => {
+                  const isSelected = editing.disciplines.includes(d.id);
+                  return (
+                    <button
+                      key={d.id}
+                      type="button"
+                      onClick={() => toggleDiscipline(d.id)}
+                      className={`px-3 py-1.5 text-body-sm rounded-md border transition-all duration-200 ${
+                        isSelected
+                          ? 'bg-brand-main text-tx-inverse border-brand-main'
+                          : 'bg-surface-elevated text-tx-secondary border-brd hover:border-brd-hover'
+                      }`}
+                    >
+                      {d.label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <div>
@@ -270,10 +280,7 @@ const Admin = () => {
             <p className="text-body-sm font-medium text-tx-secondary mb-4">Live Preview</p>
             <div className="max-w-xs">
               <ProjectCard
-                project={{
-                  ...editing,
-                  tags: tagInput.split(',').map((t) => t.trim()).filter(Boolean),
-                }}
+                project={editing}
               />
             </div>
           </div>
@@ -349,15 +356,18 @@ const Admin = () => {
               </p>
             </div>
 
-            {/* Tags */}
+            {/* Disciplines */}
             <div className="hidden md:flex flex-wrap gap-1 max-w-xs">
-              {project.tags.slice(0, 3).map((tag) => (
-                <span key={tag} className="text-caption px-2 py-0.5 bg-surface-elevated text-tx-secondary rounded border border-brd">
-                  {tag}
-                </span>
-              ))}
-              {project.tags.length > 3 && (
-                <span className="text-caption text-tx-muted">+{project.tags.length - 3}</span>
+              {project.disciplines.slice(0, 3).map((d) => {
+                const disc = DISCIPLINES.find((x) => x.id === d);
+                return (
+                  <span key={d} className="text-caption px-2 py-0.5 bg-surface-elevated text-tx-secondary rounded border border-brd">
+                    {disc?.label ?? d}
+                  </span>
+                );
+              })}
+              {project.disciplines.length > 3 && (
+                <span className="text-caption text-tx-muted">+{project.disciplines.length - 3}</span>
               )}
             </div>
 

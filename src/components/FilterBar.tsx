@@ -1,15 +1,16 @@
 interface FilterBarProps {
   tags: string[];
+  labels?: Record<string, string>;
   selectedTags: string[];
   onTagToggle: (tag: string) => void;
   onClearAll: () => void;
 }
 
-const FilterBar = ({ tags, selectedTags, onTagToggle, onClearAll }: FilterBarProps) => {
+const FilterBar = ({ tags, labels, selectedTags, onTagToggle, onClearAll }: FilterBarProps) => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-body-sm font-medium tracking-wide text-tx-secondary">Filter op tags</h3>
+        <h3 className="text-body-sm font-medium tracking-wide text-tx-secondary">Filter op discipline</h3>
         {selectedTags.length > 0 && (
           <button
             onClick={onClearAll}
@@ -33,7 +34,7 @@ const FilterBar = ({ tags, selectedTags, onTagToggle, onClearAll }: FilterBarPro
                   : 'bg-surface-elevated text-tx-secondary border-brd hover:border-brd-hover hover:text-tx-primary'
               }`}
             >
-              {tag}
+              {labels?.[tag] ?? tag}
             </button>
           );
         })}

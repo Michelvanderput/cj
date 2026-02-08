@@ -2,7 +2,7 @@ export interface Project {
   id: string;
   title: string;
   type: 'Film' | 'Serie' | 'Commercial' | 'Documentary' | 'Short';
-  tags: string[];
+  disciplines: string[];
   country: string;
   countryCode: string;
   imdbUrl?: string;

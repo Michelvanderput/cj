@@ -4,7 +4,7 @@ import { projects as fallbackProjects } from '../data/projects';
 
 interface UseProjectsReturn {
   projects: Project[];
-  allTags: string[];
+  allDisciplines: string[];
   loading: boolean;
 }
 
@@ -43,9 +43,9 @@ const useProjects = (): UseProjectsReturn => {
     return () => { cancelled = true; };
   }, []);
 
-  const allTags = Array.from(new Set(projects.flatMap((p) => p.tags))).sort();
+  const allDisciplines = Array.from(new Set(projects.flatMap((p) => p.disciplines))).sort();
 
-  return { projects, allTags, loading };
+  return { projects, allDisciplines, loading };
 };
 
 export default useProjects;

@@ -1,5 +1,6 @@
 import useScrollReveal from '../hooks/useScrollReveal';
 import OptimizedImage from '../components/OptimizedImage';
+import { DISCIPLINES } from '../data/disciplines';
 
 const About = () => {
   const contentRef = useScrollReveal<HTMLDivElement>({ y: 24, stagger: 0.1, children: true, duration: 0.7 });
@@ -70,6 +71,23 @@ const About = () => {
           </div>
         </div>
 
+        {/* Disciplines */}
+        <div className="pt-10 border-t border-brd">
+          <h2 className="text-h3 text-tx-primary mb-8">Wat ik doe</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {DISCIPLINES.map((d) => (
+              <div
+                key={d.id}
+                className="p-6 bg-surface-card border border-brd rounded-lg transition-all duration-225 hover:border-brd-hover hover:shadow-card"
+              >
+                <h3 className="font-heading text-h4 text-brand-main mb-3">{d.label}</h3>
+                <p className="text-body-sm text-tx-secondary leading-relaxed">{d.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Studio */}
         <div className="pt-10 border-t border-brd">
           <h2 className="text-h3 text-tx-primary mb-4">Studio</h2>
           <p className="text-body text-tx-secondary">

@@ -3,13 +3,14 @@ import { gsap } from '../lib/gsap';
 import ProjectCard from '../components/ProjectCard';
 import SearchBar from '../components/SearchBar';
 import FilterBar from '../components/FilterBar';
+import { DISCIPLINES } from '../data/disciplines';
 import useProjects from '../hooks/useProjects';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useReducedMotion from '../hooks/useReducedMotion';
 import useDebouncedValue from '../hooks/useDebouncedValue';
 
 const Projects = () => {
-  const { projects, allTags } = useProjects();
+  const { projects } = useProjects();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -53,7 +54,7 @@ const Projects = () => {
 
       const matchesTags =
         selectedTags.length === 0 ||
-        selectedTags.some((tag) => project.tags.includes(tag));
+        selectedTags.some((tag) => project.disciplines.includes(tag));
 
       return matchesSearch && matchesTags;
     });
@@ -82,7 +83,8 @@ const Projects = () => {
           />
 
           <FilterBar
-            tags={allTags}
+            tags={DISCIPLINES.map((d) => d.id)}
+            labels={Object.fromEntries(DISCIPLINES.map((d) => [d.id, d.label]))}
             selectedTags={selectedTags}
             onTagToggle={handleTagToggle}
             onClearAll={handleClearTags}
