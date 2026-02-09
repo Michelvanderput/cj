@@ -30,16 +30,27 @@ const useScrollReveal = <T extends HTMLElement>(options: ScrollRevealOptions = {
     scale,
   } = options;
 
+  // Mark element with data-reveal so CSS hides it before JS runs (no flash)
   useEffect(() => {
-    if (!ref.current) return;
-    if (prefersReduced) return;
+    if (!ref.current || prefersReduced) return;
+
+    const el = ref.current;
+    if (children) {
+      Array.from(el.children).forEach((child) =>
+        (child as HTMLElement).setAttribute('data-reveal', '')
+      );
+    } else {
+      el.setAttribute('data-reveal', '');
+    }
+  }, [children, prefersReduced]);
+
+  useEffect(() => {
+    if (!ref.current || prefersReduced) return;
 
     const targets = children
       ? Array.from(ref.current.children)
       : [ref.current];
 
-    // Use gsap.to instead of gsap.from — set hidden state first, then animate to visible.
-    // This avoids the flash-of-invisible race condition entirely.
     const fromState: gsap.TweenVars = { opacity: 0, y, x };
     if (scale !== undefined) fromState.scale = scale;
 
@@ -66,6 +77,7 @@ const useScrollReveal = <T extends HTMLElement>(options: ScrollRevealOptions = {
     return () => {
       ctx.revert();
       // Ensure elements are visible after cleanup (route change)
+      targets.forEach((t) => (t as HTMLElement).removeAttribute('data-reveal'));
       gsap.set(targets, { clearProps: 'all' });
     };
   }, [y, x, duration, stagger, delay, ease, start, children, scale, prefersReduced]);

@@ -79,8 +79,16 @@
            focus:rounded-md focus:text-body-sm focus:font-medium focus:shadow-elevated;
   }
 
+  /* ── Scroll-reveal: hide before GSAP init to prevent flash ────────── */
+  [data-reveal] {
+    opacity: 0;
+  }
+
   /* ── Reduced motion ─────────────────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+    }
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;

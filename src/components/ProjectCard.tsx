@@ -65,9 +65,16 @@ const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
       <div className="space-y-2">
         <div className="flex items-start justify-between gap-2">
           <h3 className="font-heading text-h4 text-tx-primary leading-tight group-hover:text-brand-main transition-colors duration-200">{title}</h3>
-          <span className="text-2xl flex-shrink-0" title={country}>
-            {getFlagEmoji(countryCode)}
-          </span>
+          <img
+            src={`https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`}
+            srcSet={`https://flagcdn.com/w80/${countryCode.toLowerCase()}.png 2x`}
+            width="20"
+            height="15"
+            alt={country}
+            title={country}
+            className="flex-shrink-0 rounded-sm"
+            loading="lazy"
+          />
         </div>
         
         <div className="flex items-center gap-2 text-body-sm text-tx-secondary">
@@ -92,14 +99,6 @@ const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
       </div>
     </article>
   );
-};
-
-const getFlagEmoji = (countryCode: string): string => {
-  const codePoints = countryCode
-    .toUpperCase()
-    .split('')
-    .map((char) => 127397 + char.charCodeAt(0));
-  return String.fromCodePoint(...codePoints);
 };
 
 export default ProjectCard;
