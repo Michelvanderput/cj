@@ -4,10 +4,10 @@ import OptimizedImage from '../components/OptimizedImage';
 import { DISCIPLINES } from '../data/disciplines';
 
 const WORK_PHOTOS = [
-  { src: '/img/work/work-1.jpg', alt: 'On set recording' },
-  { src: '/img/work/work-2.jpg', alt: 'Studio session' },
-  { src: '/img/work/work-3.jpg', alt: 'Foley stage' },
-  { src: '/img/work/work-4.jpg', alt: 'Mixing console' },
+  { src: '/img/CAT_WORK/CJ_POSTA_Schoenen.png', alt: 'On set recording' },
+  { src: '/img/CAT_WORK/AAPTOPAAP.jpeg', alt: 'Studio session' },
+  { src: '/img/CAT_WORK/THE_DAM_SET_02.JPG', alt: 'Foley stage' },
+  { src: '/img/CAT_WORK/THE_DAM_SET_03.jpg', alt: 'Mixing console' },
   { src: '/img/work/work-5.jpg', alt: 'Field recording' },
   { src: '/img/work/work-6.jpg', alt: 'Sound design setup' },
 ];

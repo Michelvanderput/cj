@@ -2,7 +2,7 @@ import useScrollReveal from '../hooks/useScrollReveal';
 import OptimizedImage from '../components/OptimizedImage';
 
 const STUDIO_PHOTOS = [
-  { src: '/img/studio/studio-1.jpg', alt: 'Recording room' },
+  { src: '/img/CAT_STUDIO/CJ_2025_Studio_TEMP.jpg', alt: 'Recording room' },
   { src: '/img/studio/studio-2.jpg', alt: 'Mixing desk' },
   { src: '/img/studio/studio-3.jpg', alt: 'Foley pit' },
   { src: '/img/studio/studio-4.jpg', alt: 'Microphone collection' },
@@ -29,7 +29,7 @@ const Studio = () => {
       <section className="mb-12 md:mb-16">
         <div className="aspect-[21/9] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative">
           <OptimizedImage
-            src="/img/studio/studio-hero.jpg"
+            src="/img/CAT_STUDIO/CJ_2024_Desk_TEMP.jpg"
             alt="Cyril Jansen Studio — Amsterdam"
             className="absolute inset-0 w-full h-full object-cover"
             fallback={

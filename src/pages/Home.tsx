@@ -59,7 +59,7 @@ const Home = () => {
           </div>
           <div data-hero-photo className="aspect-[4/3] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative">
             <OptimizedImage
-              src="/img/hero.jpg"
+              src="/img/CAT_HOME/CJ_STUART_WIZARD.jpg"
               alt="Cyril Jansen at work"
               className="absolute inset-0 w-full h-full object-cover"
               fallback={
@@ -79,7 +79,7 @@ const Home = () => {
           <Link to="/work" className="group block">
             <div className="aspect-[16/10] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative mb-5 transition-all duration-225 group-hover:border-brd-hover group-hover:shadow-card">
               <OptimizedImage
-                src="/img/work/work-1.jpg"
+                src="/img/CAT_WORK/CJ_POSTA_Schoenen.png"
                 alt="Work"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 fallback={

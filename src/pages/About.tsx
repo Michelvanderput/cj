@@ -14,7 +14,7 @@ const Bio = () => {
           <div className="order-first md:order-last md:col-span-2">
             <div className="aspect-[3/4] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative">
               <OptimizedImage
-                src="/img/about.jpg"
+                src="/img/CAT_BIO/CJ_STUART_SELFIE.jpg"
                 alt="Cyril Jansen"
                 className="absolute inset-0 w-full h-full object-cover"
                 fallback={
