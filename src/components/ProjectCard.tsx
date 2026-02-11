@@ -8,7 +8,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
-  const { title, type, credits, country, countryCode, imdbUrl, year, posterUrl } = project;
+  const { title, type, credits = [], country, countryCode, imdbUrl, year, posterUrl } = project;
 
   const posterFallback = (
     <div className="absolute inset-0 flex items-center justify-center text-tx-muted">

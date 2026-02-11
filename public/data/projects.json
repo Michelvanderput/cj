@@ -3,8 +3,8 @@
     "id": "ef7bdd7b",
     "title": "Test",
     "type": "Film",
-    "disciplines": [
-      "foley"
+    "credits": [
+      "foley-artist"
     ],
     "country": "Netherlands",
     "countryCode": "NL",
@@ -14,8 +14,8 @@
     "id": "9fa97547",
     "title": "Casting Call",
     "type": "Film",
-    "disciplines": [
-      "foley"
+    "credits": [
+      "foley-artist"
     ],
     "country": "Netherlands",
     "countryCode": "NL",

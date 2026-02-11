@@ -45,7 +45,7 @@ const Projects = () => {
       return (
         selectedTags.length === 0 ||
         selectedTags.some((headId) =>
-          getSubCreditIds(headId).some((subId) => project.credits.includes(subId))
+          getSubCreditIds(headId).some((subId) => (project.credits ?? []).includes(subId))
         )
       );
     });
