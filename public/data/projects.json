@@ -11,7 +11,17 @@
     ],
     "country": "Netherlands",
     "countryCode": "NL",
-    "year": 2026
+    "year": 2026,
+    "countries": [
+      {
+        "name": "Netherlands",
+        "code": "NL"
+      },
+      {
+        "name": "Belgium",
+        "code": "BE"
+      }
+    ]
   },
   {
     "id": "ef7bdd7b",
@@ -20,7 +30,12 @@
     "credits": [
       "foley-artist"
     ],
-    "countries": [{ "name": "Netherlands", "code": "NL" }],
+    "countries": [
+      {
+        "name": "Netherlands",
+        "code": "NL"
+      }
+    ],
     "year": 2020
   },
   {
@@ -30,7 +45,12 @@
     "credits": [
       "foley-artist"
     ],
-    "countries": [{ "name": "Netherlands", "code": "NL" }],
+    "countries": [
+      {
+        "name": "Netherlands",
+        "code": "NL"
+      }
+    ],
     "year": 2023
   }
 ]
