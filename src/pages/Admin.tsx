@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import type { Project } from '../types';
 import ProjectCard from '../components/ProjectCard';
 import { commitProjectsJson } from '../lib/github';
-import { DISCIPLINES } from '../data/disciplines';
+import { CREDITS, SUB_CREDIT_LABELS } from '../data/disciplines';
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD ?? 'admin';
 
@@ -12,7 +12,7 @@ const emptyProject = (): Project => ({
   id: crypto.randomUUID().slice(0, 8),
   title: '',
   type: 'Film',
-  disciplines: [],
+  credits: [],
   country: '',
   countryCode: '',
   year: new Date().getFullYear(),
@@ -83,13 +83,13 @@ const Admin = () => {
     });
   };
 
-  const toggleDiscipline = (id: string) => {
+  const toggleCredit = (id: string) => {
     if (!editing) return;
-    const current = editing.disciplines;
+    const current = editing.credits;
     const updated = current.includes(id)
-      ? current.filter((d) => d !== id)
+      ? current.filter((c) => c !== id)
       : [...current, id];
-    setEditing({ ...editing, disciplines: updated });
+    setEditing({ ...editing, credits: updated });
   };
 
   const saveEdit = () => {
@@ -181,25 +181,32 @@ const Admin = () => {
             </div>
 
             <div>
-              <label className="block text-body-sm font-medium text-tx-secondary mb-2">Disciplines *</label>
-              <div className="flex flex-wrap gap-2">
-                {DISCIPLINES.map((d) => {
-                  const isSelected = editing.disciplines.includes(d.id);
-                  return (
-                    <button
-                      key={d.id}
-                      type="button"
-                      onClick={() => toggleDiscipline(d.id)}
-                      className={`px-3 py-1.5 text-body-sm rounded-md border transition-all duration-200 ${
-                        isSelected
-                          ? 'bg-brand-main text-tx-inverse border-brand-main'
-                          : 'bg-surface-elevated text-tx-secondary border-brd hover:border-brd-hover'
-                      }`}
-                    >
-                      {d.label}
-                    </button>
-                  );
-                })}
+              <label className="block text-body-sm font-medium text-tx-secondary mb-2">Credits *</label>
+              <div className="space-y-3">
+                {CREDITS.map((cat) => (
+                  <div key={cat.id}>
+                    <p className="text-caption font-medium text-tx-muted mb-1.5">{cat.label}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {cat.subCredits.map((sc) => {
+                        const isSelected = editing.credits.includes(sc.id);
+                        return (
+                          <button
+                            key={sc.id}
+                            type="button"
+                            onClick={() => toggleCredit(sc.id)}
+                            className={`px-3 py-1.5 text-body-sm rounded-md border transition-all duration-200 ${
+                              isSelected
+                                ? 'bg-brand-main text-tx-inverse border-brand-main'
+                                : 'bg-surface-elevated text-tx-secondary border-brd hover:border-brd-hover'
+                            }`}
+                          >
+                            {sc.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -346,18 +353,15 @@ const Admin = () => {
               </p>
             </div>
 
-            {/* Disciplines */}
+            {/* Credits */}
             <div className="hidden md:flex flex-wrap gap-1 max-w-xs">
-              {project.disciplines.slice(0, 3).map((d) => {
-                const disc = DISCIPLINES.find((x) => x.id === d);
-                return (
-                  <span key={d} className="text-caption px-2 py-0.5 bg-surface-elevated text-tx-secondary rounded border border-brd">
-                    {disc?.label ?? d}
-                  </span>
-                );
-              })}
-              {project.disciplines.length > 3 && (
-                <span className="text-caption text-tx-muted">+{project.disciplines.length - 3}</span>
+              {project.credits.slice(0, 3).map((c) => (
+                <span key={c} className="text-caption px-2 py-0.5 bg-surface-elevated text-tx-secondary rounded border border-brd">
+                  {SUB_CREDIT_LABELS[c] ?? c}
+                </span>
+              ))}
+              {project.credits.length > 3 && (
+                <span className="text-caption text-tx-muted">+{project.credits.length - 3}</span>
               )}
             </div>
 

@@ -1,6 +1,6 @@
 import type { Project } from '../types';
 import OptimizedImage from './OptimizedImage';
-import { DISCIPLINES } from '../data/disciplines';
+import { SUB_CREDIT_LABELS } from '../data/disciplines';
 
 interface ProjectCardProps {
   project: Project;
@@ -8,7 +8,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
-  const { title, type, disciplines, country, countryCode, imdbUrl, year, posterUrl } = project;
+  const { title, type, credits, country, countryCode, imdbUrl, year, posterUrl } = project;
 
   const posterFallback = (
     <div className="absolute inset-0 flex items-center justify-center text-tx-muted">
@@ -84,17 +84,14 @@ const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
         </div>
         
         <div className="flex flex-wrap gap-1.5 pt-1">
-          {disciplines.map((d) => {
-            const disc = DISCIPLINES.find((x) => x.id === d);
-            return (
-              <span
-                key={d}
-                className="text-caption px-2 py-1 bg-surface-elevated text-tx-secondary rounded border border-brd"
-              >
-                {disc?.label ?? d}
-              </span>
-            );
-          })}
+          {credits.map((c) => (
+            <span
+              key={c}
+              className="text-caption px-2 py-1 bg-surface-elevated text-tx-secondary rounded border border-brd"
+            >
+              {SUB_CREDIT_LABELS[c] ?? c}
+            </span>
+          ))}
         </div>
       </div>
     </article>

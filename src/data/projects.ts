@@ -9,9 +9,9 @@ import type { Project } from '../types';
 //   id: '9',                              ← unique number (increment from last)
 //   title: 'Project Name',               ← title on the card
 //   type: 'Film',                         ← Film | Serie | Documentary | Short | Commercial
-//   disciplines: ['foley', 'sound-design'], ← choose from: foley, sound-design, recording, mixing, adr, field-recording
+//   credits: ['foley-artist', 'sound-designer'], ← sub-credit IDs from credits.ts
 //   country: 'Netherlands',               ← full country name
-//   countryCode: 'NL',                    ← 2-letter ISO code (shows flag emoji)
+//   countryCode: 'NL',                    ← 2-letter ISO code (shows flag)
 //   posterUrl: '/img/posters/name.jpg',   ← optional, image in public/img/posters/
 //   imdbUrl: 'https://www.imdb.com/...',  ← optional, remove line if none
 //   year: 2025,                           ← year of release
@@ -23,7 +23,7 @@ export const projects: Project[] = [
     id: '1',
     title: 'The Silent Echo',
     type: 'Film',
-    disciplines: ['foley', 'sound-design'],
+    credits: ['foley-artist', 'sound-designer'],
     country: 'Netherlands',
     countryCode: 'NL',
     imdbUrl: 'https://www.imdb.com',
@@ -33,7 +33,7 @@ export const projects: Project[] = [
     id: '2',
     title: 'Midnight Chronicles',
     type: 'Serie',
-    disciplines: ['recording', 'adr'],
+    credits: ['adr-recordist', 'adr-editor'],
     country: 'United Kingdom',
     countryCode: 'GB',
     imdbUrl: 'https://www.imdb.com',
@@ -43,7 +43,7 @@ export const projects: Project[] = [
     id: '3',
     title: 'Urban Pulse',
     type: 'Commercial',
-    disciplines: ['sound-design', 'mixing'],
+    credits: ['sound-designer'],
     country: 'Germany',
     countryCode: 'DE',
     year: 2024,
@@ -52,7 +52,7 @@ export const projects: Project[] = [
     id: '4',
     title: 'Shadows of Tomorrow',
     type: 'Film',
-    disciplines: ['foley', 'sound-design'],
+    credits: ['foley-artist', 'foley-recordist', 'sound-designer'],
     country: 'United States',
     countryCode: 'US',
     imdbUrl: 'https://www.imdb.com',
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     id: '5',
     title: 'Northern Lights',
     type: 'Documentary',
-    disciplines: ['recording', 'field-recording'],
+    credits: ['set-recordist', 'ad-recordist'],
     country: 'Norway',
     countryCode: 'NO',
     year: 2024,
@@ -71,7 +71,7 @@ export const projects: Project[] = [
     id: '6',
     title: 'The Last Frame',
     type: 'Short',
-    disciplines: ['foley', 'sound-design'],
+    credits: ['foley-artist', 'sound-designer'],
     country: 'France',
     countryCode: 'FR',
     imdbUrl: 'https://www.imdb.com',
@@ -81,7 +81,7 @@ export const projects: Project[] = [
     id: '7',
     title: 'Crimson Tide',
     type: 'Serie',
-    disciplines: ['sound-design', 'mixing'],
+    credits: ['dubbing-engineer'],
     country: 'Belgium',
     countryCode: 'BE',
     imdbUrl: 'https://www.imdb.com',
@@ -91,15 +91,15 @@ export const projects: Project[] = [
     id: '8',
     title: 'Velocity',
     type: 'Commercial',
-    disciplines: ['sound-design'],
+    credits: ['sound-designer'],
     country: 'Netherlands',
     countryCode: 'NL',
     year: 2024,
   },
 ];
 
-export const allDisciplines = Array.from(
-  new Set(projects.flatMap((p) => p.disciplines))
+export const allCredits = Array.from(
+  new Set(projects.flatMap((p) => p.credits))
 ).sort();
 
 export const allTypes = Array.from(

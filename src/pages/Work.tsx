@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import useScrollReveal from '../hooks/useScrollReveal';
 import OptimizedImage from '../components/OptimizedImage';
-import { DISCIPLINES } from '../data/disciplines';
+import { CREDITS } from '../data/disciplines';
 
 const WORK_PHOTOS = [
   { src: '/img/CAT_WORK/CJ_POSTA_Schoenen.png', alt: 'On set recording' },
@@ -14,7 +14,7 @@ const WORK_PHOTOS = [
 
 const Work = () => {
   const headerRef = useScrollReveal<HTMLDivElement>({ y: 24, duration: 0.6 });
-  const servicesRef = useScrollReveal<HTMLDivElement>({ y: 30, stagger: 0.08, children: true, duration: 0.7 });
+  const creditsRef = useScrollReveal<HTMLDivElement>({ y: 30, stagger: 0.08, children: true, duration: 0.7 });
   const photosRef = useScrollReveal<HTMLDivElement>({ y: 30, stagger: 0.06, children: true, duration: 0.7 });
 
   return (
@@ -28,17 +28,23 @@ const Work = () => {
         </p>
       </div>
 
-      {/* Services / Disciplines */}
+      {/* Credits */}
       <section className="mb-16 md:mb-24">
-        <h2 className="text-h3 text-tx-primary mb-8">What I Do</h2>
-        <div ref={servicesRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {DISCIPLINES.map((d) => (
+        <h2 className="text-h3 text-tx-primary mb-8">Credits</h2>
+        <div ref={creditsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {CREDITS.map((cat) => (
             <div
-              key={d.id}
+              key={cat.id}
               className="p-6 bg-surface-card border border-brd rounded-lg transition-all duration-225 hover:border-brd-hover hover:shadow-card"
             >
-              <h3 className="font-heading text-h4 text-brand-main mb-3">{d.label}</h3>
-              <p className="text-body-sm text-tx-secondary leading-relaxed">{d.description}</p>
+              <h3 className="font-heading text-h4 text-brand-main mb-3">{cat.label}</h3>
+              <ul className="space-y-1">
+                {cat.subCredits.map((sc) => (
+                  <li key={sc.id} className="text-body-sm text-tx-secondary leading-relaxed">
+                    {sc.label}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>

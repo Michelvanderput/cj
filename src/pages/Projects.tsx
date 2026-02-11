@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { gsap } from '../lib/gsap';
 import ProjectCard from '../components/ProjectCard';
 import FilterBar from '../components/FilterBar';
-import { DISCIPLINES } from '../data/disciplines';
+import { CREDITS, CREDIT_HEAD_LABELS, getSubCreditIds } from '../data/disciplines';
 import useProjects from '../hooks/useProjects';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useReducedMotion from '../hooks/useReducedMotion';
@@ -44,7 +44,9 @@ const Projects = () => {
     return projects.filter((project) => {
       return (
         selectedTags.length === 0 ||
-        selectedTags.some((tag) => project.disciplines.includes(tag))
+        selectedTags.some((headId) =>
+          getSubCreditIds(headId).some((subId) => project.credits.includes(subId))
+        )
       );
     });
   }, [projects, selectedTags]);
@@ -65,8 +67,8 @@ const Projects = () => {
         <h1 className="text-h1 text-brand-main mb-8">Projects</h1>
 
         <FilterBar
-          tags={DISCIPLINES.map((d) => d.id)}
-          labels={Object.fromEntries(DISCIPLINES.map((d) => [d.id, d.label]))}
+          tags={CREDITS.map((c) => c.id)}
+          labels={CREDIT_HEAD_LABELS}
           selectedTags={selectedTags}
           onTagToggle={handleTagToggle}
           onClearAll={handleClearTags}
