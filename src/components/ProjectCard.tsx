@@ -8,7 +8,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
-  const { title, type, credits = [], country, countryCode, imdbUrl, year, posterUrl } = project;
+  const { title, type, credits = [], countries = [], imdbUrl, year, posterUrl } = project;
 
   const posterFallback = (
     <div className="absolute inset-0 flex items-center justify-center text-tx-muted">
@@ -65,16 +65,21 @@ const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
       <div className="space-y-2">
         <div className="flex items-start justify-between gap-2">
           <h3 className="font-heading text-h4 text-tx-primary leading-tight group-hover:text-brand-main transition-colors duration-200">{title}</h3>
-          <img
-            src={`https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`}
-            srcSet={`https://flagcdn.com/w80/${countryCode.toLowerCase()}.png 2x`}
-            width="20"
-            height="15"
-            alt={country}
-            title={country}
-            className="flex-shrink-0 rounded-sm"
-            loading="lazy"
-          />
+          <div className="flex items-center gap-1 flex-shrink-0">
+            {countries.map((c) => (
+              <img
+                key={c.code}
+                src={`https://flagcdn.com/w40/${c.code.toLowerCase()}.png`}
+                srcSet={`https://flagcdn.com/w80/${c.code.toLowerCase()}.png 2x`}
+                width="20"
+                height="15"
+                alt={c.name}
+                title={c.name}
+                className="rounded-sm"
+                loading="lazy"
+              />
+            ))}
+          </div>
         </div>
         
         <div className="flex items-center gap-2 text-body-sm text-tx-secondary">

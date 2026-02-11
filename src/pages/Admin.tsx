@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { Project } from '../types';
+import type { Project, CountryEntry } from '../types';
 import ProjectCard from '../components/ProjectCard';
 import { commitProjectsJson } from '../lib/github';
 import { CREDITS, SUB_CREDIT_LABELS } from '../data/disciplines';
@@ -13,8 +13,7 @@ const emptyProject = (): Project => ({
   title: '',
   type: 'Film',
   credits: [],
-  country: '',
-  countryCode: '',
+  countries: [],
   year: new Date().getFullYear(),
 });
 
@@ -26,6 +25,8 @@ const Admin = () => {
   const [confirmingDelete, setConfirmingDelete] = useState<string | null>(null);
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [newCountryName, setNewCountryName] = useState('');
+  const [newCountryCode, setNewCountryCode] = useState('');
 
   // Load projects from JSON
   useEffect(() => {
@@ -210,29 +211,65 @@ const Admin = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-body-sm font-medium text-tx-secondary mb-1">Country *</label>
-                <input
-                  type="text"
-                  value={editing.country}
-                  onChange={(e) => updateField('country', e.target.value)}
-                  placeholder="Netherlands"
-                  className="input-field"
-                />
+            <div>
+              <label className="block text-body-sm font-medium text-tx-secondary mb-2">Countries *</label>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {(editing.countries ?? []).map((c: CountryEntry, i: number) => (
+                  <span
+                    key={`${c.code}-${i}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-body-sm bg-surface-elevated text-tx-secondary rounded-md border border-brd"
+                  >
+                    <img
+                      src={`https://flagcdn.com/w40/${c.code.toLowerCase()}.png`}
+                      width="16"
+                      height="12"
+                      alt={c.name}
+                      className="rounded-sm"
+                    />
+                    {c.name}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const updated = editing.countries.filter((_: CountryEntry, idx: number) => idx !== i);
+                        setEditing({ ...editing, countries: updated });
+                      }}
+                      className="text-tx-muted hover:text-state-error ml-1"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
               </div>
-              <div>
-                <label className="block text-body-sm font-medium text-tx-secondary mb-1">
-                  Country code * <span className="text-tx-muted">(2 letters)</span>
-                </label>
+              <div className="flex gap-2">
                 <input
                   type="text"
-                  value={editing.countryCode}
-                  onChange={(e) => updateField('countryCode', e.target.value.toUpperCase().slice(0, 2))}
+                  value={newCountryName}
+                  onChange={(e) => setNewCountryName(e.target.value)}
+                  placeholder="Netherlands"
+                  className="input-field flex-1"
+                />
+                <input
+                  type="text"
+                  value={newCountryCode}
+                  onChange={(e) => setNewCountryCode(e.target.value.toUpperCase().slice(0, 2))}
                   placeholder="NL"
                   maxLength={2}
-                  className="input-field"
+                  className="input-field w-20"
                 />
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (newCountryName.trim() && newCountryCode.trim().length === 2) {
+                      const entry: CountryEntry = { name: newCountryName.trim(), code: newCountryCode.trim() };
+                      setEditing({ ...editing, countries: [...(editing.countries ?? []), entry] });
+                      setNewCountryName('');
+                      setNewCountryCode('');
+                    }
+                  }}
+                  className="btn btn-ghost btn-md"
+                >
+                  + Add
+                </button>
               </div>
             </div>
 
@@ -349,7 +386,7 @@ const Admin = () => {
             <div className="flex-1 min-w-0">
               <p className="font-heading text-h4 text-tx-primary truncate">{project.title || 'Untitled'}</p>
               <p className="text-body-sm text-tx-secondary">
-                {project.type} · {project.year} · {project.country}
+                {project.type} · {project.year} · {(project.countries ?? []).map((c: CountryEntry) => c.name).join(', ')}
               </p>
             </div>
 

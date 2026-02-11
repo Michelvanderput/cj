@@ -1,10 +1,14 @@
+export interface CountryEntry {
+  name: string;
+  code: string;
+}
+
 export interface Project {
   id: string;
   title: string;
   type: 'Film' | 'Serie' | 'Commercial' | 'Documentary' | 'Short';
   credits: string[];
-  country: string;
-  countryCode: string;
+  countries: CountryEntry[];
   imdbUrl?: string;
   year: number;
   posterUrl?: string;

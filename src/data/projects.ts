@@ -9,9 +9,8 @@ import type { Project } from '../types';
 //   id: '9',                              ← unique number (increment from last)
 //   title: 'Project Name',               ← title on the card
 //   type: 'Film',                         ← Film | Serie | Documentary | Short | Commercial
-//   credits: ['foley-artist', 'sound-designer'], ← sub-credit IDs from credits.ts
-//   country: 'Netherlands',               ← full country name
-//   countryCode: 'NL',                    ← 2-letter ISO code (shows flag)
+//   credits: ['foley-artist', 'sound-designer'], ← sub-credit IDs from disciplines.ts
+//   countries: [{ name: 'Netherlands', code: 'NL' }], ← array of {name, code} objects
 //   posterUrl: '/img/posters/name.jpg',   ← optional, image in public/img/posters/
 //   imdbUrl: 'https://www.imdb.com/...',  ← optional, remove line if none
 //   year: 2025,                           ← year of release
@@ -24,8 +23,7 @@ export const projects: Project[] = [
     title: 'The Silent Echo',
     type: 'Film',
     credits: ['foley-artist', 'sound-designer'],
-    country: 'Netherlands',
-    countryCode: 'NL',
+    countries: [{ name: 'Netherlands', code: 'NL' }],
     imdbUrl: 'https://www.imdb.com',
     year: 2024,
   },
@@ -34,8 +32,7 @@ export const projects: Project[] = [
     title: 'Midnight Chronicles',
     type: 'Serie',
     credits: ['adr-recordist', 'adr-editor'],
-    country: 'United Kingdom',
-    countryCode: 'GB',
+    countries: [{ name: 'United Kingdom', code: 'GB' }],
     imdbUrl: 'https://www.imdb.com',
     year: 2023,
   },
@@ -44,8 +41,7 @@ export const projects: Project[] = [
     title: 'Urban Pulse',
     type: 'Commercial',
     credits: ['sound-designer'],
-    country: 'Germany',
-    countryCode: 'DE',
+    countries: [{ name: 'Germany', code: 'DE' }],
     year: 2024,
   },
   {
@@ -53,8 +49,7 @@ export const projects: Project[] = [
     title: 'Shadows of Tomorrow',
     type: 'Film',
     credits: ['foley-artist', 'foley-recordist', 'sound-designer'],
-    country: 'United States',
-    countryCode: 'US',
+    countries: [{ name: 'United States', code: 'US' }, { name: 'Netherlands', code: 'NL' }],
     imdbUrl: 'https://www.imdb.com',
     year: 2023,
   },
@@ -63,8 +58,7 @@ export const projects: Project[] = [
     title: 'Northern Lights',
     type: 'Documentary',
     credits: ['set-recordist', 'ad-recordist'],
-    country: 'Norway',
-    countryCode: 'NO',
+    countries: [{ name: 'Norway', code: 'NO' }],
     year: 2024,
   },
   {
@@ -72,8 +66,7 @@ export const projects: Project[] = [
     title: 'The Last Frame',
     type: 'Short',
     credits: ['foley-artist', 'sound-designer'],
-    country: 'France',
-    countryCode: 'FR',
+    countries: [{ name: 'France', code: 'FR' }],
     imdbUrl: 'https://www.imdb.com',
     year: 2023,
   },
@@ -82,8 +75,7 @@ export const projects: Project[] = [
     title: 'Crimson Tide',
     type: 'Serie',
     credits: ['dubbing-engineer'],
-    country: 'Belgium',
-    countryCode: 'BE',
+    countries: [{ name: 'Belgium', code: 'BE' }],
     imdbUrl: 'https://www.imdb.com',
     year: 2024,
   },
@@ -92,8 +84,7 @@ export const projects: Project[] = [
     title: 'Velocity',
     type: 'Commercial',
     credits: ['sound-designer'],
-    country: 'Netherlands',
-    countryCode: 'NL',
+    countries: [{ name: 'Netherlands', code: 'NL' }],
     year: 2024,
   },
 ];

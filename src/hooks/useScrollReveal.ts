@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { gsap } from '../lib/gsap';
 import useReducedMotion from './useReducedMotion';
 
@@ -30,8 +30,8 @@ const useScrollReveal = <T extends HTMLElement>(options: ScrollRevealOptions = {
     scale,
   } = options;
 
-  // Mark element with data-reveal so CSS hides it before JS runs (no flash)
-  useEffect(() => {
+  // Synchronously hide elements before first paint
+  useLayoutEffect(() => {
     if (!ref.current || prefersReduced) return;
 
     const el = ref.current;
@@ -44,6 +44,7 @@ const useScrollReveal = <T extends HTMLElement>(options: ScrollRevealOptions = {
     }
   }, [children, prefersReduced]);
 
+  // GSAP takes over after layout: set initial state, remove data-reveal, animate
   useEffect(() => {
     if (!ref.current || prefersReduced) return;
 
@@ -51,10 +52,15 @@ const useScrollReveal = <T extends HTMLElement>(options: ScrollRevealOptions = {
       ? Array.from(ref.current.children)
       : [ref.current];
 
+    // 1. CSS hides via [data-reveal] { opacity: 0 } — already applied by useLayoutEffect below
+    // 2. GSAP takes over: set initial state, then remove data-reveal so only GSAP controls opacity
     const fromState: gsap.TweenVars = { opacity: 0, y, x };
     if (scale !== undefined) fromState.scale = scale;
 
     gsap.set(targets, fromState);
+
+    // Remove data-reveal now that GSAP owns the inline styles
+    targets.forEach((t) => (t as HTMLElement).removeAttribute('data-reveal'));
 
     const ctx = gsap.context(() => {
       gsap.to(targets, {
@@ -76,8 +82,6 @@ const useScrollReveal = <T extends HTMLElement>(options: ScrollRevealOptions = {
 
     return () => {
       ctx.revert();
-      // Ensure elements are visible after cleanup (route change)
-      targets.forEach((t) => (t as HTMLElement).removeAttribute('data-reveal'));
       gsap.set(targets, { clearProps: 'all' });
     };
   }, [y, x, duration, stagger, delay, ease, start, children, scale, prefersReduced]);

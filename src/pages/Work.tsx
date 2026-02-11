@@ -14,7 +14,7 @@ const WORK_PHOTOS = [
 
 const Work = () => {
   const headerRef = useScrollReveal<HTMLDivElement>({ y: 24, duration: 0.6 });
-  const creditsRef = useScrollReveal<HTMLDivElement>({ y: 30, stagger: 0.08, children: true, duration: 0.7 });
+  const creditsRef = useScrollReveal<HTMLDivElement>({ y: 20, stagger: 0.04, children: true, duration: 0.5 });
   const photosRef = useScrollReveal<HTMLDivElement>({ y: 30, stagger: 0.06, children: true, duration: 0.7 });
 
   return (
