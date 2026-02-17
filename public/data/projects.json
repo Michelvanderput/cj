@@ -1,5 +1,22 @@
 [
   {
+    "id": "48574634",
+    "title": "The Spencer Sisters - Season 1",
+    "type": "Serie",
+    "credits": [
+      "adr-recordist"
+    ],
+    "countries": [
+      {
+        "name": "Canada",
+        "code": "CA"
+      }
+    ],
+    "year": 2023,
+    "imdbUrl": "https://www.imdb.com/title/tt21275092/?ref_=ttfc_ov_bk",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BZTQzYTcwNTUtNWMyYy00MTcxLWExZGUtYTk1N2NmOWI0OGJjXkEyXkFqcGc@._V1_.jpg"
+  },
+  {
     "id": "9f759354",
     "title": "Vikings: Valhalla - Season 2",
     "type": "Serie",
