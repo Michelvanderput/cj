@@ -1,5 +1,17 @@
 [
   {
+    "id": "39d07759",
+    "title": "Expeditie Cupido",
+    "type": "Film",
+    "credits": [
+      "foley-artist"
+    ],
+    "countries": [],
+    "year": 2024,
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BZWQwMThkOTAtNTAwOS00OGZmLWEwNjUtODgyNzRiZDMyM2I3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "imdbUrl": "https://www.imdb.com/title/tt26455393/?ref_=fn_t_1"
+  },
+  {
     "id": "73febe40",
     "title": "Vuurlinie",
     "type": "Film",
