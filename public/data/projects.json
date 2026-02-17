@@ -1,5 +1,19 @@
 [
   {
+    "id": "fc6b3c0f",
+    "title": "Alpha 00 - Season 1",
+    "type": "Serie",
+    "credits": [
+      "foley-editor",
+      "adr-editor",
+      "loopgroup-recordist"
+    ],
+    "countries": [],
+    "year": 2026,
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BYTNhMjliNWYtZjQ3Yi00MDkzLWFkYTItODFkODY2MGU1Nzg4XkEyXkFqcGc@._V1_.jpg",
+    "imdbUrl": "https://www.imdb.com/title/tt34959898/"
+  },
+  {
     "id": "3c4b31c2",
     "title": "Elixer - Season 1",
     "type": "Serie",
