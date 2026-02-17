@@ -1,5 +1,18 @@
 [
   {
+    "id": "861f6a98",
+    "title": "Kutyuppen",
+    "type": "Short",
+    "credits": [
+      "foley-artist",
+      "foley-editor"
+    ],
+    "countries": [],
+    "year": 2024,
+    "posterUrl": "https://cdn.prod.website-files.com/66ec20dff50b4f67258a4d05/6777e60a7d3720dcd89075de_KutyuppenPoster_Final%20(1)%20(1).jpg",
+    "imdbUrl": "https://www.imdb.com/title/tt35402415/?ref_=fn_t_1"
+  },
+  {
     "id": "3b09a38d",
     "title": "Wannabe Succesful",
     "type": "Short",
