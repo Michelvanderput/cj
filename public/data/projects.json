@@ -1,5 +1,22 @@
 [
   {
+    "id": "055d8f1c",
+    "title": "Anoniem - Season 1",
+    "type": "Serie",
+    "credits": [
+      "loopgroup-recordist"
+    ],
+    "countries": [
+      {
+        "name": "Netherlands",
+        "code": "NL"
+      }
+    ],
+    "year": 2023,
+    "posterUrl": "https://www.moviemeter.nl/series/images/photo/9000/9415.jpg?cb=1767531341",
+    "imdbUrl": "https://www.imdb.com/title/tt21441628/"
+  },
+  {
     "id": "b196a65e",
     "title": "De Toeslagen Affaire - Season 1",
     "type": "Serie",
