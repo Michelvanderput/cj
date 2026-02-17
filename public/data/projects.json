@@ -546,6 +546,10 @@
       {
         "name": "Netherlands",
         "code": "NL"
+      },
+      {
+        "name": "Belgium",
+        "code": "BE"
       }
     ],
     "year": 2022,
