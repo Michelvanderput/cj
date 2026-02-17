@@ -1,7 +1,24 @@
 [
   {
+    "id": "c8d61c1e",
+    "title": "De Vuurwerkramp - Season 1",
+    "type": "Serie",
+    "credits": [
+      "ad-editor"
+    ],
+    "countries": [
+      {
+        "name": "Netherlands",
+        "code": "NL"
+      }
+    ],
+    "year": 2025,
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BN2UwMTQ2MTctNjVlYi00MjQ1LTliZjEtMzA1M2U5NzU4OTc5XkEyXkFqcGc@._V1_.jpg",
+    "imdbUrl": "https://www.imdb.com/title/tt36775617/"
+  },
+  {
     "id": "47d93c77",
-    "title": "De Achterblijvers",
+    "title": "De Achterblijvers - Season 1",
     "type": "Serie",
     "credits": [
       "ad-editor"
@@ -69,7 +86,7 @@
   },
   {
     "id": "1e25f18a",
-    "title": "Styx",
+    "title": "Styx - Season 1",
     "type": "Serie",
     "credits": [
       "ad-editor"
