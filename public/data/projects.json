@@ -1,10 +1,27 @@
 [
   {
+    "id": "9f759354",
+    "title": "Vikings: Valhalla - Season 2",
+    "type": "Serie",
+    "credits": [
+      "adr-recordist"
+    ],
+    "countries": [
+      {
+        "name": "The United States",
+        "code": "US"
+      }
+    ],
+    "year": 2023,
+    "imdbUrl": "https://www.imdb.com/title/tt11311302/",
+    "posterUrl": "https://www.nerdsandbeyond.com/wp-content/uploads/2022/12/Fkd-cM0VEAAuKBS.jpeg"
+  },
+  {
     "id": "5cba1be7",
     "title": "Rabbit Hole - Season 1",
     "type": "Serie",
     "credits": [
-      "ad-recordist"
+      "adr-recordist"
     ],
     "countries": [
       {
@@ -29,7 +46,7 @@
         "code": "US"
       }
     ],
-    "year": 2026,
+    "year": 2023,
     "imdbUrl": "https://www.imdb.com/title/tt10986410/?ref_=fn_t_1",
     "posterUrl": "https://m.media-amazon.com/images/M/MV5BZmI3YWVhM2UtNDZjMC00YTIzLWI2NGUtZWIxODZkZjVmYTg1XkEyXkFqcGc@._V1_.jpg"
   },
