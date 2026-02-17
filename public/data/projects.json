@@ -1,5 +1,26 @@
 [
   {
+    "id": "127ffb04",
+    "title": "Davos 1917 - Season 1",
+    "type": "Serie",
+    "credits": [
+      "adr-recordist"
+    ],
+    "countries": [
+      {
+        "name": "Germany",
+        "code": "DE"
+      },
+      {
+        "name": "Swiss",
+        "code": "CH"
+      }
+    ],
+    "year": 2023,
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BN2Q2MGNmMzYtOTdlZS00MTVjLTg4YzYtN2Y4MzQxYTg1ODk4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "imdbUrl": "https://www.imdb.com/title/tt12934800/?ref_=fn_t_1"
+  },
+  {
     "id": "d048e6fd",
     "title": "Until I Kill You - Season 1",
     "type": "Serie",
