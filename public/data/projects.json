@@ -1,5 +1,17 @@
 [
   {
+    "id": "f39b4580",
+    "title": "BuZa",
+    "type": "Serie",
+    "credits": [
+      "foley-editor"
+    ],
+    "countries": [],
+    "year": 2025,
+    "posterUrl": "https://www.imdb.com/title/tt16124348/",
+    "imdbUrl": "https://m.media-amazon.com/images/M/MV5BYTkzZGM2NzctZjQ1Zi00MGZhLWFiMGQtYzU3N2QwM2VkNjI0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+  },
+  {
     "id": "7938bc1a",
     "title": "Manden i børneværelset",
     "type": "Serie",
