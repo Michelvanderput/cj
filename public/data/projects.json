@@ -1,5 +1,39 @@
 [
   {
+    "id": "851af370",
+    "title": "Dertigers - Season 3",
+    "type": "Serie",
+    "credits": [
+      "ad-editor"
+    ],
+    "countries": [
+      {
+        "name": "Netherlands",
+        "code": "NL"
+      }
+    ],
+    "year": 2024,
+    "imdbUrl": "https://www.imdb.com/title/tt30241072/",
+    "posterUrl": "https://www.moviemeter.nl/series/images/cover/25000/25513.jpg?cb=1667832199"
+  },
+  {
+    "id": "67a21f4d",
+    "title": "Oogappels - Season 4",
+    "type": "Serie",
+    "credits": [
+      "ad-editor"
+    ],
+    "countries": [
+      {
+        "name": "Netherlands",
+        "code": "NL"
+      }
+    ],
+    "year": 2022,
+    "imdbUrl": "https://www.imdb.com/title/tt9149556/",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BMTIxMWEwNzktOTVhNi00NTZhLWFlMjktM2NlMWRjNzViNmQxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+  },
+  {
     "id": "0d83e685",
     "title": "Amsterdam Empire - Season 1",
     "type": "Serie",
