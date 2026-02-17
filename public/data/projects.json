@@ -1,5 +1,39 @@
 [
   {
+    "id": "935e1b67",
+    "title": "Ted Lasso - Season 3",
+    "type": "Serie",
+    "credits": [
+      "adr-recordist"
+    ],
+    "countries": [
+      {
+        "name": "The United States",
+        "code": "US"
+      }
+    ],
+    "year": 2026,
+    "imdbUrl": "https://www.imdb.com/title/tt10986410/?ref_=fn_t_1",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BZmI3YWVhM2UtNDZjMC00YTIzLWI2NGUtZWIxODZkZjVmYTg1XkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "id": "3bdb4dda",
+    "title": "Anoniem - Season 2",
+    "type": "Serie",
+    "credits": [
+      "ad-editor"
+    ],
+    "countries": [
+      {
+        "name": "Netherlands",
+        "code": "NL"
+      }
+    ],
+    "year": 2026,
+    "posterUrl": "https://www.moviemeter.nl/series/images/cover/34000/34236.jpg?cb=1767899412",
+    "imdbUrl": "https://www.imdb.com/title/tt21441628/?ref_=fn_t_1"
+  },
+  {
     "id": "60164009",
     "title": "Hemelsleutel",
     "type": "Documentary",
