@@ -1,5 +1,22 @@
 [
   {
+    "id": "95218ee6",
+    "title": "Escape from Albatros",
+    "type": "Serie",
+    "credits": [
+      "ad-recordist"
+    ],
+    "countries": [
+      {
+        "name": "Netherlands",
+        "code": "NL"
+      }
+    ],
+    "year": 2024,
+    "posterUrl": "https://www.moviemeter.nl/series/images/photo/10000/10924.jpg?cb=1726684826",
+    "imdbUrl": "https://www.imdb.com/title/tt33703681/?ref_=fn_t_1"
+  },
+  {
     "id": "1fcae1d7",
     "title": "Rokjesnacht",
     "type": "Film",
