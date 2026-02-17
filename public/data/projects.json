@@ -1,9 +1,28 @@
 [
   {
+    "id": "1fcae1d7",
+    "title": "Rokjesnacht",
+    "type": "Film",
+    "credits": [
+      "ad-recordist"
+    ],
+    "countries": [
+      {
+        "name": "Netherlands",
+        "code": "NL"
+      }
+    ],
+    "year": 2024,
+    "posterUrl": "https://images.pathe-thuis.nl/36491_450x640.jpg",
+    "imdbUrl": "https://www.imdb.com/title/tt30527412/"
+  },
+  {
     "id": "8c061832",
     "title": "Kunstroof",
     "type": "Documentary",
-    "credits": [],
+    "credits": [
+      "ad-recordist"
+    ],
     "countries": [
       {
         "name": "Netherlands",
