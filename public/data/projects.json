@@ -1,5 +1,17 @@
 [
   {
+    "id": "3c4b31c2",
+    "title": "Elixer - Season 1",
+    "type": "Serie",
+    "credits": [
+      "loopgroup-recordist"
+    ],
+    "countries": [],
+    "year": 2025,
+    "posterUrl": "https://static.filmvandaag.nl/shows/original/15000/15806.jpg?v=1&width=400",
+    "imdbUrl": "https://www.imdb.com/title/tt28107213/"
+  },
+  {
     "id": "a6c18124",
     "title": "Kain",
     "type": "Film",
