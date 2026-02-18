@@ -1,5 +1,17 @@
 [
   {
+    "id": "771dd456",
+    "title": "Batman: The Animated Series",
+    "type": "Serie",
+    "credits": [
+      "dubbing-engineer"
+    ],
+    "countries": [],
+    "year": 1992,
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BYjgwZWUzMzUtYTFkNi00MzM0LWFkMWUtMDViMjMxNGIxNDUxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "imdbUrl": "https://www.imdb.com/title/tt0103359/"
+  },
+  {
     "id": "41692339",
     "title": "Pokémon Horizons: The Series",
     "type": "Serie",
