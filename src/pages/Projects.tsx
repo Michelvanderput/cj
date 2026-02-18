@@ -41,14 +41,16 @@ const Projects = () => {
   }, [selectedTags, animateGrid]);
 
   const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
-      return (
-        selectedTags.length === 0 ||
-        selectedTags.some((headId) =>
-          getSubCreditIds(headId).some((subId) => (project.credits ?? []).includes(subId))
-        )
-      );
-    });
+    return projects
+      .filter((project) => {
+        return (
+          selectedTags.length === 0 ||
+          selectedTags.some((headId) =>
+            getSubCreditIds(headId).some((subId) => (project.credits ?? []).includes(subId))
+          )
+        );
+      })
+      .sort((a, b) => b.year - a.year);
   }, [projects, selectedTags]);
 
   const handleTagToggle = (tag: string) => {

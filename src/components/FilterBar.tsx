@@ -10,7 +10,7 @@ const FilterBar = ({ tags, labels, selectedTags, onTagToggle, onClearAll }: Filt
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-body-sm font-medium tracking-wide text-tx-secondary">Filter by credit</h3>
+        <h3 className="text-body-sm font-medium tracking-wide text-tx-secondary">Filter by work</h3>
         {selectedTags.length > 0 && (
           <button
             onClick={onClearAll}

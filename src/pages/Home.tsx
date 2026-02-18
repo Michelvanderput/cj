@@ -42,7 +42,7 @@ const Home = () => {
     };
   }, [prefersReduced]);
 
-  const featuredProjects = projects.slice(0, 3);
+  const featuredProjects = [...projects].sort((a, b) => b.year - a.year).slice(0, 3);
 
   return (
     <div className="section-container">

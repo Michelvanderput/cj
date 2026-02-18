@@ -55,6 +55,7 @@ export const CREDITS: CreditCategory[] = [
       'Automated Dialogue Replacement: re-recording dialogue in a controlled studio environment for perfect audio quality.',
     subCredits: [
       { id: 'adr-recordist', label: 'ADR Recordist' },
+      { id: 'adr-recording-assistant', label: 'ADR Recording Assistant' },
       { id: 'adr-editor', label: 'ADR Editor' },
       { id: 'loopgroup-recordist', label: 'Loopgroup Recordist' },
       { id: 'loopgroup-editor', label: 'Loopgroup Editor' },
@@ -67,7 +68,6 @@ export const CREDITS: CreditCategory[] = [
       'Recording and editing audio descriptions that make visual media accessible to blind and visually impaired audiences.',
     subCredits: [
       { id: 'ad-recordist', label: 'Audio Description Recordist' },
-      { id: 'ad-coach', label: 'Audio Description Coach' },
       { id: 'ad-editor', label: 'Audio Description Editor' },
     ],
   },
@@ -77,7 +77,7 @@ export const CREDITS: CreditCategory[] = [
     description:
       'Audio engineering for dubbed productions, ensuring seamless voice replacement and audio quality across languages.',
     subCredits: [
-      { id: 'dubbing-engineer', label: 'Audio Engineer Dubbing (NL)' },
+      { id: 'dubbing-engineer', label: 'Audio Engineer Dubbing (Dutch / NL)' },
     ],
   },
 ];
