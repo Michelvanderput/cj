@@ -1,5 +1,17 @@
 [
   {
+    "id": "62e71117",
+    "title": "Dora",
+    "type": "Serie",
+    "credits": [
+      "dubbing-engineer"
+    ],
+    "countries": [],
+    "year": 2024,
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BODRhNjUyZGQtN2ExZi00Njg5LTlhMmQtNDFlZDIzMDg2ZWYxXkEyXkFqcGc@._V1_.jpg",
+    "imdbUrl": "https://www.imdb.com/title/tt15387926/"
+  },
+  {
     "id": "c1da4a13",
     "title": "Spidey and His Amazing Friends",
     "type": "Serie",
