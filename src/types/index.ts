@@ -23,6 +23,7 @@ export interface NewsItem {
   content?: string;
   date: string;
   imageUrl?: string;
+  url?: string;
   instagramUrl?: string;
 }
 

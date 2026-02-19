@@ -439,16 +439,30 @@ const Admin = () => {
             </div>
 
             {editingNews.type === 'update' && (
-              <div>
-                <label className="block text-body-sm font-medium text-tx-secondary mb-1">Content</label>
-                <textarea
-                  value={editingNews.content ?? ''}
-                  onChange={(e) => updateNewsField('content', e.target.value || undefined)}
-                  rows={4}
-                  placeholder="Write your update here..."
-                  className="input-field resize-none"
-                />
-              </div>
+              <>
+                <div>
+                  <label className="block text-body-sm font-medium text-tx-secondary mb-1">Content</label>
+                  <textarea
+                    value={editingNews.content ?? ''}
+                    onChange={(e) => updateNewsField('content', e.target.value || undefined)}
+                    rows={4}
+                    placeholder="Write your update here..."
+                    className="input-field resize-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-body-sm font-medium text-tx-secondary mb-1">
+                    Link URL <span className="text-tx-muted">(optional — makes card clickable)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={editingNews.url ?? ''}
+                    onChange={(e) => updateNewsField('url', e.target.value || undefined)}
+                    placeholder="https://..."
+                    className="input-field"
+                  />
+                </div>
+              </>
             )}
 
             {editingNews.type === 'instagram' && (
