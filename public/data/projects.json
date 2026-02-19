@@ -1,5 +1,17 @@
 [
   {
+    "id": "c1da4a13",
+    "title": "Spidey and His Amazing Friends",
+    "type": "Serie",
+    "credits": [
+      "dubbing-engineer"
+    ],
+    "countries": [],
+    "year": 2022,
+    "imdbUrl": "https://www.imdb.com/title/tt10862280/?ref_=fn_t_1",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BNzBmMzljNGItY2ZhZi00ZDY2LTk2ZTYtMmI3ZjRjYzdiMDE3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+  },
+  {
     "id": "a8984e00",
     "title": "Pupstruction",
     "type": "Serie",
