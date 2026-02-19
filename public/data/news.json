@@ -9,27 +9,6 @@
     "instagramUrl": "We proudly announce that our short documentary Ape to Ape has won the Grand Jury Prize of the Raw Science Film Festival in New York City! "
   },
   {
-    "id": "1",
-    "type": "update",
-    "title": "New project wrapped",
-    "content": "Just wrapped up the sound design for an exciting new thriller. Can't wait to share more!",
-    "date": "2024-01-15"
-  },
-  {
-    "id": "2",
-    "type": "instagram",
-    "title": "Behind the scenes",
-    "instagramUrl": "https://www.instagram.com/p/example1/",
-    "date": "2024-01-10"
-  },
-  {
-    "id": "3",
-    "type": "update",
-    "title": "Studio session",
-    "content": "Recording session in the studio today. Creating unique Foley sounds for an upcoming film project.",
-    "date": "2024-01-05"
-  },
-  {
     "id": "4",
     "type": "instagram",
     "title": "On set",
