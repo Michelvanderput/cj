@@ -2,6 +2,26 @@ import { Link } from 'react-router-dom';
 import useScrollReveal from '../hooks/useScrollReveal';
 import OptimizedImage from '../components/OptimizedImage';
 import { CREDITS } from '../data/disciplines';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faWalking,
+  faWaveSquare,
+  faMicrophoneLines,
+  faRotateLeft,
+  faEye,
+  faLanguage,
+  faCircleCheck,
+} from '@fortawesome/free-solid-svg-icons';
+import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+
+const CREDIT_ICONS: Record<string, IconDefinition> = {
+  foley: faWalking,
+  'sound-design': faWaveSquare,
+  'set-recording': faMicrophoneLines,
+  adr: faRotateLeft,
+  'audio-description': faEye,
+  dubbing: faLanguage,
+};
 
 const WORK_PHOTOS = [
   { src: '/img/CAT_WORK/CJ_POSTA_Schoenen.png', alt: 'On set recording' },
@@ -32,21 +52,32 @@ const Work = () => {
       <section className="mb-16 md:mb-24">
         <h2 className="text-h3 text-tx-primary mb-8">Credits</h2>
         <div ref={creditsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {CREDITS.map((cat) => (
-            <div
-              key={cat.id}
-              className="p-6 bg-surface-card border border-brd rounded-lg transition-all duration-225 hover:border-brd-hover hover:shadow-card"
-            >
-              <h3 className="font-heading text-h4 text-brand-main mb-3">{cat.label}</h3>
-              <ul className="space-y-1">
-                {cat.subCredits.map((sc) => (
-                  <li key={sc.id} className="text-body-sm text-tx-secondary leading-relaxed">
-                    {sc.label}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {CREDITS.map((cat) => {
+            const icon = CREDIT_ICONS[cat.id];
+            return (
+              <div
+                key={cat.id}
+                className="p-6 bg-surface-card border border-brd rounded-lg transition-all duration-225 hover:border-brd-hover hover:shadow-card"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  {icon && (
+                    <span className="w-8 h-8 flex items-center justify-center rounded-md bg-brand-main/10 text-brand-main">
+                      <FontAwesomeIcon icon={icon} className="text-sm" />
+                    </span>
+                  )}
+                  <h3 className="font-heading text-h4 text-brand-main">{cat.label}</h3>
+                </div>
+                <ul className="space-y-1.5">
+                  {cat.subCredits.map((sc) => (
+                    <li key={sc.id} className="text-body-sm text-tx-secondary leading-relaxed flex items-center gap-2">
+                      <FontAwesomeIcon icon={faCircleCheck} className="text-[11px] text-brand-main/50 flex-shrink-0" />
+                      {sc.label}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </section>
 

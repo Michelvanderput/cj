@@ -85,7 +85,8 @@ const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
             onClick={(e) => e.stopPropagation()}
           >
             <FontAwesomeIcon icon={faImdb} className="text-base" />
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-[10px]" />
+            <span>IMDb</span>
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-[10px] opacity-70" />
           </a>
         )}
       </div>
