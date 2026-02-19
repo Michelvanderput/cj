@@ -3,6 +3,7 @@ import type { Project, CountryEntry, NewsItem } from '../types';
 import ProjectCard from '../components/ProjectCard';
 import NewsCard from '../components/NewsCard';
 import { commitProjectsJson, commitNewsJson } from '../lib/github';
+import { invalidateNewsCache } from '../hooks/useNews';
 import { CREDITS, SUB_CREDIT_LABELS } from '../data/disciplines';
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD ?? 'admin';
@@ -146,6 +147,7 @@ const Admin = () => {
     setNewsErrorMsg('');
     try {
       await commitNewsJson(news);
+      invalidateNewsCache();
       setNewsStatus('saved');
       setTimeout(() => setNewsStatus('idle'), 3000);
     } catch (err) {

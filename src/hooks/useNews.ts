@@ -34,6 +34,8 @@ const FALLBACK: NewsItem[] = [
 
 let cached: NewsItem[] | null = null;
 
+export const invalidateNewsCache = () => { cached = null; };
+
 const useNews = () => {
   const [news, setNews] = useState<NewsItem[]>(cached ?? FALLBACK);
   const [loading, setLoading] = useState(!cached);
@@ -42,7 +44,7 @@ const useNews = () => {
     if (cached) return;
     let cancelled = false;
 
-    fetch('/data/news.json')
+    fetch('/data/news.json?t=' + Date.now())
       .then((r) => r.json())
       .then((data: NewsItem[]) => {
         if (cancelled) return;
