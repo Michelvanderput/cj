@@ -7,15 +7,17 @@ import useProjects from '../hooks/useProjects';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useReducedMotion from '../hooks/useReducedMotion';
 
+const HEAD_ORDER = CREDITS.map((c) => c.id);
+
 const Projects = () => {
   const { projects } = useProjects();
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
   const gridRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
   const headerRef = useScrollReveal<HTMLDivElement>({ y: 30, duration: 0.7 });
   const prefersReduced = useReducedMotion();
 
-  // Animate grid children when filter results change
   const animateGrid = useCallback(() => {
     if (!gridRef.current || prefersReduced) return;
     const children = Array.from(gridRef.current.children);
@@ -38,29 +40,39 @@ const Projects = () => {
     return () => {
       if (tweenRef.current) tweenRef.current.kill();
     };
-  }, [selectedTags, animateGrid]);
+  }, [selectedTag, sortOrder, animateGrid]);
 
   const filteredProjects = useMemo(() => {
-    return projects
-      .filter((project) => {
-        return (
-          selectedTags.length === 0 ||
-          selectedTags.some((headId) =>
-            getSubCreditIds(headId).some((subId) => (project.credits ?? []).includes(subId))
-          )
+    const yearMult = sortOrder === 'newest' ? -1 : 1;
+
+    if (!selectedTag) {
+      // No filter: sort by HEAD_ORDER group, then by year within each group
+      return [...projects].sort((a, b) => {
+        const aHead = HEAD_ORDER.findIndex((h) =>
+          getSubCreditIds(h).some((s) => (a.credits ?? []).includes(s))
         );
-      })
-      .sort((a, b) => b.year - a.year);
-  }, [projects, selectedTags]);
+        const bHead = HEAD_ORDER.findIndex((h) =>
+          getSubCreditIds(h).some((s) => (b.credits ?? []).includes(s))
+        );
+        const headDiff = (aHead === -1 ? 999 : aHead) - (bHead === -1 ? 999 : bHead);
+        if (headDiff !== 0) return headDiff;
+        return yearMult * (a.year - b.year);
+      });
+    }
+
+    return projects
+      .filter((project) =>
+        getSubCreditIds(selectedTag).some((subId) => (project.credits ?? []).includes(subId))
+      )
+      .sort((a, b) => yearMult * (a.year - b.year));
+  }, [projects, selectedTag, sortOrder]);
 
   const handleTagToggle = (tag: string) => {
-    setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-    );
+    setSelectedTag((prev) => (prev === tag ? null : tag));
   };
 
   const handleClearTags = () => {
-    setSelectedTags([]);
+    setSelectedTag(null);
   };
 
   return (
@@ -71,10 +83,34 @@ const Projects = () => {
         <FilterBar
           tags={CREDITS.map((c) => c.id)}
           labels={CREDIT_HEAD_LABELS}
-          selectedTags={selectedTags}
+          selectedTags={selectedTag ? [selectedTag] : []}
           onTagToggle={handleTagToggle}
           onClearAll={handleClearTags}
         />
+
+        <div className="flex items-center gap-2 mt-4">
+          <span className="text-body-sm text-tx-muted">Sort:</span>
+          <button
+            onClick={() => setSortOrder('newest')}
+            className={`px-3 py-1.5 text-body-sm rounded-md border transition-all duration-200 ${
+              sortOrder === 'newest'
+                ? 'bg-brand-main text-tx-inverse border-brand-main shadow-glow-main'
+                : 'bg-surface-elevated text-tx-secondary border-brd hover:border-brd-hover hover:text-tx-primary'
+            }`}
+          >
+            Newest
+          </button>
+          <button
+            onClick={() => setSortOrder('oldest')}
+            className={`px-3 py-1.5 text-body-sm rounded-md border transition-all duration-200 ${
+              sortOrder === 'oldest'
+                ? 'bg-brand-main text-tx-inverse border-brand-main shadow-glow-main'
+                : 'bg-surface-elevated text-tx-secondary border-brd hover:border-brd-hover hover:text-tx-primary'
+            }`}
+          >
+            Oldest
+          </button>
+        </div>
       </div>
 
       {filteredProjects.length === 0 ? (

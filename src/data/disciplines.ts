@@ -77,7 +77,7 @@ export const CREDITS: CreditCategory[] = [
     description:
       'Audio engineering for dubbed productions, ensuring seamless voice replacement and audio quality across languages.',
     subCredits: [
-      { id: 'dubbing-engineer', label: 'Audio Engineer Dubbing (Dutch / NL)' },
+      { id: 'dubbing-engineer', label: 'Audio Engineer - Dubbing (Dutch / NL)' },
     ],
   },
 ];
