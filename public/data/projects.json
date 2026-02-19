@@ -1,5 +1,17 @@
 [
   {
+    "id": "cdfdf243",
+    "title": "Lucas the Spider",
+    "type": "Serie",
+    "credits": [
+      "dubbing-engineer"
+    ],
+    "countries": [],
+    "year": 2023,
+    "posterUrl": "https://lh5.googleusercontent.com/proxy/fKn6JYX1neGFFttKa3iOYI0SDxl9Mjlb1Bq4LaXkDH8QxqZ8oxj8sHnufgO_LPyeSSddX_eFwP9gwati0c0xWNVVqf3hb2BdK1gYiBfoS3sC0dOK",
+    "imdbUrl": "https://www.imdb.com/title/tt9054228/"
+  },
+  {
     "id": "772f5997",
     "title": "Go, Dog. Go!",
     "type": "Serie",
