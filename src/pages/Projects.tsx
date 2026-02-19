@@ -12,7 +12,6 @@ const HEAD_ORDER = CREDITS.map((c) => c.id);
 const Projects = () => {
   const { projects } = useProjects();
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
-  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
   const gridRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
   const headerRef = useScrollReveal<HTMLDivElement>({ y: 30, duration: 0.7 });
@@ -40,13 +39,11 @@ const Projects = () => {
     return () => {
       if (tweenRef.current) tweenRef.current.kill();
     };
-  }, [selectedTag, sortOrder, animateGrid]);
+  }, [selectedTag, animateGrid]);
 
   const filteredProjects = useMemo(() => {
-    const yearMult = sortOrder === 'newest' ? -1 : 1;
-
     if (!selectedTag) {
-      // No filter: sort by HEAD_ORDER group, then by year within each group
+      // No filter: sort by HEAD_ORDER group, then newest-first within each group
       return [...projects].sort((a, b) => {
         const aHead = HEAD_ORDER.findIndex((h) =>
           getSubCreditIds(h).some((s) => (a.credits ?? []).includes(s))
@@ -56,7 +53,7 @@ const Projects = () => {
         );
         const headDiff = (aHead === -1 ? 999 : aHead) - (bHead === -1 ? 999 : bHead);
         if (headDiff !== 0) return headDiff;
-        return yearMult * (a.year - b.year);
+        return b.year - a.year;
       });
     }
 
@@ -64,8 +61,8 @@ const Projects = () => {
       .filter((project) =>
         getSubCreditIds(selectedTag).some((subId) => (project.credits ?? []).includes(subId))
       )
-      .sort((a, b) => yearMult * (a.year - b.year));
-  }, [projects, selectedTag, sortOrder]);
+      .sort((a, b) => b.year - a.year);
+  }, [projects, selectedTag]);
 
   const handleTagToggle = (tag: string) => {
     setSelectedTag((prev) => (prev === tag ? null : tag));
@@ -81,7 +78,7 @@ const Projects = () => {
         <h1 className="text-h1 text-brand-main">Projects</h1>
       </div>
 
-      {/* Sticky filter + sort bar */}
+      {/* Sticky filter bar */}
       <div className="sticky top-[73px] z-40 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-3 mb-8 bg-surface-bg/90 backdrop-blur-md border-b border-brd">
         <FilterBar
           tags={CREDITS.map((c) => c.id)}
@@ -90,30 +87,6 @@ const Projects = () => {
           onTagToggle={handleTagToggle}
           onClearAll={handleClearTags}
         />
-
-        <div className="flex items-center gap-2 mt-3">
-          <span className="text-body-sm text-tx-muted">Sort:</span>
-          <button
-            onClick={() => setSortOrder('newest')}
-            className={`px-3 py-1.5 text-body-sm rounded-md border transition-all duration-200 ${
-              sortOrder === 'newest'
-                ? 'bg-brand-main text-tx-inverse border-brand-main shadow-glow-main'
-                : 'bg-surface-elevated text-tx-secondary border-brd hover:border-brd-hover hover:text-tx-primary'
-            }`}
-          >
-            Newest
-          </button>
-          <button
-            onClick={() => setSortOrder('oldest')}
-            className={`px-3 py-1.5 text-body-sm rounded-md border transition-all duration-200 ${
-              sortOrder === 'oldest'
-                ? 'bg-brand-main text-tx-inverse border-brand-main shadow-glow-main'
-                : 'bg-surface-elevated text-tx-secondary border-brd hover:border-brd-hover hover:text-tx-primary'
-            }`}
-          >
-            Oldest
-          </button>
-        </div>
       </div>
 
       {filteredProjects.length === 0 ? (

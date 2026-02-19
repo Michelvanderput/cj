@@ -21,14 +21,14 @@ const FilterBar = ({ tags, labels, selectedTags, onTagToggle, onClearAll }: Filt
         )}
       </div>
       
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-4">
         {tags.map((tag) => {
           const isSelected = selectedTags.includes(tag);
           return (
             <button
               key={tag}
               onClick={() => onTagToggle(tag)}
-              className={`px-3 py-1.5 text-body-sm rounded-md border transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-main ${
+              className={`px-3 py-1.5 text-body-md rounded-md border transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-main ${
                 isSelected
                   ? 'bg-brand-main text-tx-inverse border-brand-main shadow-glow-main'
                   : 'bg-surface-elevated text-tx-secondary border-brd hover:border-brd-hover hover:text-tx-primary'
