@@ -16,6 +16,16 @@ export interface Project {
 
 export type ProjectType = Project['type'];
 
+export interface NewsItem {
+  id: string;
+  type: 'update' | 'instagram';
+  title?: string;
+  content?: string;
+  date: string;
+  imageUrl?: string;
+  instagramUrl?: string;
+}
+
 export interface SocialPost {
   id: string;
   type: 'update' | 'instagram';

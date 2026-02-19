@@ -1,20 +1,26 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from '../lib/gsap';
-import { socialPosts } from '../data/socialPosts';
 import useProjects from '../hooks/useProjects';
-import SocialFeed from '../components/SocialFeed';
+import useNews from '../hooks/useNews';
+import NewsCard from '../components/NewsCard';
 import OptimizedImage from '../components/OptimizedImage';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useReducedMotion from '../hooks/useReducedMotion';
 
+const NEWS_INITIAL = 4;
+
 const Home = () => {
   const { projects } = useProjects();
+  const { news } = useNews();
+  const [showAllNews, setShowAllNews] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const prefersReduced = useReducedMotion();
   const sectionsRef = useScrollReveal<HTMLDivElement>({ y: 30, stagger: 0.12, children: true, duration: 0.7 });
   const updatesTitleRef = useScrollReveal<HTMLHeadingElement>({ y: 24, duration: 0.6 });
   const ctaRef = useScrollReveal<HTMLDivElement>({ y: 30, duration: 0.8, scale: 0.98 });
+
+  const visibleNews = showAllNews ? news : news.slice(0, NEWS_INITIAL);
 
   useEffect(() => {
     if (!heroRef.current || prefersReduced) return;
@@ -128,7 +134,21 @@ const Home = () => {
       {/* News */}
       <section className="py-16 md:py-24 border-t border-brd">
         <h2 ref={updatesTitleRef} className="text-h2 text-tx-primary mb-10 md:mb-14">News</h2>
-        <SocialFeed posts={socialPosts} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {visibleNews.map((item) => (
+            <NewsCard key={item.id} item={item} />
+          ))}
+        </div>
+        {news.length > NEWS_INITIAL && (
+          <div className="mt-8 text-center">
+            <button
+              onClick={() => setShowAllNews((v) => !v)}
+              className="btn btn-ghost btn-md"
+            >
+              {showAllNews ? 'Show less' : `Show all ${news.length} items`}
+            </button>
+          </div>
+        )}
       </section>
 
       {/* CTA */}
