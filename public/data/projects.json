@@ -1,5 +1,17 @@
 [
   {
+    "id": "6761dd42",
+    "title": "Star Wars: Young Jedi Adventures",
+    "type": "Serie",
+    "credits": [
+      "dubbing-engineer"
+    ],
+    "countries": [],
+    "year": 2023,
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BYmJlMjc0NTQtMDIzMC00ZDA3LTg5ZDUtMTNjNmY4MjliY2I3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "imdbUrl": "https://www.imdb.com/title/tt20674124/"
+  },
+  {
     "id": "36838bf0",
     "title": "Bugs Bunny Builders",
     "type": "Serie",
