@@ -1,5 +1,17 @@
 [
   {
+    "id": "a8984e00",
+    "title": "Pupstruction",
+    "type": "Serie",
+    "credits": [
+      "dubbing-engineer"
+    ],
+    "countries": [],
+    "year": 2023,
+    "posterUrl": "https://static.filmvandaag.nl/shows/original/15000/15570.jpg?v=1&width=400",
+    "imdbUrl": "https://www.imdb.com/title/tt19868830/"
+  },
+  {
     "id": "cdfdf243",
     "title": "Lucas the Spider",
     "type": "Serie",
