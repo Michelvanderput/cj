@@ -9,6 +9,7 @@ import { CREDITS, SUB_CREDIT_LABELS } from '../data/disciplines';
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD ?? 'admin';
 
 const PROJECT_TYPES = ['Film', 'Serie', 'Commercial', 'Documentary', 'Short'] as const;
+const formatProjectType = (type: Project['type']) => (type === 'Serie' ? 'Series' : type);
 
 const emptyProject = (): Project => ({
   id: crypto.randomUUID().slice(0, 8),
@@ -233,7 +234,7 @@ const Admin = () => {
                   className="input-field"
                 >
                   {PROJECT_TYPES.map((t) => (
-                    <option key={t} value={t}>{t}</option>
+                    <option key={t} value={t}>{formatProjectType(t)}</option>
                   ))}
                 </select>
               </div>
@@ -582,7 +583,7 @@ const Admin = () => {
                 <div className="flex-1 min-w-0">
                   <p className="font-heading text-h4 text-tx-primary truncate">{project.title || 'Untitled'}</p>
                   <p className="text-body-sm text-tx-secondary">
-                    {project.type} · {project.year} · {(project.countries ?? []).map((c: CountryEntry) => c.name).join(', ')}
+                    {formatProjectType(project.type)} · {project.year} · {(project.countries ?? []).map((c: CountryEntry) => c.name).join(', ')}
                   </p>
                 </div>
                 <div className="hidden md:flex flex-wrap gap-1 max-w-xs">

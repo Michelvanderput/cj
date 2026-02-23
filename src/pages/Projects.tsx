@@ -95,10 +95,6 @@ const Projects = () => {
         </div>
       ) : (
         <>
-          <div aria-live="polite" aria-atomic="true" className="mb-6 text-body-sm text-tx-muted">
-            {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'} found
-          </div>
-
           <div
             ref={gridRef}
             className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-8"

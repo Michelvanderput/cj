@@ -28,6 +28,7 @@ export const CREDITS: CreditCategory[] = [
       { id: 'foley-artist', label: 'Foley Artist' },
       { id: 'foley-recordist', label: 'Foley Recordist' },
       { id: 'foley-editor', label: 'Foley Editor' },
+      { id: 'additional-foley', label: 'Additional Foley' },
     ],
   },
   {
@@ -77,7 +78,7 @@ export const CREDITS: CreditCategory[] = [
     description:
       'Audio engineering for dubbed productions, ensuring seamless voice replacement and audio quality across languages.',
     subCredits: [
-      { id: 'dubbing-engineer', label: 'Audio Engineer - Dubbing (Dutch / NL)' },
+      { id: 'dubbing-engineer', label: 'Dub: Dutch (NL) - Audio Engineer' },
     ],
   },
 ];
