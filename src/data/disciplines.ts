@@ -23,7 +23,7 @@ export const CREDITS: CreditCategory[] = [
     id: 'foley',
     label: 'Foley',
     description:
-      'Recreating and recording everyday sound effects added in post-production to film and television to enrich the audio experience.',
+      'Foley Creating, Recording & Editing.',
     subCredits: [
       { id: 'foley-artist', label: 'Foley Artist' },
       { id: 'foley-recordist', label: 'Foley Recordist' },
@@ -35,7 +35,7 @@ export const CREDITS: CreditCategory[] = [
     id: 'sound-design',
     label: 'Sound Design',
     description:
-      'Creating, editing and integrating sound effects and sonic textures that shape the atmosphere and narrative of a production.',
+      'Sound Design, Editing & Mixing.',
     subCredits: [
       { id: 'sound-designer', label: 'Sound Designer' },
     ],
@@ -44,7 +44,7 @@ export const CREDITS: CreditCategory[] = [
     id: 'set-recording',
     label: 'Set Recording',
     description:
-      'Professional on-set sound recording, capturing clean dialogue and production audio during filming.',
+      'Location audio, Boom operating & (field) recording.',
     subCredits: [
       { id: 'set-recordist', label: 'Set Recordist' },
     ],
@@ -53,7 +53,7 @@ export const CREDITS: CreditCategory[] = [
     id: 'adr',
     label: 'ADR',
     description:
-      'Automated Dialogue Replacement: re-recording dialogue in a controlled studio environment for perfect audio quality.',
+      'Voice-over & dialogue, Studio recording & Editing.',
     subCredits: [
       { id: 'adr-recordist', label: 'ADR Recordist' },
       { id: 'adr-recording-assistant', label: 'ADR Recording Assistant' },
@@ -66,7 +66,7 @@ export const CREDITS: CreditCategory[] = [
     id: 'audio-description',
     label: 'Audio Description',
     description:
-      'Recording and editing audio descriptions that make visual media accessible to blind and visually impaired audiences.',
+      'Audio Description Direction, Recording & Editing.',
     subCredits: [
       { id: 'ad-recordist', label: 'Audio Description Recordist' },
       { id: 'ad-editor', label: 'Audio Description Editor' },
@@ -76,7 +76,7 @@ export const CREDITS: CreditCategory[] = [
     id: 'dubbing',
     label: 'Dubbing',
     description:
-      'Audio engineering for dubbed productions, ensuring seamless voice replacement and audio quality across languages.',
+      'Multilingual dialogue Dub Recording & editing.',
     subCredits: [
       { id: 'dubbing-engineer', label: 'Dub: Dutch (NL) - Audio Engineer' },
     ],
