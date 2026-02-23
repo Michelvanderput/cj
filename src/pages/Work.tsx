@@ -8,7 +8,7 @@ import {
   faSliders,
   faClapperboard,
   faMicrophoneLines,
-  faMicrophone,
+  faHeadphones,
   faEarthAmerica,
 } from '@fortawesome/free-solid-svg-icons';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
@@ -18,7 +18,7 @@ const CREDIT_ICONS: Record<string, IconDefinition> = {
   'sound-design': faSliders,
   'set-recording': faClapperboard,
   adr: faMicrophoneLines,
-  'audio-description': faMicrophone,
+  'audio-description': faHeadphones,
   dubbing: faEarthAmerica,
 };
 
