@@ -6,11 +6,11 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     // Allow DOM to settle, then recalculate all ScrollTrigger positions
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       ScrollTrigger.refresh();
-    });
+    }, 100);
   }, [pathname]);
 
   return null;
