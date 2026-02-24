@@ -43,17 +43,12 @@ const Studio = () => {
 
       {/* Story */}
       <section ref={storyRef} className="mb-16 md:mb-24 max-w-3xl">
-        <h2 className="text-h3 text-tx-primary mb-6">The Space</h2>
         <div className="space-y-4">
           <p className="text-body text-tx-secondary leading-relaxed">
-            Equipped with state-of-the-art recording and sound design facilities, the studio
-            provides an ideal environment for Foley recording, sound design, ADR and mixing.
-            Every detail has been carefully considered to deliver the highest audio quality.
+            The studio is entirely built and designed for professional sound work. Foley recordings are performed and edited here, sound design is developed, and recordings are produced for films, series, documentaries, and commercials. All aspects of sound work can be handled in this space, from performance-driven Foley to detailed editing and creative sound design.
           </p>
           <p className="text-body text-tx-secondary leading-relaxed">
-            The acoustically treated rooms offer a controlled environment for precise recording,
-            while the extensive prop collection and dedicated Foley surfaces enable the creation
-            of authentic, detailed sound effects for any production.
+            The studio is also suitable for ADR or vocal recordings. In collaboration with directors, producers, or other sound specialists, high-quality recordings can be made, fully tailored to the needs of the production.
           </p>
         </div>
       </section>

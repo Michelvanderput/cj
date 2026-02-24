@@ -29,30 +29,19 @@ const Bio = () => {
           {/* Text */}
           <div className="md:col-span-3 space-y-6">
             <p className="text-body-lg text-tx-primary leading-relaxed">
-              Cyril Jansen is a Foley artist, sound designer and recording engineer specializing
-              in film, television and commercial productions.
+              Cyril Jansen is a Foley artist, sound designer, and recording engineer, specializing in film, television, and commercial productions. It is his passion and mission to create detailed, innovative, and cohesive sounds that bring images to life.
             </p>
 
             <p className="text-body text-tx-secondary leading-relaxed">
-              Based in Amsterdam, Cyril works from his own professional studio equipped with
-              state-of-the-art recording and sound design facilities. With extensive experience
-              in international productions, he brings a meticulous approach to every project,
-              where sound enhances the story and emotional impact of the visual medium.
+              Raised in the tri-border region of the Netherlands, Germany, and Belgium, he developed an early awareness of cultural nuance and collaboration. Holding both German and Dutch nationality, with a musical background and fluent in Dutch, German, English, he moves effortlessly within international productions. His formal education at [EDUCATION/INSTITUTION] laid the foundation for his technical expertise and creative approach in Foley, recording, and sound design.
             </p>
 
             <p className="text-body text-tx-secondary leading-relaxed">
-              His expertise spans the full spectrum of post-production audio, from detailed
-              Foley work that brings scenes to life, to expansive sound design that shapes the
-              sonic landscape of films and series. Cyril has collaborated with directors,
-              producers and post-production studios across Europe and beyond, contributing to
-              a diverse range of projects including feature films, television series, documentaries
-              and commercials.
+              Cyril has gained experience working at various studios, contributing to recording and editing across a wide range of tasks, including dubbing, audio description, Foley, set recording, sound design, and ADR. He has collaborated with directors, producers, and other sound designers on feature films, television series, documentaries, and commercials. His work ranges from precise, performance-driven Foley to layered soundscapes that shape the atmosphere and identity of a production. In every project, he applies a structured and meticulous approach, with careful attention to detail and teamwork in international production environments.
             </p>
 
             <p className="text-body text-tx-secondary leading-relaxed">
-              With a dedication to technical excellence and creative innovation, Cyril continues
-              to push the boundaries of what sound can achieve in storytelling, making him a
-              trusted partner for filmmakers seeking the highest quality audio production.
+              Flexible yet punctual, multidisciplinary yet precise, he brings his skills to the table to create cohesive, expressive sounds for visual media. He looks forward to applying his expertise to projects where sound plays a defining role in storytelling.
             </p>
 
             {/* CV download — place CV at public/docs/cv-cyril-jansen.pdf */}

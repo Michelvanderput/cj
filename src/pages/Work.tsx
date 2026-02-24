@@ -42,8 +42,7 @@ const Work = () => {
       <div ref={headerRef} className="mb-14 md:mb-20">
         <h1 className="text-h1 text-brand-main mb-4">Work</h1>
         <p className="text-body-lg text-tx-secondary max-w-2xl leading-relaxed">
-          Specializing in post-production audio for film, television and commercial productions.
-          From Foley artistry to full sound design — every project gets a tailored sonic identity.
+          Skilled in post-production audio for film, television, and commercials. With Foley as my core focus, I combine sound design, recording, and editing to make stories and visuals truly come alive.
         </p>
       </div>
 
@@ -105,7 +104,7 @@ const Work = () => {
       <section className="pt-12 border-t border-brd text-center">
         <h2 className="text-h2 text-brand-main mb-4">Interested in working together?</h2>
         <p className="text-body text-tx-secondary mb-8 max-w-xl mx-auto">
-          I'm always open to new projects and collaborations. Let's discuss how sound can elevate your production.
+          I'm always open to new projects and collaborations. Let’s talk about how sound can bring your production to life!
         </p>
         <Link to="/contact" className="btn btn-primary btn-lg">
           Get in Touch

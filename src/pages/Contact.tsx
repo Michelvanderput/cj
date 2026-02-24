@@ -10,6 +10,10 @@ const Contact = () => {
       <div ref={contentRef} className="space-y-12">
         <h1 className="text-h1 text-brand-main">Contact</h1>
 
+        <p className="text-body text-tx-secondary leading-relaxed">
+          Feel free to reach out via the form or email. I'm always interested in discussing new opportunities and creative projects!
+        </p>
+
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-8">
             <div>
@@ -37,13 +41,6 @@ const Contact = () => {
             <h2 className="text-h6 uppercase font-body font-medium tracking-wide text-tx-muted mb-4">Send a Message</h2>
             <ContactForm />
           </div>
-        </div>
-
-        <div className="pt-12 border-t border-brd">
-          <p className="text-body text-tx-secondary leading-relaxed">
-            For project inquiries, collaborations or general questions, feel free to reach out via the form or email.
-            I'm always interested in discussing new opportunities and creative projects.
-          </p>
         </div>
       </div>
     </div>
