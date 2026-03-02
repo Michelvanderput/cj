@@ -21,7 +21,7 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-body-sm text-tx-muted max-w-xs">
-              Foley Artist, Sound Designer & Recording Engineer based in Amsterdam.
+              Foley Artist, Sound Designer & Recordist.
             </p>
           </div>
 

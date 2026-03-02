@@ -48,7 +48,6 @@ const Admin = () => {
   const [confirmingDeleteNews, setConfirmingDeleteNews] = useState<string | null>(null);
   const [newsStatus, setNewsStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [newsErrorMsg, setNewsErrorMsg] = useState('');
-  const [fetchingInstagram, setFetchingInstagram] = useState(false);
 
   // Load projects from JSON
   useEffect(() => {
@@ -181,39 +180,6 @@ const Admin = () => {
   const updateNewsField = <K extends keyof NewsItem>(key: K, value: NewsItem[K]) => {
     if (!editingNews) return;
     setEditingNews({ ...editingNews, [key]: value });
-  };
-
-  const fetchInstagramData = async (url: string) => {
-    if (!url || !url.includes('instagram.com')) return;
-    
-    setFetchingInstagram(true);
-    setNewsErrorMsg('');
-    try {
-      // Call our serverless function to bypass CORS
-      const response = await fetch(`/api/instagram?url=${encodeURIComponent(url)}`);
-      
-      if (!response.ok) {
-        const error = await response.json();
-        setNewsErrorMsg(error.error || 'Failed to fetch Instagram data');
-        setFetchingInstagram(false);
-        return;
-      }
-      
-      const data = await response.json();
-      
-      if (editingNews) {
-        setEditingNews({
-          ...editingNews,
-          title: data.title || editingNews.title,
-          imageUrl: data.imageUrl || editingNews.imageUrl,
-        });
-      }
-    } catch (error) {
-      setNewsErrorMsg('Failed to fetch Instagram data. Please try again.');
-      console.warn('Failed to fetch Instagram data:', error);
-    } finally {
-      setFetchingInstagram(false);
-    }
   };
 
   // ── Login gate ──
@@ -508,25 +474,15 @@ const Admin = () => {
                 <label className="block text-body-sm font-medium text-tx-secondary mb-1">
                   Instagram URL *
                 </label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={editingNews.instagramUrl ?? ''}
-                    onChange={(e) => updateNewsField('instagramUrl', e.target.value || undefined)}
-                    placeholder="https://www.instagram.com/p/..."
-                    className="input-field flex-1"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => fetchInstagramData(editingNews.instagramUrl ?? '')}
-                    disabled={!editingNews.instagramUrl || fetchingInstagram}
-                    className="btn btn-secondary btn-md whitespace-nowrap"
-                  >
-                    {fetchingInstagram ? 'Fetching...' : 'Auto-fill'}
-                  </button>
-                </div>
+                <input
+                  type="text"
+                  value={editingNews.instagramUrl ?? ''}
+                  onChange={(e) => updateNewsField('instagramUrl', e.target.value || undefined)}
+                  placeholder="https://www.instagram.com/p/..."
+                  className="input-field"
+                />
                 <p className="text-caption text-tx-muted mt-1">
-                  Paste the URL and click Auto-fill to fetch image and caption automatically.
+                  Paste the Instagram post URL. Add title and image manually below.
                 </p>
               </div>
             )}
