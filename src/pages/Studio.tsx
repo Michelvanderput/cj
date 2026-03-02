@@ -20,7 +20,7 @@ const Studio = () => {
       {/* Header */}
       <div ref={headerRef} className="mb-14 md:mb-20">
         <h1 className="text-h1 text-brand-main mb-4">Studio</h1>
-        <p className="text-body-lg text-tx-secondary max-w-2xl leading-relaxed">
+        <p className="text-body-lg text-tx-secondary leading-relaxed">
           Professional recording- and sound design studio based in Amsterdam, Netherlands.
         </p>
       </div>
