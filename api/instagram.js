@@ -24,17 +24,24 @@ export default async function handler(req, res) {
     // Use Instagram's public oEmbed endpoint
     const oembedUrl = `https://api.instagram.com/oembed/?url=${encodeURIComponent(url)}`;
     
-    // Use global fetch (available in Node 18+) or import if needed
-    const fetchFn = globalThis.fetch || (await import('node-fetch')).default;
-    const response = await fetchFn(oembedUrl);
+    console.log('Fetching Instagram data from:', oembedUrl);
+    
+    const response = await fetch(oembedUrl);
+    
+    console.log('Instagram API response status:', response.status);
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Instagram API error:', errorText);
       return res.status(response.status).json({ 
-        error: 'Failed to fetch Instagram data. Make sure the post is public.' 
+        error: `Failed to fetch Instagram data (${response.status}). Make sure the post is public.`,
+        details: errorText
       });
     }
 
     const data = await response.json();
+    
+    console.log('Instagram data received:', data);
 
     return res.status(200).json({
       title: data.title || '',
@@ -42,9 +49,10 @@ export default async function handler(req, res) {
       authorName: data.author_name || '',
     });
   } catch (error) {
-    console.error('Instagram fetch error:', error);
+    console.error('Instagram fetch error:', error.message, error.stack);
     return res.status(500).json({ 
-      error: 'Failed to fetch Instagram data' 
+      error: 'Failed to fetch Instagram data',
+      message: error.message
     });
   }
 }
