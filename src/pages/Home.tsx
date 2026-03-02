@@ -48,7 +48,10 @@ const Home = () => {
     };
   }, [prefersReduced]);
 
-  const featuredProjects = [...projects].sort((a, b) => b.year - a.year).slice(0, 3);
+  // Get first project with a poster image for homepage display
+  const featuredProjectWithPoster = [...projects]
+    .sort((a, b) => b.year - a.year)
+    .find(p => p.posterUrl);
 
   return (
     <div className="section-container">
@@ -85,7 +88,7 @@ const Home = () => {
           <Link to="/work" className="group block">
             <div className="aspect-[16/10] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative mb-5 transition-all duration-225 group-hover:border-brd-hover group-hover:shadow-card">
               <OptimizedImage
-                src="/img/CAT_WORK/CJ_POSTA_Schoenen.png"
+                src="/img/CAT_WORK/BUENASCHICAS_ADR.JPG"
                 alt="Work"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 fallback={
@@ -105,9 +108,9 @@ const Home = () => {
           {/* Projects */}
           <Link to="/projects" className="group block">
             <div className="aspect-[16/10] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative mb-5 transition-all duration-225 group-hover:border-brd-hover group-hover:shadow-card">
-              {featuredProjects[0]?.posterUrl ? (
+              {featuredProjectWithPoster?.posterUrl ? (
                 <OptimizedImage
-                  src={featuredProjects[0].posterUrl}
+                  src={featuredProjectWithPoster.posterUrl}
                   alt="Projects"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   fallback={

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import useScrollReveal from '../hooks/useScrollReveal';
 import OptimizedImage from '../components/OptimizedImage';
 import { CREDITS } from '../data/disciplines';
@@ -22,19 +23,26 @@ const CREDIT_ICONS: Record<string, IconDefinition> = {
   dubbing: faEarthAmerica,
 };
 
-const WORK_PHOTOS = [
-  { src: '/img/CAT_WORK/CJ_POSTA_Schoenen.png', alt: 'On set recording' },
-  { src: '/img/CAT_WORK/AAPTOPAAP.jpeg', alt: 'Studio session' },
-  { src: '/img/CAT_WORK/THE_DAM_SET_02.JPG', alt: 'Foley stage' },
-  { src: '/img/CAT_WORK/THE_DAM_SET_03.jpg', alt: 'Mixing console' },
-  { src: '/img/work/work-5.jpg', alt: 'Field recording' },
-  { src: '/img/work/work-6.jpg', alt: 'Sound design setup' },
-];
+interface WorkPhoto {
+  id: string;
+  src: string;
+  alt: string;
+  order: number;
+}
 
 const Work = () => {
+  const [photos, setPhotos] = useState<WorkPhoto[]>([]);
+  
   const headerRef = useScrollReveal<HTMLDivElement>({ y: 24, duration: 0.6 });
   const creditsRef = useScrollReveal<HTMLDivElement>({ y: 20, stagger: 0.04, children: true, duration: 0.5 });
   const photosRef = useScrollReveal<HTMLDivElement>({ y: 30, stagger: 0.06, children: true, duration: 0.7 });
+
+  useEffect(() => {
+    fetch('/data/work-photos.json')
+      .then((r) => r.json())
+      .then((data: WorkPhoto[]) => setPhotos(data.sort((a, b) => a.order - b.order)))
+      .catch(() => {});
+  }, []);
 
   return (
     <div className="section-container pb-20">
@@ -82,9 +90,9 @@ const Work = () => {
       <section className="mb-16 md:mb-24">
         <h2 className="text-h3 text-tx-primary mb-8">Behind the Scenes</h2>
         <div ref={photosRef} className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {WORK_PHOTOS.map((photo, i) => (
+          {photos.map((photo) => (
             <div
-              key={i}
+              key={photo.id}
               className="aspect-[4/3] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative"
             >
               <OptimizedImage

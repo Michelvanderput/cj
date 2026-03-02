@@ -1,19 +1,27 @@
+import { useState, useEffect } from 'react';
 import useScrollReveal from '../hooks/useScrollReveal';
 import OptimizedImage from '../components/OptimizedImage';
 
-const STUDIO_PHOTOS = [
-  { src: '/img/CAT_STUDIO/CJ_2025_Studio_TEMP.jpg', alt: 'Recording room' },
-  { src: '/img/studio/studio-2.jpg', alt: 'Mixing desk' },
-  { src: '/img/studio/studio-3.jpg', alt: 'Foley pit' },
-  { src: '/img/studio/studio-4.jpg', alt: 'Microphone collection' },
-  { src: '/img/studio/studio-5.jpg', alt: 'Control room' },
-  { src: '/img/studio/studio-6.jpg', alt: 'Equipment rack' },
-];
+interface StudioPhoto {
+  id: string;
+  src: string;
+  alt: string;
+  order: number;
+}
 
 const Studio = () => {
+  const [photos, setPhotos] = useState<StudioPhoto[]>([]);
+  
   const headerRef = useScrollReveal<HTMLDivElement>({ y: 24, duration: 0.6 });
   const photosRef = useScrollReveal<HTMLDivElement>({ y: 30, stagger: 0.06, children: true, duration: 0.7 });
   const storyRef = useScrollReveal<HTMLDivElement>({ y: 24, duration: 0.7 });
+
+  useEffect(() => {
+    fetch('/data/studio-photos.json')
+      .then((r) => r.json())
+      .then((data: StudioPhoto[]) => setPhotos(data.sort((a, b) => a.order - b.order)))
+      .catch(() => {});
+  }, []);
 
   return (
     <div className="section-container pb-20">
@@ -57,9 +65,9 @@ const Studio = () => {
       <section>
         <h2 className="text-h3 text-tx-primary mb-8">Gallery</h2>
         <div ref={photosRef} className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {STUDIO_PHOTOS.map((photo, i) => (
+          {photos.map((photo) => (
             <div
-              key={i}
+              key={photo.id}
               className="aspect-[4/3] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative"
             >
               <OptimizedImage

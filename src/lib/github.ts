@@ -94,3 +94,67 @@ async function commitFile(filePath: string, data: unknown[], label: string): Pro
 export async function commitNewsJson(news: unknown[]): Promise<void> {
   return commitFile(NEWS_FILE_PATH, news, 'news');
 }
+
+export async function commitWorkPhotosJson(photos: unknown[]): Promise<void> {
+  return commitFile('public/data/work-photos.json', photos, 'work photos');
+}
+
+export async function commitStudioPhotosJson(photos: unknown[]): Promise<void> {
+  return commitFile('public/data/studio-photos.json', photos, 'studio photos');
+}
+
+/**
+ * Upload an image file to GitHub repository
+ * @param file - The image file to upload
+ * @param folder - Target folder (e.g., 'CAT_WORK' or 'CAT_STUDIO')
+ * @returns The path to the uploaded image
+ */
+export async function uploadImage(file: File, folder: 'CAT_WORK' | 'CAT_STUDIO'): Promise<string> {
+  if (!REPO_OWNER || !REPO_NAME || !GITHUB_TOKEN) {
+    throw new Error('GitHub configuratie ontbreekt.');
+  }
+
+  // Generate unique filename
+  const timestamp = Date.now();
+  const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+  const filename = `${timestamp}_${sanitizedName}`;
+  const filePath = `public/img/${folder}/${filename}`;
+  
+  const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
+  const headers = {
+    Authorization: `Bearer ${GITHUB_TOKEN}`,
+    Accept: 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json',
+  };
+
+  // Convert file to base64
+  const base64Content = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      // Remove data URL prefix (e.g., "data:image/jpeg;base64,")
+      const base64 = result.split(',')[1];
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+
+  // Upload to GitHub
+  const putRes = await fetch(apiUrl, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify({
+      message: `Upload image: ${filename}`,
+      content: base64Content,
+    }),
+  });
+
+  if (!putRes.ok) {
+    const err = await putRes.json().catch(() => ({}));
+    throw new Error(`Image upload failed: ${putRes.status} — ${(err as { message?: string }).message ?? ''}`);
+  }
+
+  // Return the public path
+  return `/img/${folder}/${filename}`;
+}

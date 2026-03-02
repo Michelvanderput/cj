@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import type { Project, CountryEntry, NewsItem } from '../types';
 import ProjectCard from '../components/ProjectCard';
 import NewsCard from '../components/NewsCard';
-import { commitProjectsJson, commitNewsJson } from '../lib/github';
+import PhotoUpload from '../components/PhotoUpload';
+import { commitProjectsJson, commitNewsJson, commitWorkPhotosJson, commitStudioPhotosJson, uploadImage } from '../lib/github';
 import { invalidateNewsCache } from '../hooks/useNews';
 import { CREDITS, SUB_CREDIT_LABELS } from '../data/disciplines';
 
@@ -31,7 +32,7 @@ const emptyNews = (): NewsItem => ({
 const Admin = () => {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem('admin_authed') === 'true');
   const [password, setPassword] = useState('');
-  const [activeTab, setActiveTab] = useState<'projects' | 'news'>('projects');
+  const [activeTab, setActiveTab] = useState<'projects' | 'news' | 'photos'>('projects');
 
   // Projects state
   const [projects, setProjects] = useState<Project[]>([]);
@@ -49,6 +50,21 @@ const Admin = () => {
   const [newsStatus, setNewsStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [newsErrorMsg, setNewsErrorMsg] = useState('');
 
+  // Photos state
+  interface Photo {
+    id: string;
+    src: string;
+    alt: string;
+    order: number;
+  }
+  const [photoPage, setPhotoPage] = useState<'work' | 'studio'>('work');
+  const [workPhotos, setWorkPhotos] = useState<Photo[]>([]);
+  const [studioPhotos, setStudioPhotos] = useState<Photo[]>([]);
+  const [editingPhoto, setEditingPhoto] = useState<Photo | null>(null);
+  const [photoStatus, setPhotoStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [photoErrorMsg, setPhotoErrorMsg] = useState('');
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+
   // Load projects from JSON
   useEffect(() => {
     fetch('/data/projects.json')
@@ -62,6 +78,22 @@ const Admin = () => {
     fetch('/data/news.json')
       .then((r) => r.json())
       .then((data: NewsItem[]) => setNews(data))
+      .catch(() => {});
+  }, []);
+
+  // Load work photos from JSON
+  useEffect(() => {
+    fetch('/data/work-photos.json')
+      .then((r) => r.json())
+      .then((data: Photo[]) => setWorkPhotos(data.sort((a, b) => a.order - b.order)))
+      .catch(() => {});
+  }, []);
+
+  // Load studio photos from JSON
+  useEffect(() => {
+    fetch('/data/studio-photos.json')
+      .then((r) => r.json())
+      .then((data: Photo[]) => setStudioPhotos(data.sort((a, b) => a.order - b.order)))
       .catch(() => {});
   }, []);
 
@@ -180,6 +212,83 @@ const Admin = () => {
   const updateNewsField = <K extends keyof NewsItem>(key: K, value: NewsItem[K]) => {
     if (!editingNews) return;
     setEditingNews({ ...editingNews, [key]: value });
+  };
+
+  // ── Photo handlers ──
+  const currentPhotos = photoPage === 'work' ? workPhotos : studioPhotos;
+  const setCurrentPhotos = photoPage === 'work' ? setWorkPhotos : setStudioPhotos;
+
+  const handlePhotoUpload = async (file: File) => {
+    setUploadingPhoto(true);
+    setPhotoErrorMsg('');
+    try {
+      const folder = photoPage === 'work' ? 'CAT_WORK' : 'CAT_STUDIO';
+      const imagePath = await uploadImage(file, folder);
+      
+      const newPhoto: Photo = {
+        id: crypto.randomUUID().slice(0, 8),
+        src: imagePath,
+        alt: file.name.replace(/\.[^/.]+$/, '').replace(/_/g, ' '),
+        order: currentPhotos.length + 1,
+      };
+      
+      const updatedPhotos = [...currentPhotos, newPhoto];
+      setCurrentPhotos(updatedPhotos);
+      
+      // Auto-save to JSON after upload
+      if (photoPage === 'work') {
+        await commitWorkPhotosJson(updatedPhotos);
+      } else {
+        await commitStudioPhotosJson(updatedPhotos);
+      }
+      
+      setPhotoStatus('saved');
+      setTimeout(() => setPhotoStatus('idle'), 2000);
+    } catch (err) {
+      setPhotoErrorMsg(err instanceof Error ? err.message : 'Upload failed');
+    } finally {
+      setUploadingPhoto(false);
+    }
+  };
+
+  const handleSavePhotos = useCallback(async () => {
+    setPhotoStatus('saving');
+    setPhotoErrorMsg('');
+    try {
+      if (photoPage === 'work') {
+        await commitWorkPhotosJson(workPhotos);
+      } else {
+        await commitStudioPhotosJson(studioPhotos);
+      }
+      setPhotoStatus('saved');
+      setTimeout(() => setPhotoStatus('idle'), 3000);
+    } catch (err) {
+      setPhotoStatus('error');
+      setPhotoErrorMsg(err instanceof Error ? err.message : 'Unknown error');
+    }
+  }, [photoPage, workPhotos, studioPhotos]);
+
+  const deletePhoto = (id: string) => {
+    setCurrentPhotos(currentPhotos.filter(p => p.id !== id));
+  };
+
+  const updatePhotoAlt = (id: string, alt: string) => {
+    setCurrentPhotos(currentPhotos.map(p => p.id === id ? { ...p, alt } : p));
+  };
+
+  const movePhoto = (id: string, direction: 'up' | 'down') => {
+    const idx = currentPhotos.findIndex(p => p.id === id);
+    if (idx === -1) return;
+    if (direction === 'up' && idx === 0) return;
+    if (direction === 'down' && idx === currentPhotos.length - 1) return;
+    
+    const newPhotos = [...currentPhotos];
+    const newIdx = direction === 'up' ? idx - 1 : idx + 1;
+    [newPhotos[idx], newPhotos[newIdx]] = [newPhotos[newIdx], newPhotos[idx]];
+    
+    // Update order values
+    newPhotos.forEach((p, i) => p.order = i + 1);
+    setCurrentPhotos(newPhotos);
   };
 
   // ── Login gate ──
@@ -530,7 +639,7 @@ const Admin = () => {
 
       {/* Tabs */}
       <div className="flex gap-1 mb-8 border-b border-brd">
-        {(['projects', 'news'] as const).map((tab) => (
+        {(['projects', 'news', 'photos'] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -540,7 +649,7 @@ const Admin = () => {
                 : 'border-transparent text-tx-secondary hover:text-tx-primary'
             }`}
           >
-            {tab === 'projects' ? `Projects (${projects.length})` : `News (${news.length})`}
+            {tab === 'projects' ? `Projects (${projects.length})` : tab === 'news' ? `News (${news.length})` : `Photos (${currentPhotos.length})`}
           </button>
         ))}
       </div>
@@ -677,6 +786,90 @@ const Admin = () => {
           {news.length === 0 && (
             <div className="text-center py-20">
               <p className="text-tx-muted text-body">No news items yet. Click "+ New Item" to get started.</p>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* ── Photos tab ── */}
+      {activeTab === 'photos' && (
+        <>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex gap-3">
+              <button
+                onClick={() => setPhotoPage('work')}
+                className={`px-4 py-2 rounded-md ${photoPage === 'work' ? 'bg-brand-main text-tx-inverse' : 'bg-surface-elevated text-tx-secondary'}`}
+              >
+                Work Photos
+              </button>
+              <button
+                onClick={() => setPhotoPage('studio')}
+                className={`px-4 py-2 rounded-md ${photoPage === 'studio' ? 'bg-brand-main text-tx-inverse' : 'bg-surface-elevated text-tx-secondary'}`}
+              >
+                Studio Photos
+              </button>
+              <button
+                onClick={handleSavePhotos}
+                disabled={photoStatus === 'saving'}
+                className="btn btn-secondary btn-md ml-auto"
+              >
+                {photoStatus === 'saving' ? 'Saving...' : photoStatus === 'saved' ? '✓ Saved' : 'Publish'}
+              </button>
+            </div>
+          </div>
+
+          {photoErrorMsg && (
+            <div className="mb-4 p-3 bg-state-error-muted border border-state-error rounded-md text-state-error text-body-sm">
+              {photoErrorMsg}
+            </div>
+          )}
+
+          <div className="mb-8">
+            <PhotoUpload onUpload={handlePhotoUpload} uploading={uploadingPhoto} />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {currentPhotos.map((photo, idx) => (
+              <div key={photo.id} className="bg-surface-elevated rounded-lg p-4 border border-brd">
+                <div className="aspect-[4/3] rounded-md overflow-hidden bg-surface-card mb-3">
+                  <img src={photo.src} alt={photo.alt} className="w-full h-full object-cover" />
+                </div>
+                <input
+                  type="text"
+                  value={photo.alt}
+                  onChange={(e) => updatePhotoAlt(photo.id, e.target.value)}
+                  placeholder="Alt text"
+                  className="input-field mb-2 text-body-sm"
+                />
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => movePhoto(photo.id, 'up')}
+                    disabled={idx === 0}
+                    className="btn btn-ghost btn-sm"
+                  >
+                    ↑
+                  </button>
+                  <button
+                    onClick={() => movePhoto(photo.id, 'down')}
+                    disabled={idx === currentPhotos.length - 1}
+                    className="btn btn-ghost btn-sm"
+                  >
+                    ↓
+                  </button>
+                  <button
+                    onClick={() => deletePhoto(photo.id)}
+                    className="btn btn-ghost btn-sm text-state-error ml-auto"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {currentPhotos.length === 0 && (
+            <div className="text-center py-20">
+              <p className="text-tx-muted text-body">No photos yet. Upload your first photo above.</p>
             </div>
           )}
         </>
