@@ -23,7 +23,10 @@ export default async function handler(req, res) {
   try {
     // Use Instagram's public oEmbed endpoint
     const oembedUrl = `https://api.instagram.com/oembed/?url=${encodeURIComponent(url)}`;
-    const response = await fetch(oembedUrl);
+    
+    // Use global fetch (available in Node 18+) or import if needed
+    const fetchFn = globalThis.fetch || (await import('node-fetch')).default;
+    const response = await fetchFn(oembedUrl);
 
     if (!response.ok) {
       return res.status(response.status).json({ 
