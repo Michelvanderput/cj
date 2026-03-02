@@ -1,0 +1,98 @@
+[
+  {
+    "id": "work-1",
+    "src": "/img/CAT_WORK/CJ_POSTA_Schoenen.png",
+    "alt": "Foley recording - shoes",
+    "order": 1
+  },
+  {
+    "id": "work-2",
+    "src": "/img/CAT_WORK/FOLEY_GLAS.JPG",
+    "alt": "Foley recording - glass",
+    "order": 2
+  },
+  {
+    "id": "work-3",
+    "src": "/img/CAT_WORK/JASON_FOLEY_1.jpeg",
+    "alt": "Foley session - Jason",
+    "order": 3
+  },
+  {
+    "id": "work-4",
+    "src": "/img/CAT_WORK/JASON_FOLEY_2.jpeg",
+    "alt": "Foley session - Jason detail",
+    "order": 4
+  },
+  {
+    "id": "work-5",
+    "src": "/img/CAT_WORK/LOVERBOY_FOLEY.jpg",
+    "alt": "Foley session - Loverboy",
+    "order": 5
+  },
+  {
+    "id": "work-6",
+    "src": "/img/CAT_WORK/THE_DAM_SET_02.JPG",
+    "alt": "On set recording - The Dam",
+    "order": 6
+  },
+  {
+    "id": "work-7",
+    "src": "/img/CAT_WORK/THE_DAM_SET_03.jpg",
+    "alt": "On set recording - The Dam equipment",
+    "order": 7
+  },
+  {
+    "id": "work-8",
+    "src": "/img/CAT_WORK/KERK_RECORD.JPG",
+    "alt": "Location recording - church",
+    "order": 8
+  },
+  {
+    "id": "work-9",
+    "src": "/img/CAT_WORK/MAGISTRATEN_ADR_01.JPG",
+    "alt": "ADR session - Magistraten",
+    "order": 9
+  },
+  {
+    "id": "work-10",
+    "src": "/img/CAT_WORK/MAGISTRATEN_ADR_02.jpg",
+    "alt": "ADR session - Magistraten detail",
+    "order": 10
+  },
+  {
+    "id": "work-11",
+    "src": "/img/CAT_WORK/BUENASCHICAS_ADR.JPG",
+    "alt": "ADR session - Buenas Chicas",
+    "order": 11
+  },
+  {
+    "id": "work-12",
+    "src": "/img/CAT_WORK/AAPTOPAAP.jpeg",
+    "alt": "Studio session",
+    "order": 12
+  },
+  {
+    "id": "work-13",
+    "src": "/img/CAT_WORK/KAREL_JAGERS_NFF.jpeg",
+    "alt": "NFF - Karel Jagers",
+    "order": 13
+  },
+  {
+    "id": "work-14",
+    "src": "/img/CAT_WORK/NFF_ZHAJG.JPG",
+    "alt": "NFF session",
+    "order": 14
+  },
+  {
+    "id": "work-15",
+    "src": "/img/CAT_WORK/POSTA_AD.JPG",
+    "alt": "Audio description - Posta",
+    "order": 15
+  },
+  {
+    "id": "4fbedb2e",
+    "src": "/img/CAT_WORK/1772487564781_5pp60kzrsose1.jpeg",
+    "alt": "5pp60kzrsose1",
+    "order": 16
+  }
+]
