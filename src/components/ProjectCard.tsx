@@ -55,7 +55,7 @@ const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
         ) : posterFallback}
         
         {imdbUrl && (
-          <span className="absolute top-3 right-3 group-hover:opacity-100 opacity-100 transition-all duration-200 bg-brand-secondary text-white px-2.5 py-1.5 text-caption font-medium rounded-md shadow-soft flex items-center gap-1.5 pointer-events-none">
+          <span className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-200 bg-brand-secondary text-white px-2.5 py-1.5 text-caption font-medium rounded-md shadow-soft flex items-center gap-1.5 pointer-events-none">
             <span>Info</span>
           </span>
         )}
