@@ -60,7 +60,7 @@ const Home = () => {
               Cyril Jansen
             </h1>
             <p data-hero-subtitle className="text-body-lg md:text-h3 text-tx-secondary font-body font-light max-w-xl leading-relaxed">
-              Foley Artist, Sound Designer & Recording Engineer based in Amsterdam
+              Foley Artist, Sound Designer & Recordist
             </p>
           </div>
           <div data-hero-photo className="aspect-[4/3] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative">
@@ -126,7 +126,7 @@ const Home = () => {
               Projects
               <span className="inline-block ml-2 transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
             </h2>
-            <p className="text-body-sm text-tx-secondary mt-2">{projects.length} productions across film, TV and commercials</p>
+            <p className="text-body-sm text-tx-secondary mt-2">Productions across film, TV and commercials</p>
           </Link>
         </div>
       </section>

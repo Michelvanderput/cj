@@ -42,7 +42,7 @@ const Work = () => {
       <div ref={headerRef} className="mb-14 md:mb-20">
         <h1 className="text-h1 text-brand-main mb-4">Work</h1>
         <p className="text-body-lg text-tx-secondary max-w-2xl leading-relaxed">
-          Skilled in post-production audio for film, television, and commercials. With Foley as my core focus, I combine sound design, recording, and editing to make stories and visuals truly come alive.
+          Skilled in post-production audio for film, television, and commercials, I focus on Foley as my core specialty, combining sound design, recording, and editing to make stories and visuals truly come alive. With precision, patience, and flexibility, I bring every sound to life and enhance the story of each production.
         </p>
       </div>
 
@@ -95,9 +95,6 @@ const Work = () => {
             </div>
           ))}
         </div>
-        <p className="text-caption text-tx-muted mt-4">
-          Place photos in public/img/work/ (work-1.jpg through work-6.jpg)
-        </p>
       </section>
 
       {/* CTA */}

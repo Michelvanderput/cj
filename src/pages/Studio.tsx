@@ -21,7 +21,7 @@ const Studio = () => {
       <div ref={headerRef} className="mb-14 md:mb-20">
         <h1 className="text-h1 text-brand-main mb-4">Studio</h1>
         <p className="text-body-lg text-tx-secondary max-w-2xl leading-relaxed">
-          Professional recording and sound design studio based in Amsterdam, Netherlands.
+          Professional recording- and sound design studio based in Amsterdam, Netherlands.
         </p>
       </div>
 
@@ -75,9 +75,6 @@ const Studio = () => {
             </div>
           ))}
         </div>
-        <p className="text-caption text-tx-muted mt-4">
-          Place photos in public/img/studio/ (studio-1.jpg through studio-6.jpg, studio-hero.jpg)
-        </p>
       </section>
     </div>
   );

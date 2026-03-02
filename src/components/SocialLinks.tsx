@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faInstagram, faImdb } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faImdb, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 interface SocialLinksProps {
   variant?: 'horizontal' | 'vertical';
@@ -21,17 +21,22 @@ const SocialLinks = ({ variant = 'horizontal', size = 'md' }: SocialLinksProps) 
   const links = [
     {
       name: 'Instagram',
-      url: 'https://www.instagram.com',
+      url: 'https://www.instagram.com/cyril__jansen',
       icon: faInstagram,
     },
     {
+      name: 'LinkedIn',
+      url: 'www.linkedin.com/in/cyril-jansen',
+      icon: faLinkedin,
+    },
+    {
       name: 'IMDb',
-      url: 'https://www.imdb.com',
+      url: 'https://www.imdb.com/name/nm13870671/?ref_=ext_shr_lnk',
       icon: faImdb,
     },
     {
       name: 'Email',
-      url: 'mailto:cyril@example.com',
+      url: 'mailto:cyril.jansen.cj@gmail.com',
       icon: faEnvelope,
     },
   ];
