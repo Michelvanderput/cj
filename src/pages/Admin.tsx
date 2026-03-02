@@ -60,7 +60,6 @@ const Admin = () => {
   const [photoPage, setPhotoPage] = useState<'work' | 'studio'>('work');
   const [workPhotos, setWorkPhotos] = useState<Photo[]>([]);
   const [studioPhotos, setStudioPhotos] = useState<Photo[]>([]);
-  const [editingPhoto, setEditingPhoto] = useState<Photo | null>(null);
   const [photoStatus, setPhotoStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [photoErrorMsg, setPhotoErrorMsg] = useState('');
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
