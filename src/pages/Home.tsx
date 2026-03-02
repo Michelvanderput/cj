@@ -63,7 +63,7 @@ const Home = () => {
               Foley Artist, Sound Designer & Recordist
             </p>
           </div>
-          <div data-hero-photo className="aspect-[4/3] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative">
+          <div data-hero-photo className="aspect-square rounded-lg overflow-hidden border border-brd bg-surface-elevated relative">
             <OptimizedImage
               src="/img/CAT_HOME/CJ_STUART_WIZARD.jpg"
               alt="Cyril Jansen at work"
