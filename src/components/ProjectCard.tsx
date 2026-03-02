@@ -42,8 +42,8 @@ const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
     );
   }
 
-  return (
-    <article className="group">
+  const cardContent = (
+    <>
       <div className="aspect-[2/3] bg-surface-elevated rounded-lg mb-4 overflow-hidden relative border border-brd transition-all duration-225 group-hover:border-brd-hover group-hover:shadow-card">
         {posterUrl ? (
           <OptimizedImage
@@ -55,15 +55,9 @@ const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
         ) : posterFallback}
         
         {imdbUrl && (
-          <a
-            href={imdbUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-all duration-200 bg-brand-secondary text-white px-2.5 py-1.5 text-caption font-medium rounded-md hover:bg-brand-secondary-hover shadow-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-main flex items-center gap-1.5"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <span>IMDb</span>
-          </a>
+          <span className="absolute top-3 right-3 group-hover:opacity-100 opacity-100 transition-all duration-200 bg-brand-secondary text-white px-2.5 py-1.5 text-caption font-medium rounded-md shadow-soft flex items-center gap-1.5 pointer-events-none">
+            <span>Info</span>
+          </span>
         )}
       </div>
       
@@ -104,6 +98,21 @@ const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
           ))}
         </div>
       </div>
+    </>
+  );
+
+  return imdbUrl ? (
+    <a
+      href={imdbUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block cursor-pointer"
+    >
+      {cardContent}
+    </a>
+  ) : (
+    <article className="group">
+      {cardContent}
     </article>
   );
 };

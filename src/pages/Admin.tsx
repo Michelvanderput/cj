@@ -465,13 +465,13 @@ const Admin = () => {
 
             <div>
               <label className="block text-body-sm font-medium text-tx-secondary mb-1">
-                IMDb URL <span className="text-tx-muted">(optional)</span>
+                Link <span className="text-tx-muted">(optional - IMDb, website, etc.)</span>
               </label>
               <input
                 type="text"
                 value={editing.imdbUrl ?? ''}
                 onChange={(e) => updateField('imdbUrl', e.target.value || undefined)}
-                placeholder="https://www.imdb.com/title/..."
+                placeholder="https://www.imdb.com/title/... or other link"
                 className="input-field"
               />
             </div>
