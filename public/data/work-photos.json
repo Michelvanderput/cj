@@ -88,23 +88,5 @@
     "src": "/img/CAT_WORK/POSTA_AD.JPG",
     "alt": "Audio description - Posta",
     "order": 15
-  },
-  {
-    "id": "4fbedb2e",
-    "src": "/img/CAT_WORK/1772487564781_5pp60kzrsose1.jpeg",
-    "alt": "5pp60kzrsose1",
-    "order": 16
-  },
-  {
-    "id": "827ad0a7",
-    "src": "/img/CAT_WORK/1772488189335_5pp60kzrsose1.jpeg",
-    "alt": "5pp60kzrsose1",
-    "order": 17
-  },
-  {
-    "id": "79258351",
-    "src": "/img/CAT_WORK/1772488568244_images.jpg",
-    "alt": "images",
-    "order": 18
   }
 ]
