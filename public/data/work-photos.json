@@ -24,12 +24,6 @@
     "order": 4
   },
   {
-    "id": "work-5",
-    "src": "/img/CAT_WORK/LOVERBOY_FOLEY.jpg",
-    "alt": "Foley session - Loverboy",
-    "order": 5
-  },
-  {
     "id": "work-6",
     "src": "/img/CAT_WORK/THE_DAM_SET_02.JPG",
     "alt": "On set recording - The Dam",
@@ -40,12 +34,6 @@
     "src": "/img/CAT_WORK/THE_DAM_SET_03.jpg",
     "alt": "On set recording - The Dam equipment",
     "order": 7
-  },
-  {
-    "id": "work-8",
-    "src": "/img/CAT_WORK/KERK_RECORD.JPG",
-    "alt": "Location recording - church",
-    "order": 8
   },
   {
     "id": "work-9",
@@ -88,5 +76,11 @@
     "src": "/img/CAT_WORK/POSTA_AD.JPG",
     "alt": "Audio description - Posta",
     "order": 15
+  },
+  {
+    "id": "5c45eb22",
+    "src": "/img/CAT_WORK/1772489666004_Foley_session_-_Loverboy.jpg",
+    "alt": "Foley session - Loverboy",
+    "order": 14
   }
 ]
