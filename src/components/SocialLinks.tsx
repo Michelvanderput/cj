@@ -26,7 +26,7 @@ const SocialLinks = ({ variant = 'horizontal', size = 'md' }: SocialLinksProps) 
     },
     {
       name: 'LinkedIn',
-      url: 'www.linkedin.com/in/cyril-jansen',
+      url: 'https://www.linkedin.com/in/cyril-jansen',
       icon: faLinkedin,
     },
     {
