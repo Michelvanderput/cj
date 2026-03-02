@@ -54,39 +54,39 @@
     "order": 9
   },
   {
+    "id": "4725b3f2",
+    "src": "/img/CAT_WORK/1772489721885_KERK_RECORD.jpg",
+    "alt": "KERK RECORD",
+    "order": 10
+  },
+  {
     "id": "work-11",
     "src": "/img/CAT_WORK/BUENASCHICAS_ADR.JPG",
     "alt": "ADR session - Buenas Chicas",
-    "order": 10
+    "order": 11
   },
   {
     "id": "work-12",
     "src": "/img/CAT_WORK/AAPTOPAAP.jpeg",
     "alt": "Studio session",
-    "order": 11
+    "order": 12
   },
   {
     "id": "work-13",
     "src": "/img/CAT_WORK/KAREL_JAGERS_NFF.jpeg",
     "alt": "NFF - Karel Jagers",
-    "order": 12
+    "order": 13
   },
   {
     "id": "work-14",
     "src": "/img/CAT_WORK/NFF_ZHAJG.JPG",
     "alt": "NFF session",
-    "order": 13
+    "order": 14
   },
   {
     "id": "work-15",
     "src": "/img/CAT_WORK/POSTA_AD.JPG",
     "alt": "Audio description - Posta",
-    "order": 14
-  },
-  {
-    "id": "4725b3f2",
-    "src": "/img/CAT_WORK/1772489721885_KERK_RECORD.jpg",
-    "alt": "KERK RECORD",
     "order": 15
   }
 ]
