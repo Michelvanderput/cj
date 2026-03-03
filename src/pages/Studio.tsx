@@ -37,7 +37,7 @@ const Studio = () => {
       <section className="mb-12 md:mb-16">
         <div className="aspect-[21/9] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative">
           <OptimizedImage
-            src="/img/CAT_STUDIO/IMG_2831.jpg"
+            src="/img/CAT_STUDIO/1772544641055_IMG_2831.jpg"
             alt="Cyril Jansen Studio — Amsterdam"
             className="absolute inset-0 w-full h-full object-cover"
             fallback={
