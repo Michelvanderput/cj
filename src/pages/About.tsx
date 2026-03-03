@@ -17,6 +17,7 @@ const Bio = () => {
                 src="/img/CAT_BIO/CJ_STUART_SELFIE.jpg"
                 alt="Cyril Jansen"
                 className="absolute inset-0 w-full h-full object-cover"
+                eager
                 fallback={
                   <div className="absolute inset-0 flex items-center justify-center text-tx-muted text-body-sm text-center px-4">
                     Place photo at public/img/about.jpg
