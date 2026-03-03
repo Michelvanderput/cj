@@ -3,6 +3,8 @@ import { useState, useCallback, type ImgHTMLAttributes } from 'react';
 interface OptimizedImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'onLoad' | 'onError'> {
   /** Fallback content shown when the image fails to load */
   fallback?: React.ReactNode;
+  /** Set to true for above-the-fold images to load eagerly */
+  eager?: boolean;
 }
 
 /**
@@ -19,6 +21,7 @@ const OptimizedImage = ({
   alt,
   className = '',
   fallback,
+  eager = false,
   ...rest
 }: OptimizedImageProps) => {
   const [loaded, setLoaded] = useState(false);
@@ -46,16 +49,17 @@ const OptimizedImage = ({
     <>
       {/* Skeleton pulse — visible until image loads */}
       {!loaded && (
-        <div className="absolute inset-0 bg-surface-elevated animate-pulse" />
+        <div className="absolute inset-0 bg-gradient-to-br from-surface-elevated via-surface-card to-surface-elevated animate-pulse" />
       )}
       <img
         src={src}
         alt={alt}
-        loading="lazy"
+        loading={eager ? 'eager' : 'lazy'}
         decoding="async"
+        fetchPriority={eager ? 'high' : 'auto'}
         onLoad={handleLoad}
         onError={handleError}
-        className={`${className}${loaded ? '' : ' opacity-0'}`}
+        className={`${className} transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         {...rest}
       />
     </>

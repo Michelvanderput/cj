@@ -29,8 +29,7 @@ const Studio = () => {
       <div ref={headerRef} className="mb-14 md:mb-20">
         <h1 className="text-h1 text-brand-main mb-4">Studio</h1>
         <p className="text-body-lg text-tx-secondary leading-relaxed">
-          Skilled in Audio Post-Production & Production Sound for film, television, and commercials. 
-          I focus on Foley as my core specialty, combining sound design and recording to make stories and visuals truly come alive.
+          Professional recording- and sound design studio based in Amsterdam, Netherlands.
         </p>
       </div>
 
@@ -41,6 +40,7 @@ const Studio = () => {
             src="/img/CAT_STUDIO/1772544641055_IMG_2831.jpg"
             alt="Cyril Jansen Studio — Amsterdam"
             className="absolute inset-0 w-full h-full object-cover"
+            eager
             fallback={
               <div className="absolute inset-0 flex items-center justify-center text-tx-muted text-body-sm text-center px-4">
                 Place hero photo at public/img/studio/studio-hero.jpg
@@ -66,7 +66,7 @@ const Studio = () => {
       <section>
         <h2 className="text-h3 text-tx-primary mb-8">Gallery</h2>
         <div ref={photosRef} className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {photos.map((photo) => (
+          {photos.map((photo, index) => (
             <div
               key={photo.id}
               className="aspect-[4/3] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative"
@@ -75,6 +75,7 @@ const Studio = () => {
                 src={photo.src}
                 alt={photo.alt}
                 className="absolute inset-0 w-full h-full object-cover"
+                eager={index < 3}
                 fallback={
                   <div className="absolute inset-0 flex items-center justify-center text-tx-muted text-caption text-center px-2">
                     {photo.alt}
