@@ -33,13 +33,13 @@ const Bio = () => {
             </p>
 
             <p className="text-body text-tx-secondary leading-relaxed">
-              With a musical background and an early passion for film production, he developed a strong interest in the role of sound in visual storytelling. Growing up in the tri-border region of the Netherlands, Germany, and Belgium, he began experimenting and practicing within the craft of film from a young age.            </p>
+              With a musical background from his parents and an early passion for film production, he developed a strong interest in the role of sound in visual storytelling. Growing up in the tri-border region of the Netherlands, Germany, and Belgium, he began experimenting and practicing within the craft of film from a young age.            </p>
 
             <p className="text-body text-tx-secondary leading-relaxed">
               He later completed a Sound Producer program at Syntra Hasselt (BE) and a Bachelor’s degree in Music & Technology: Sound Design at the Utrecht School of the Arts (NL), collaborating with colleagues and fellow students on diverse projects within the industry.            </p>
 
             <p className="text-body text-tx-secondary leading-relaxed">
-              Shortly after completing an internship as an audio engineer for dubbing at Iyuno SDI in Hilversum, he started his own freelance practice during his bachelor studies. Since then, he has worked for a range of studios, including Iyuno SDI, PostaVermaas, STMPD Recording Studios, and Soundfocus.            </p>
+              Shortly after completing an internship as an audio engineer for dubbing at Iyuno SDI in Hilversum, he started his own freelance company during his bachelor studies. Since then, he has worked for a range of studios, including Iyuno SDI, PostaVermaas, STMPD Recording Studios, and Soundfocus.            </p>
             
             <p className="text-body text-tx-secondary leading-relaxed">
               Collaborating with directors, producers, sound designers, studios, and actors, he works from Amsterdam on a wide variety of projects and has experience with films, series, documentaries, commercials, interviews, and podcasts. With Foley as his core specialty, combined with expertise in sound design and recording, he brings every sound to life, enhancing the story of the production with precision, patience, and flexibility.

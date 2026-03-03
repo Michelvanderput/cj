@@ -51,7 +51,7 @@ const Work = () => {
         <h1 className="text-h1 text-brand-main mb-4">Work</h1>
         <div className="space-y-6 max-w-2xl">
           <p className="text-body-lg text-tx-secondary leading-relaxed">
-            Skilled in post-production audio for film, television, and commercials, I focus on Foley as my core specialty, combining sound design, recording, and editing to make stories and visuals truly come alive.
+            Skilled in post-production audio for film, television, and commercials, I focus on Foley as my core specialty, combining sound design and recording to make stories and visuals truly come alive.
           </p>
           <p className="text-body-lg text-tx-secondary leading-relaxed">
             With precision, patience, and flexibility, I bring every sound to life and enhance the story of each production.

@@ -9,7 +9,7 @@ export interface RouteMeta {
 }
 
 const BASE_URL = 'https://cyriljansen.nl';
-const DEFAULT_OG_IMAGE = `${BASE_URL}/img/CAT_HOME/CJ_STUART_WIZARD.jpg`;
+const DEFAULT_OG_IMAGE = `${BASE_URL}/img/CAT_HOME/CJ_STUART_WIZARD_2.jpg`;
 
 export const routeMeta: Record<string, RouteMeta> = {
   '/': {

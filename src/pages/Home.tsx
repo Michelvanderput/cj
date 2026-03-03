@@ -68,7 +68,7 @@ const Home = () => {
           </div>
           <div data-hero-photo className="aspect-square rounded-lg overflow-hidden border border-brd bg-surface-elevated relative">
             <OptimizedImage
-              src="/img/CAT_HOME/CJ_STUART_WIZARD.jpg"
+              src="/img/CAT_HOME/CJ_STUART_WIZARD_2.jpg"
               alt="Cyril Jansen at work"
               className="absolute inset-0 w-full h-full object-cover"
               fallback={

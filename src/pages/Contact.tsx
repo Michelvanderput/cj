@@ -9,10 +9,14 @@ const Contact = () => {
     <div className="section-container max-w-4xl pb-20">
       <div ref={contentRef} className="space-y-12">
         <h1 className="text-h1 text-brand-main">Contact</h1>
-
+<div className="md:col-span-3 space-y-6">
         <p className="text-body text-tx-secondary leading-relaxed">
-          Feel free to reach out via the form or email. I'm always interested in discussing new opportunities and creative projects!
+          Feel free to reach out via the form or email.
         </p>
+        <p className="text-body text-tx-secondary leading-relaxed">
+          I'm always interested in discussing new opportunities and creative projects!
+        </p>
+        </div> 
 
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-8">

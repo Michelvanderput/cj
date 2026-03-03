@@ -37,7 +37,7 @@ const Studio = () => {
       <section className="mb-12 md:mb-16">
         <div className="aspect-[21/9] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative">
           <OptimizedImage
-            src="/img/CAT_STUDIO/1772544401461_IMG_2843.jpg"
+            src="/img/CAT_STUDIO/IMG_2831.jpg"
             alt="Cyril Jansen Studio — Amsterdam"
             className="absolute inset-0 w-full h-full object-cover"
             fallback={
@@ -56,7 +56,7 @@ const Studio = () => {
             The studio is entirely built and designed for professional sound work. Foley recordings are performed and edited here, sound design is developed, and recordings are produced for films, series, documentaries, and commercials. All aspects of sound work can be handled in this space, from performance-driven Foley to detailed editing and creative sound design.
           </p>
           <p className="text-body text-tx-secondary leading-relaxed">
-            The studio is also suitable for ADR or vocal recordings. In collaboration with directors, producers, or other sound specialists, high-quality recordings can be made, fully tailored to the needs of the production.
+            The studio is also suitable for ADR or vocal recordings. In collaboration with directors, producers, or other sound designers, high-quality recordings can be made, fully tailored to the needs of the production.
           </p>
         </div>
       </section>
