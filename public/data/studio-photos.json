@@ -1,38 +1,8 @@
 [
   {
-    "id": "studio-1",
-    "src": "/img/CAT_STUDIO/CJ_2025_Studio_TEMP.jpg",
-    "alt": "Recording room",
+    "id": "6135f4ce",
+    "src": "/img/CAT_STUDIO/1772544374599_IMG_2799.jpg",
+    "alt": "IMG 2799",
     "order": 1
-  },
-  {
-    "id": "studio-2",
-    "src": "/img/studio/studio-2.jpg",
-    "alt": "Mixing desk",
-    "order": 2
-  },
-  {
-    "id": "studio-3",
-    "src": "/img/studio/studio-3.jpg",
-    "alt": "Foley pit",
-    "order": 3
-  },
-  {
-    "id": "studio-4",
-    "src": "/img/studio/studio-4.jpg",
-    "alt": "Microphone collection",
-    "order": 4
-  },
-  {
-    "id": "studio-5",
-    "src": "/img/studio/studio-5.jpg",
-    "alt": "Control room",
-    "order": 5
-  },
-  {
-    "id": "studio-6",
-    "src": "/img/studio/studio-6.jpg",
-    "alt": "Equipment rack",
-    "order": 6
   }
 ]
