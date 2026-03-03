@@ -29,7 +29,8 @@ const Studio = () => {
       <div ref={headerRef} className="mb-14 md:mb-20">
         <h1 className="text-h1 text-brand-main mb-4">Studio</h1>
         <p className="text-body-lg text-tx-secondary leading-relaxed">
-          Professional recording- and sound design studio based in Amsterdam, Netherlands.
+          Skilled in Audio Post-Production & Production Sound for film, television, and commercials. 
+          I focus on Foley as my core specialty, combining sound design and recording to make stories and visuals truly come alive.
         </p>
       </div>
 
