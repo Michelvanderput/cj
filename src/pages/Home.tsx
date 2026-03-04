@@ -160,10 +160,6 @@ const Home = () => {
           <h2 className="text-h1 md:text-display text-brand-main">
             Let's Collaborate
           </h2>
-          <p className="text-body-lg text-tx-secondary leading-relaxed">
-            Looking for professional sound design, Foley or recording services for your next project?
-            I'd love to hear about your vision and discuss how we can bring it to life through sound.
-          </p>
           <Link
             to="/contact"
             className="btn btn-primary btn-lg"

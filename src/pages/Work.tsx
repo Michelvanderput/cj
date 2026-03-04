@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useScrollReveal from '../hooks/useScrollReveal';
 import OptimizedImage from '../components/OptimizedImage';
@@ -111,7 +110,7 @@ const Work = () => {
       </section>
 
       {/* CTA */}
-      <section className="pt-12 border-t border-brd text-center">
+      {/* <section className="pt-12 border-t border-brd text-center">
         <h2 className="text-h2 text-brand-main mb-4">Interested in working together?</h2>
         <p className="text-body text-tx-secondary mb-8 max-w-xl mx-auto">
           I'm always open to new projects and collaborations. Let’s talk about how sound can bring your production to life!
@@ -119,7 +118,7 @@ const Work = () => {
         <Link to="/contact" className="btn btn-primary btn-lg">
           Get in Touch
         </Link>
-      </section>
+      </section> */}
     </div>
   );
 };
