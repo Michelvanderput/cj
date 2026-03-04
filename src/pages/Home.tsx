@@ -157,9 +157,6 @@ const Home = () => {
       {/* CTA */}
       <section className="py-16 md:py-24 border-t border-brd">
         <div ref={ctaRef} className="max-w-3xl mx-auto text-center space-y-8">
-          <h2 className="text-h1 md:text-display text-brand-main">
-            Let's Collaborate
-          </h2>
           <Link
             to="/contact"
             className="btn btn-primary btn-lg"
