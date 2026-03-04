@@ -37,9 +37,10 @@ const Studio = () => {
       <section className="mb-12 md:mb-16">
         <div className="aspect-[21/9] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative">
           <OptimizedImage
-            src="/img/CAT_STUDIO/IMG_2831.jpg"
+            src="/img/CAT_STUDIO/1772544641055_IMG_2831.jpg"
             alt="Cyril Jansen Studio — Amsterdam"
             className="absolute inset-0 w-full h-full object-cover"
+            eager
             fallback={
               <div className="absolute inset-0 flex items-center justify-center text-tx-muted text-body-sm text-center px-4">
                 Place hero photo at public/img/studio/studio-hero.jpg
@@ -65,7 +66,7 @@ const Studio = () => {
       <section>
         <h2 className="text-h3 text-tx-primary mb-8">Gallery</h2>
         <div ref={photosRef} className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {photos.map((photo) => (
+          {photos.map((photo, index) => (
             <div
               key={photo.id}
               className="aspect-[4/3] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative"
@@ -74,6 +75,7 @@ const Studio = () => {
                 src={photo.src}
                 alt={photo.alt}
                 className="absolute inset-0 w-full h-full object-cover"
+                eager={index < 3}
                 fallback={
                   <div className="absolute inset-0 flex items-center justify-center text-tx-muted text-caption text-center px-2">
                     {photo.alt}

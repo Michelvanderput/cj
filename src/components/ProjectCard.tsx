@@ -7,9 +7,10 @@ const formatProjectType = (type: Project['type']) => (type === 'Serie' ? 'Series
 interface ProjectCardProps {
   project: Project;
   compact?: boolean;
+  eager?: boolean;
 }
 
-const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
+const ProjectCard = ({ project, compact = false, eager = false }: ProjectCardProps) => {
   const { title, type, credits = [], countries = [], imdbUrl, year, posterUrl } = project;
   const typeLabel = formatProjectType(type);
 
@@ -28,6 +29,7 @@ const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
               src={posterUrl}
               alt={title}
               className="absolute inset-0 w-full h-full object-cover"
+              eager={eager}
               fallback={posterFallback}
             />
           ) : posterFallback}
@@ -50,6 +52,7 @@ const ProjectCard = ({ project, compact = false }: ProjectCardProps) => {
             src={posterUrl}
             alt={title}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            eager={eager}
             fallback={posterFallback}
           />
         ) : posterFallback}

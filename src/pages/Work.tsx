@@ -50,7 +50,8 @@ const Work = () => {
         <h1 className="text-h1 text-brand-main mb-4">Work</h1>
         <div className="space-y-6 max-w-2xl">
           <p className="text-body-lg text-tx-secondary leading-relaxed">
-            Skilled in post-production audio for film, television, and commercials, I focus on Foley as my core specialty, combining sound design and recording to make stories and visuals truly come alive.
+            Skilled in Audio Post-Production & Production Sound for film, television, and commercials. 
+            I focus on Foley as my core specialty, combining sound design and recording to make stories and visuals truly come alive.
           </p>
           <p className="text-body-lg text-tx-secondary leading-relaxed">
             With precision, patience, and flexibility, I bring every sound to life and enhance the story of each production.
@@ -89,7 +90,7 @@ const Work = () => {
       <section className="mb-16 md:mb-24">
         <h2 className="text-h3 text-tx-primary mb-8">Behind the Scenes</h2>
         <div ref={photosRef} className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {photos.map((photo) => (
+          {photos.map((photo, index) => (
             <div
               key={photo.id}
               className="aspect-[4/3] rounded-lg overflow-hidden border border-brd bg-surface-elevated relative"
@@ -98,6 +99,7 @@ const Work = () => {
                 src={photo.src}
                 alt={photo.alt}
                 className="absolute inset-0 w-full h-full object-cover"
+                eager={index < 3}
                 fallback={
                   <div className="absolute inset-0 flex items-center justify-center text-tx-muted text-caption text-center px-2">
                     {photo.alt}
