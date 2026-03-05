@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import ScrollToTop from './components/ScrollToTop';
 import PageLoader from './components/PageLoader';
+import { useLenis } from './hooks/useLenis';
 
 const Home = lazy(() => import('./pages/Home'));
 const Work = lazy(() => import('./pages/Work'));
@@ -14,6 +15,8 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const Admin = lazy(() => import('./pages/Admin'));
 
 function App() {
+  useLenis();
+  
   return (
     <>
       <ScrollToTop />
