@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Analytics } from '@vercel/analytics/react';
 import Layout from './components/Layout';
 import ScrollToTop from './components/ScrollToTop';
@@ -33,6 +34,7 @@ function App() {
           <Route path="*" element={<Suspense fallback={<PageLoader />}><NotFound /></Suspense>} />
         </Route>
       </Routes>
+      <SpeedInsights />
       <Analytics />
     </>
   );
