@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { Project, CountryEntry, NewsItem } from '../types';
+import type { Project, CountryEntry, NewsItem, SiteConfig } from '../types';
 import ProjectCard from '../components/ProjectCard';
 import NewsCard from '../components/NewsCard';
 import PhotoUpload from '../components/PhotoUpload';
-import { commitProjectsJson, commitNewsJson, commitWorkPhotosJson, commitStudioPhotosJson, uploadImage } from '../lib/github';
+import { commitProjectsJson, commitNewsJson, commitWorkPhotosJson, commitStudioPhotosJson, uploadImage, commitSiteConfigJson } from '../lib/github';
 import { invalidateNewsCache } from '../hooks/useNews';
+import { invalidateSiteConfigCache } from '../hooks/useSiteConfig';
 import { CREDITS, SUB_CREDIT_LABELS } from '../data/disciplines';
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD ?? 'admin';
@@ -32,7 +33,7 @@ const emptyNews = (): NewsItem => ({
 const Admin = () => {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem('admin_authed') === 'true');
   const [password, setPassword] = useState('');
-  const [activeTab, setActiveTab] = useState<'projects' | 'news' | 'photos'>('projects');
+  const [activeTab, setActiveTab] = useState<'projects' | 'news' | 'photos' | 'settings'>('projects');
 
   // Projects state
   const [projects, setProjects] = useState<Project[]>([]);
@@ -64,6 +65,11 @@ const Admin = () => {
   const [photoErrorMsg, setPhotoErrorMsg] = useState('');
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
 
+  // Settings state
+  const [siteConfig, setSiteConfig] = useState<SiteConfig>({ isOpen: true, farewellMessage: '' });
+  const [configStatus, setConfigStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [configErrorMsg, setConfigErrorMsg] = useState('');
+
   // Load projects from JSON
   useEffect(() => {
     fetch('/data/projects.json')
@@ -93,6 +99,14 @@ const Admin = () => {
     fetch('/data/studio-photos.json')
       .then((r) => r.json())
       .then((data: Photo[]) => setStudioPhotos(data.sort((a, b) => a.order - b.order)))
+      .catch(() => {});
+  }, []);
+
+  // Load site config from JSON
+  useEffect(() => {
+    fetch('/data/site-config.json')
+      .then((r) => r.json())
+      .then((data: SiteConfig) => setSiteConfig(data))
       .catch(() => {});
   }, []);
 
@@ -274,6 +288,21 @@ const Admin = () => {
   const updatePhotoAlt = (id: string, alt: string) => {
     setCurrentPhotos(currentPhotos.map(p => p.id === id ? { ...p, alt } : p));
   };
+
+  // ── Settings handlers ──
+  const handleSaveSiteConfig = useCallback(async () => {
+    setConfigStatus('saving');
+    setConfigErrorMsg('');
+    try {
+      await commitSiteConfigJson(siteConfig);
+      invalidateSiteConfigCache();
+      setConfigStatus('saved');
+      setTimeout(() => setConfigStatus('idle'), 3000);
+    } catch (err) {
+      setConfigStatus('error');
+      setConfigErrorMsg(err instanceof Error ? err.message : 'Unknown error');
+    }
+  }, [siteConfig]);
 
   const movePhoto = (id: string, direction: 'up' | 'down') => {
     const idx = currentPhotos.findIndex(p => p.id === id);
@@ -638,7 +667,7 @@ const Admin = () => {
 
       {/* Tabs */}
       <div className="flex gap-1 mb-8 border-b border-brd">
-        {(['projects', 'news', 'photos'] as const).map((tab) => (
+        {(['projects', 'news', 'photos', 'settings'] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -648,7 +677,7 @@ const Admin = () => {
                 : 'border-transparent text-tx-secondary hover:text-tx-primary'
             }`}
           >
-            {tab === 'projects' ? `Projects (${projects.length})` : tab === 'news' ? `News (${news.length})` : `Photos (${currentPhotos.length})`}
+            {tab === 'projects' ? `Projects (${projects.length})` : tab === 'news' ? `News (${news.length})` : tab === 'photos' ? `Photos (${currentPhotos.length})` : 'Settings'}
           </button>
         ))}
       </div>
@@ -872,6 +901,97 @@ const Admin = () => {
             </div>
           )}
         </>
+      )}
+
+      {/* ── Settings tab ── */}
+      {activeTab === 'settings' && (
+        <div className="space-y-8">
+          <div className="p-6 bg-surface-card border border-brd rounded-lg">
+            <h2 className="text-h3 text-tx-primary mb-6">Site Status</h2>
+
+            <div className="space-y-6">
+              {/* Toggle */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-body font-medium text-tx-primary">Website Open</p>
+                  <p className="text-body-sm text-tx-secondary">
+                    {siteConfig.isOpen ? 'The website is currently open to visitors' : 'The website is currently closed'}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSiteConfig(prev => ({ ...prev, isOpen: !prev.isOpen }))}
+                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors duration-200 ${
+                    siteConfig.isOpen ? 'bg-state-success' : 'bg-surface-elevated border border-brd'
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-5 w-5 rounded-full bg-tx-inverse shadow-sm transition-transform duration-200 ${
+                      siteConfig.isOpen ? 'translate-x-6' : 'translate-x-1'
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {/* Farewell Message */}
+              <div>
+                <label className="block text-body-sm font-medium text-tx-secondary mb-2">
+                  Farewell Message
+                  <span className="text-tx-muted ml-1">(shown when site is closed)</span>
+                </label>
+                <textarea
+                  value={siteConfig.farewellMessage}
+                  onChange={(e) => setSiteConfig(prev => ({ ...prev, farewellMessage: e.target.value }))}
+                  rows={4}
+                  placeholder="Write a thank you message to your visitors..."
+                  className="input-field resize-none w-full"
+                />
+              </div>
+
+              {/* Save Button */}
+              <div className="flex items-center gap-4 pt-4">
+                <button
+                  onClick={handleSaveSiteConfig}
+                  disabled={configStatus === 'saving'}
+                  className="btn btn-primary btn-md"
+                >
+                  {configStatus === 'saving' ? 'Saving...' : configStatus === 'saved' ? '✓ Saved' : 'Publish Settings'}
+                </button>
+                <p className="text-body-sm text-tx-muted">
+                  {siteConfig.isOpen ? 'Homepage shows normal content' : 'Homepage shows farewell page'}
+                </p>
+              </div>
+
+              {/* Status Messages */}
+              {configStatus === 'error' && (
+                <div className="p-4 rounded-md bg-state-error-muted/20 border border-state-error/30">
+                  <p className="text-body-sm text-state-error">{configErrorMsg}</p>
+                </div>
+              )}
+              {configStatus === 'saved' && (
+                <div className="p-4 rounded-md bg-state-success-muted/20 border border-state-success/30">
+                  <p className="text-body-sm text-state-success">Settings published! Vercel will rebuild automatically.</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Preview */}
+          <div className="p-6 bg-surface-elevated border border-brd rounded-lg">
+            <h3 className="text-body font-medium text-tx-secondary mb-4">Preview</h3>
+            {!siteConfig.isOpen ? (
+              <div className="p-8 bg-surface-card rounded-lg border border-brd text-center">
+                <h1 className="text-h1 text-brand-main mb-4">Thank You</h1>
+                <p className="text-body-lg text-tx-secondary max-w-2xl mx-auto leading-relaxed">
+                  {siteConfig.farewellMessage || 'Thank you for all the support over the years.'}
+                </p>
+              </div>
+            ) : (
+              <div className="p-8 bg-surface-card rounded-lg border border-brd text-center">
+                <p className="text-body text-tx-secondary">Website is currently open - normal homepage will be shown</p>
+              </div>
+            )}
+          </div>
+        </div>
       )}
     </div>
   );

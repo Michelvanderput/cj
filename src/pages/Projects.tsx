@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { gsap } from '../lib/gsap';
 import ProjectCard from '../components/ProjectCard';
 import FilterBar from '../components/FilterBar';
+import SiteClosedRedirect from '../components/SiteClosedRedirect';
 import { CREDITS, CREDIT_HEAD_LABELS, getSubCreditIds } from '../data/disciplines';
 import useProjects from '../hooks/useProjects';
 import useScrollReveal from '../hooks/useScrollReveal';
@@ -73,10 +74,12 @@ const Projects = () => {
   };
 
   return (
-    <div className="section-container pb-20">
-      <div ref={headerRef} className="mb-6 md:mb-10">
-        <h1 className="text-h1 text-brand-main">Projects</h1>
-      </div>
+    <>
+      <SiteClosedRedirect />
+      <div className="section-container pb-20">
+        <div ref={headerRef} className="mb-6 md:mb-10">
+          <h1 className="text-h1 text-brand-main">Projects</h1>
+        </div>
 
       {/* Sticky filter bar */}
       <div className="sticky top-[73px] z-40 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-3 mb-8 bg-surface-bg/90 backdrop-blur-md border-b border-brd">
@@ -105,7 +108,8 @@ const Projects = () => {
           </div>
         </>
       )}
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import useScrollReveal from '../hooks/useScrollReveal';
 import OptimizedImage from '../components/OptimizedImage';
+import SiteClosedRedirect from '../components/SiteClosedRedirect';
 import { CREDITS } from '../data/disciplines';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -44,9 +45,11 @@ const Work = () => {
   }, []);
 
   return (
-    <div className="section-container pb-20">
-      {/* Header */}
-      <div ref={headerRef} className="mb-14 md:mb-20">
+    <>
+      <SiteClosedRedirect />
+      <div className="section-container pb-20">
+        {/* Header */}
+        <div ref={headerRef} className="mb-14 md:mb-20">
         <h1 className="text-h1 text-brand-main mb-4">Work</h1>
         <div className="space-y-6 max-w-2xl">
           <p className="text-body-lg text-tx-secondary leading-relaxed">
@@ -121,7 +124,8 @@ const Work = () => {
           Get in Touch
         </Link>
       </section> */}
-    </div>
+      </div>
+    </>
   );
 };
 

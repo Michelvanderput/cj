@@ -1,13 +1,16 @@
 import useScrollReveal from '../hooks/useScrollReveal';
 import OptimizedImage from '../components/OptimizedImage';
+import SiteClosedRedirect from '../components/SiteClosedRedirect';
 
 const Bio = () => {
   const contentRef = useScrollReveal<HTMLDivElement>({ y: 24, stagger: 0.1, children: true, duration: 0.7 });
 
   return (
-    <div className="section-container max-w-5xl pb-20">
-      <div ref={contentRef} className="space-y-10">
-        <h1 className="text-h1 text-brand-main">Bio</h1>
+    <>
+      <SiteClosedRedirect />
+      <div className="section-container max-w-5xl pb-20">
+        <div ref={contentRef} className="space-y-10">
+          <h1 className="text-h1 text-brand-main">Bio</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-14 items-start">
           {/* Photo — shows first on mobile via order-first */}
@@ -57,8 +60,9 @@ const Bio = () => {
             </a> */}
           </div>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

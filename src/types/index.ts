@@ -34,3 +34,8 @@ export interface SocialPost {
   date: string;
   instagramUrl?: string;
 }
+
+export interface SiteConfig {
+  isOpen: boolean;
+  farewellMessage: string;
+}

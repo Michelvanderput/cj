@@ -103,6 +103,10 @@ export async function commitStudioPhotosJson(photos: unknown[]): Promise<void> {
   return commitFile('public/data/studio-photos.json', photos, 'studio photos');
 }
 
+export async function commitSiteConfigJson(config: unknown): Promise<void> {
+  return commitFile('public/data/site-config.json', [config], 'site config');
+}
+
 /**
  * Upload an image file to GitHub repository
  * @param file - The image file to upload

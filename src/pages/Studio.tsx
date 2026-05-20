@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import useScrollReveal from '../hooks/useScrollReveal';
 import OptimizedImage from '../components/OptimizedImage';
+import SiteClosedRedirect from '../components/SiteClosedRedirect';
 
 interface StudioPhoto {
   id: string;
@@ -24,10 +25,12 @@ const Studio = () => {
   }, []);
 
   return (
-    <div className="section-container pb-20">
-      {/* Header */}
-      <div ref={headerRef} className="mb-14 md:mb-20">
-        <h1 className="text-h1 text-brand-main mb-4">Studio</h1>
+    <>
+      <SiteClosedRedirect />
+      <div className="section-container pb-20">
+        {/* Header */}
+        <div ref={headerRef} className="mb-14 md:mb-20">
+          <h1 className="text-h1 text-brand-main mb-4">Studio</h1>
         <p className="text-body-lg text-tx-secondary leading-relaxed">
           Professional recording- and sound design studio based in Amsterdam, Netherlands.
         </p>
@@ -86,7 +89,8 @@ const Studio = () => {
           ))}
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

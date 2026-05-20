@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
+import SiteClosedRedirect from '../components/SiteClosedRedirect';
 
 const NotFound = () => {
   return (
-    <div className="section-container pb-20 text-center py-32">
+    <>
+      <SiteClosedRedirect />
+      <div className="section-container pb-20 text-center py-32">
       <h1 className="text-display text-brand-main mb-4">404</h1>
       <p className="text-body-lg text-tx-secondary mb-8">
         This page does not exist.
@@ -10,7 +13,8 @@ const NotFound = () => {
       <Link to="/" className="btn btn-primary btn-md">
         Back to Home
       </Link>
-    </div>
+      </div>
+    </>
   );
 };
 

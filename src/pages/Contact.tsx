@@ -1,14 +1,17 @@
 import ContactForm from '../components/ContactForm';
 import SocialLinks from '../components/SocialLinks';
 import useScrollReveal from '../hooks/useScrollReveal';
+import SiteClosedRedirect from '../components/SiteClosedRedirect';
 
 const Contact = () => {
   const contentRef = useScrollReveal<HTMLDivElement>({ y: 24, stagger: 0.1, children: true, duration: 0.7 });
 
   return (
-    <div className="section-container max-w-4xl pb-20">
-      <div ref={contentRef} className="space-y-12">
-        <h1 className="text-h1 text-brand-main">Contact</h1>
+    <>
+      <SiteClosedRedirect />
+      <div className="section-container max-w-4xl pb-20">
+        <div ref={contentRef} className="space-y-12">
+          <h1 className="text-h1 text-brand-main">Contact</h1>
 <div className="md:col-span-3 space-y-6">
         <p className="text-body text-tx-secondary leading-relaxed">
           Feel free to reach out via the form or email.
@@ -47,7 +50,8 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

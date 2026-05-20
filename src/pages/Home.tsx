@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { gsap } from '../lib/gsap';
 import useProjects from '../hooks/useProjects';
 import useNews from '../hooks/useNews';
+import useSiteConfig from '../hooks/useSiteConfig';
 import NewsCard from '../components/NewsCard';
 import OptimizedImage from '../components/OptimizedImage';
 import useScrollReveal from '../hooks/useScrollReveal';
@@ -13,6 +14,7 @@ const NEWS_INITIAL = 4;
 const Home = () => {
   const { projects } = useProjects();
   const { news } = useNews();
+  const { config: siteConfig } = useSiteConfig();
   const [showAllNews, setShowAllNews] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const prefersReduced = useReducedMotion();
@@ -52,6 +54,22 @@ const Home = () => {
   const featuredProjectWithPoster = [...projects]
     .sort((a, b) => b.year - a.year)
     .find(p => p.posterUrl);
+
+  // Show thank you page when site is closed
+  if (!siteConfig.isOpen) {
+    return (
+      <div className="section-container min-h-[60vh] flex items-center justify-center">
+        <div className="text-center py-16 md:py-24">
+          <h1 className="text-display md:text-[5.5rem] font-heading text-brand-main mb-8 leading-none">
+            Thank You
+          </h1>
+          <p className="text-body-lg md:text-h3 text-tx-secondary font-body font-light max-w-2xl mx-auto leading-relaxed">
+            {siteConfig.farewellMessage}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="section-container">
