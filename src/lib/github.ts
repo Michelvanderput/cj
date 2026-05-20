@@ -51,7 +51,7 @@ export async function commitProjectsJson(projects: unknown[]): Promise<void> {
   }
 }
 
-async function commitFile(filePath: string, data: unknown[], label: string): Promise<void> {
+async function commitFile(filePath: string, data: unknown, label: string): Promise<void> {
   if (!REPO_OWNER || !REPO_NAME || !GITHUB_TOKEN) {
     throw new Error('GitHub configuratie ontbreekt. Stel VITE_GITHUB_OWNER, VITE_GITHUB_REPO en VITE_GITHUB_TOKEN in.');
   }
@@ -104,7 +104,7 @@ export async function commitStudioPhotosJson(photos: unknown[]): Promise<void> {
 }
 
 export async function commitSiteConfigJson(config: unknown): Promise<void> {
-  return commitFile('public/data/site-config.json', [config], 'site config');
+  return commitFile('public/data/site-config.json', config, 'site config');
 }
 
 /**
