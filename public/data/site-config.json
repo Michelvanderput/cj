@@ -1,6 +1,9 @@
 [
   {
-    "isOpen": false,
-    "farewellMessage": "Thank you for all the support over the years. It has been an incredible journey!"
+    "0": {
+      "isOpen": false,
+      "farewellMessage": "Thank you for all the support over the years. It has been an incredible journey!"
+    },
+    "farewellMessage": "Hier komt een bedankt berichtje"
   }
 ]
