@@ -69,6 +69,7 @@ const Admin = () => {
   const [siteConfig, setSiteConfig] = useState<SiteConfig>({ isOpen: true, farewellMessage: '' });
   const [configStatus, setConfigStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [configErrorMsg, setConfigErrorMsg] = useState('');
+  const [configLoaded, setConfigLoaded] = useState(false);
 
   // Load projects from JSON
   useEffect(() => {
@@ -106,8 +107,13 @@ const Admin = () => {
   useEffect(() => {
     fetch('/data/site-config.json')
       .then((r) => r.json())
-      .then((data: SiteConfig) => setSiteConfig(data))
-      .catch(() => {});
+      .then((data: SiteConfig) => {
+        setSiteConfig(data);
+        setConfigLoaded(true);
+      })
+      .catch(() => {
+        setConfigLoaded(true); // Still mark as loaded to show UI with default values
+      });
   }, []);
 
   const handleLogin = (e: React.FormEvent) => {
@@ -906,91 +912,99 @@ const Admin = () => {
       {/* ── Settings tab ── */}
       {activeTab === 'settings' && (
         <div className="space-y-8">
-          <div className="p-6 bg-surface-card border border-brd rounded-lg">
-            <h2 className="text-h3 text-tx-primary mb-6">Site Status</h2>
-
-            <div className="space-y-6">
-              {/* Toggle */}
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-body font-medium text-tx-primary">Website Open</p>
-                  <p className="text-body-sm text-tx-secondary">
-                    {siteConfig.isOpen ? 'The website is currently open to visitors' : 'The website is currently closed'}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setSiteConfig(prev => ({ ...prev, isOpen: !prev.isOpen }))}
-                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors duration-200 ${
-                    siteConfig.isOpen ? 'bg-state-success' : 'bg-surface-elevated border border-brd'
-                  }`}
-                >
-                  <span
-                    className={`inline-block h-5 w-5 rounded-full bg-tx-inverse shadow-sm transition-transform duration-200 ${
-                      siteConfig.isOpen ? 'translate-x-6' : 'translate-x-1'
-                    }`}
-                  />
-                </button>
-              </div>
-
-              {/* Farewell Message */}
-              <div>
-                <label className="block text-body-sm font-medium text-tx-secondary mb-2">
-                  Farewell Message
-                  <span className="text-tx-muted ml-1">(shown when site is closed)</span>
-                </label>
-                <textarea
-                  value={siteConfig.farewellMessage}
-                  onChange={(e) => setSiteConfig(prev => ({ ...prev, farewellMessage: e.target.value }))}
-                  rows={4}
-                  placeholder="Write a thank you message to your visitors..."
-                  className="input-field resize-none w-full"
-                />
-              </div>
-
-              {/* Save Button */}
-              <div className="flex items-center gap-4 pt-4">
-                <button
-                  onClick={handleSaveSiteConfig}
-                  disabled={configStatus === 'saving'}
-                  className="btn btn-primary btn-md"
-                >
-                  {configStatus === 'saving' ? 'Saving...' : configStatus === 'saved' ? '✓ Saved' : 'Publish Settings'}
-                </button>
-                <p className="text-body-sm text-tx-muted">
-                  {siteConfig.isOpen ? 'Homepage shows normal content' : 'Homepage shows farewell page'}
-                </p>
-              </div>
-
-              {/* Status Messages */}
-              {configStatus === 'error' && (
-                <div className="p-4 rounded-md bg-state-error-muted/20 border border-state-error/30">
-                  <p className="text-body-sm text-state-error">{configErrorMsg}</p>
-                </div>
-              )}
-              {configStatus === 'saved' && (
-                <div className="p-4 rounded-md bg-state-success-muted/20 border border-state-success/30">
-                  <p className="text-body-sm text-state-success">Settings published! Vercel will rebuild automatically.</p>
-                </div>
-              )}
+          {!configLoaded ? (
+            <div className="p-6 bg-surface-card border border-brd rounded-lg text-center">
+              <p className="text-tx-secondary">Loading settings...</p>
             </div>
-          </div>
+          ) : (
+            <>
+              <div className="p-6 bg-surface-card border border-brd rounded-lg">
+                <h2 className="text-h3 text-tx-primary mb-6">Site Status</h2>
 
-          {/* Preview */}
-          <div className="p-6 bg-surface-elevated border border-brd rounded-lg">
-            <h3 className="text-body font-medium text-tx-secondary mb-4">Preview</h3>
-            {!siteConfig.isOpen ? (
-              <div className="p-8 bg-surface-card rounded-lg border border-brd text-center">
-                <h1 className="text-h1 text-brand-main mb-4">Thank You</h1>
-                <p className="text-body-lg text-tx-secondary max-w-2xl mx-auto leading-relaxed">
-                  {siteConfig.farewellMessage || 'Thank you for all the support over the years.'}
-                </p>
+                <div className="space-y-6">
+                  {/* Toggle */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-body font-medium text-tx-primary">Website Open</p>
+                      <p className="text-body-sm text-tx-secondary">
+                        {siteConfig.isOpen ? 'The website is currently open to visitors' : 'The website is currently closed'}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setSiteConfig(prev => ({ ...prev, isOpen: !prev.isOpen }))}
+                      className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors duration-200 ${
+                        siteConfig.isOpen ? 'bg-state-success' : 'bg-surface-elevated border border-brd'
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-5 w-5 rounded-full bg-tx-inverse shadow-sm transition-transform duration-200 ${
+                          siteConfig.isOpen ? 'translate-x-6' : 'translate-x-1'
+                        }`}
+                      />
+                    </button>
+                  </div>
+
+                  {/* Farewell Message */}
+                  <div>
+                    <label className="block text-body-sm font-medium text-tx-secondary mb-2">
+                      Farewell Message
+                      <span className="text-tx-muted ml-1">(shown when site is closed)</span>
+                    </label>
+                    <textarea
+                      value={siteConfig.farewellMessage}
+                      onChange={(e) => setSiteConfig(prev => ({ ...prev, farewellMessage: e.target.value }))}
+                      rows={4}
+                      placeholder="Write a thank you message to your visitors..."
+                      className="input-field resize-none w-full"
+                    />
+                  </div>
+
+                  {/* Save Button */}
+                  <div className="flex items-center gap-4 pt-4">
+                    <button
+                      onClick={handleSaveSiteConfig}
+                      disabled={configStatus === 'saving'}
+                      className="btn btn-primary btn-md"
+                    >
+                      {configStatus === 'saving' ? 'Saving...' : configStatus === 'saved' ? '✓ Saved' : 'Publish Settings'}
+                    </button>
+                    <p className="text-body-sm text-tx-muted">
+                      {siteConfig.isOpen ? 'Homepage shows normal content' : 'Homepage shows farewell page'}
+                    </p>
+                  </div>
+
+                  {/* Status Messages */}
+                  {configStatus === 'error' && (
+                    <div className="p-4 rounded-md bg-state-error-muted/20 border border-state-error/30">
+                      <p className="text-body-sm text-state-error">{configErrorMsg}</p>
+                    </div>
+                  )}
+                  {configStatus === 'saved' && (
+                    <div className="p-4 rounded-md bg-state-success-muted/20 border border-state-success/30">
+                      <p className="text-body-sm text-state-success">Settings published! Vercel will rebuild automatically.</p>
+                    </div>
+                  )}
+                </div>
               </div>
-            ) : (
-              <div className="p-8 bg-surface-card rounded-lg border border-brd text-center">
-                <p className="text-body text-tx-secondary">Website is currently open - normal homepage will be shown</p>
+
+              {/* Preview */}
+              <div className="p-6 bg-surface-elevated border border-brd rounded-lg">
+                <h3 className="text-body font-medium text-tx-secondary mb-4">Preview</h3>
+                {!siteConfig.isOpen ? (
+                  <div className="p-8 bg-surface-card rounded-lg border border-brd text-center">
+                    <h1 className="text-h1 text-brand-main mb-4">Thank You</h1>
+                    <p className="text-body-lg text-tx-secondary max-w-2xl mx-auto leading-relaxed">
+                      {siteConfig.farewellMessage || 'Thank you for all the support over the years.'}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="p-8 bg-surface-card rounded-lg border border-brd text-center">
+                    <p className="text-body text-tx-secondary">Website is currently open - normal homepage will be shown</p>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
       )}
     </div>
