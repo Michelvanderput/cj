@@ -103,8 +103,48 @@ export async function commitStudioPhotosJson(photos: unknown[]): Promise<void> {
   return commitFile('public/data/studio-photos.json', photos, 'studio photos');
 }
 
-export async function commitSiteConfigJson(config: unknown): Promise<void> {
-  return commitFile('public/data/site-config.json', config, 'site config');
+export async function commitSiteConfigJson(config: { isOpen: boolean; farewellMessage: string }): Promise<void> {
+  if (!REPO_OWNER || !REPO_NAME || !GITHUB_TOKEN) {
+    throw new Error('GitHub configuratie ontbreekt. Stel VITE_GITHUB_OWNER, VITE_GITHUB_REPO en VITE_GITHUB_TOKEN in.');
+  }
+
+  const filePath = 'public/data/site-config.json';
+  const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
+  const headers = {
+    Authorization: `Bearer ${GITHUB_TOKEN}`,
+    Accept: 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json',
+  };
+
+  // 1. Get current file SHA
+  const getRes = await fetch(apiUrl, { headers });
+  let sha: string | undefined;
+  if (getRes.ok) {
+    const fileData: GitHubFileResponse = await getRes.json();
+    sha = fileData.sha;
+  } else if (getRes.status !== 404) {
+    throw new Error(`Failed to fetch file: ${getRes.status}`);
+  }
+
+  // 2. Encode config object (NOT array) as base64
+  const jsonString = JSON.stringify(config, null, 2) + '\n';
+  const content = btoa(unescape(encodeURIComponent(jsonString)));
+
+  // 3. Commit the update
+  const putRes = await fetch(apiUrl, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify({
+      message: `Update site config via admin (${new Date().toLocaleDateString('en-US')})`,
+      content,
+      ...(sha ? { sha } : {}),
+    }),
+  });
+
+  if (!putRes.ok) {
+    const err = await putRes.json().catch(() => ({}));
+    throw new Error(`GitHub commit failed: ${putRes.status} — ${(err as { message?: string }).message ?? ''}`);
+  }
 }
 
 /**
